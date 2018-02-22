@@ -1,0 +1,73 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="gridHeader">
+        <div>HOME</div>
+        <div id="title" style="font-size: 20px"></div>
+    </div>
+    <div class="gridMenu">
+        <a class="menu1" id="bubbleSort">Bubble Sort</a>
+        <a class="menu2" id="selectionSort">Selection Sort</a>
+        <a class="menu3" id="quickSort">Quick Sort</a>
+        <a class="menu4" id="insertionSort">Insertion Sort</a>
+        <a class="menu5" id="cocktailSort">Cocktail Shaker Sort</a>
+        <a class="menu6" id="shellSort">Shell Sort</a>
+        <a class="menu7" id="mergeSort">Merge Sort</a>
+    </div>
+    <div class="gridGraph" style="background-color: white">
+        <svg id="viz-canvas" style="margin: 10px"></svg>
+    </div>
+    <div class="gridNote">
+        <div id="noteContent" style="text-align: justify">
+
+        </div>
+    </div>
+    <div class="gridTimeline" style="background-color: white; text-align: center">
+        <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">first_page</i>
+        <i class="material-icons" id="previous" onclick="stepBackward()">skip_previous</i>
+        <i class="material-icons" id="pause" onclick="pause()">pause</i>
+        <i class="material-icons" id="play" onclick="play()">play_arrow</i>
+        <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
+        <i class="material-icons" id="go-to-end" onclick="goToEnd()">last_page</i>
+    </div>
+    <div class="gridAction" style="background-color: white">
+        <div id="status" class="panel"><p style="font-size: 15px"></p></div>
+    </div>
+    <div class="gridLog" style="margin: auto; background-color: white">
+        <div id="log" class="panel"><p style="font-size: 15px"></p></div>
+    </div>
+    <div class="gridPseudo" style="background-color: white">
+        <div id="codetrace" class="panel">
+            <p id="code1" style="padding-top: 10px;"></p>
+            <p id="code2"></p>
+            <p id="code3"></p>
+            <p id="code4"></p>
+            <p id="code5"></p>
+            <p id="code6"></p>
+            <p id="code7" style="padding-bottom: 10px;"></p>
+        </div>
+    </div>
+    <div class="gridFooter">FOOTER</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+<script src="js/viz.js"></script>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="js/sort_ver2.js"></script>
+<script>
+    var gw = new Sorting();
+    var svg = d3.select("#viz-canvas");
+    window.addEventListener('resize', responsivefy(svg));
+</script>
+</body>
+</html>
