@@ -1,0 +1,60 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
+
+.square {
+    float:left;
+    position: relative;
+    width: 30%;
+    padding-bottom : 30%;
+    margin:1.66%;
+    background-color:#1E1E1E;
+    overflow:hidden;
+}
+
+.square:hover{
+    opacity: 0.7;
+}
+
+.content {
+    position:absolute;
+    height:90%;
+    width:100%;
+    padding: 5%;
+
+}
+
+
+.content .rs{
+    width:auto;
+    height:auto;
+    max-height:90%;
+    max-width:100%;
+}
+
+.bg{
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    color:#fff;
+}
+
+body {
+    font-size:20px;
+    font-family: 'Lato',verdana, sans-serif;
+    background:#ECECEC;
+}
+
+#s1, #s4{
+    color: #ffffff;
+}
+
+#s2, #s3, #s5, #s6{
+    color: #3c3c3c;
+}
+.numbers{
+    font-weight:900;
+    font-size:100px;
+}
+
+svg{
+    position: center;
+}
