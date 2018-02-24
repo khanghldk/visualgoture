@@ -1,0 +1,17 @@
+.navbar {
+    margin-bottom: 0 !important;
+    border: none !important;
+    z-index: 2;
+}
+
+.navigation-bar {
+    background-color: #42A5F5 !important;
+}
+
+.navigation-bar a {
+    color: white !important;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff !important;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data structures details</title>
+
+    <link rel="stylesheet" type="text/css" href="css/header.css"/>
+    <link rel="stylesheet" type="text/css" href="css/details.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+</head>
+<body>
+<!--Navigation bar-->
+<nav class="navbar navbar-default navigation-bar">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand logo" href="#">Algorithm Visualizer</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" class="navbar-item">Sign Up</a></li>
+            <li><a href="#" class="navbar-item">Login</a></li>
+        </ul>
+    </div>
+</nav>
+<!--End of Navigation bar-->
+
+<div class="sidenav">
+    <a href="#" class="selected">Bubble Sort</a>
+    <a href="#">Selection Sort</a>
+    <a href="#">Quick Sort</a>
+    <a href="#">Insertion Sort</a>
+    <a href="#">Cocktail Shaker Sort</a>
+    <a href="#">Merge Sort</a>
+</div>
+<!--<div class="container-fluid" style="padding-left: 0px !important; padding-right: 0px !important;">-->
+<div class="container-fluid details-content">
+    <div class="header" style="text-align: center;">
+        <h2 id="header">Bubble Sort</h2>
+    </div>
+    <div class="row visual-div">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <div class="svg-container">
+                <svg id="viz-canvas"></svg>
+                <div id="timeline" style="text-align: center;">
+                    <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">
+                        <span class="glyphicon glyphicon-fast-backward"></span>
+                    </i>
+                    <i class="material-icons" id="previous" onclick="stepBackward()">
+                        <span class="glyphicon glyphicon-step-backward"></span>
+                    </i>
+                    <i class="material-icons" id="pause" onclick="pause()">
+                        <span class="glyphicon glyphicon-pause"></span>
+                    </i>
+                    <i class="material-icons" id="play" onclick="play()" style="display: none;">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </i>
+                    <i class="material-icons" id="next" onclick="stepForward()">
+                        <span class="glyphicon glyphicon-step-forward"></span>
+                    </i>
+                    <i class="material-icons" id="go-to-end" onclick="goToEnd()">
+                        <span class="glyphicon glyphicon-fast-forward"></span>
+                    </i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 information-div">
+            <ul class="nav nav-tabs">
+                <li class="active" style="width: 50%"><a href="#information">Information</a></li>
+                <li><a href="#related">Related</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="information" class="tab-pane fade in active">
+                    <h3>Story</h3>
+                    <p>Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly
+                        steps through the list to be sorted,
+                        compares each pair of adjacent items and swaps them if they are in the wrong order.
+                        The pass through the list is repeated until no swaps are needed, which indicates that the list
+                        is sorted.</p>
+                </div>
+                <div id="related" class="tab-pane fade">
+                    <h3>Relating algorithms</h3>
+                    <p><a href="#">Cocktail Shaker Short</a>: Similar to Bubble sort, it moves biggest number to the end
+                        of array but in Cock Shaker Sort,
+                        it also moves the smallest number to the head of the array.</p>
+                    <p><a href="#">Cocktail Shaker Short</a>: Similar to Bubble sort, it moves biggest number to the end
+                        of array but in Cock Shaker Sort,
+                        it also moves the smallest number to the head of the array.</p>
+                    <p><a href="#">Cocktail Shaker Short</a>: Similar to Bubble sort, it moves biggest number to the end
+                        of array but in Cock Shaker Sort,
+                        it also moves the smallest number to the head of the array.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row command-div">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 log-div">
+            <div class="form-group">
+                <label for="log" style="font-size: 1vw;">Log:</label>
+                <textarea class="form-control" rows="10" id="log" style="cursor: auto; resize: none;" disabled>À lố, em à</textarea>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div id="codetrace" style="border: #ddd solid 1px; font-family: monospace;">
+                <p id="code1" style="padding-top: 5px;">Hello</p>
+                <p id="code2" class="hightlighted">mark first element as sorted</p>
+                <p id="code3" class="hightlighted">&nbsp;&nbsp;for each unsorted element X</p>
+                <p id="code4">&nbsp;&nbsp;&nbsp;&nbsp;extract the element X</p>
+                <p id="code5">&nbsp;&nbsp;&nbsp;&nbsp;for j = lastSortedIndex down to 0</p>
+                <p id="code6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if current element j > X</p>
+                <p id="code7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move sorted element to the right by 1</p>
+                <p id="code8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break loop and insert X here</p>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 action-div">
+            <button type="button" class="btn btn-default">Default</button>
+            <button type="button" class="btn btn-default">Default</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="execute">Execute</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/details.js"></script>
+</html>
