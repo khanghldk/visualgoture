@@ -5,40 +5,53 @@
     grid-gap: 3px;
     /*grid-template-rows: 40px minmax(400px, max-content) 24px auto 40px;*/
     grid-template-areas:
-            "h h h h h h h h h h h h h h h h"
-            "m m g g g g g g g g g g n n n n"
-            "m m t t t t t t t t t t p p p p"
-            "m m l l l l l a a a a a p p p p"
-            "f f f f f f f f f f f f f f f f";
+            "h"
+            "m"
+            "g"
+            "t"
+            "n"
+            "p"
+            "l"
+            "a"
+            "f";
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1200px) {
     .container {
         height: 100%;
         display: grid;
         grid-gap: 3px;
+        grid-template-columns: 1fr 3fr 3fr 2fr;
         /*grid-template-rows: 40px minmax(400px, max-content) 24px auto 40px;*/
         grid-template-areas:
-                "h h h h h h h h h h h h h h h h"
-                "m m g g g g g g g g g g n n n n"
-                "m m t t t t t t t t t t p p p p"
-                "m m l l l l l a a a a a p p p p"
-                "f f f f f f f f f f f f f f f f";
+                "h h h h"
+                "m g g n"
+                "m t t p"
+                "m l a p"
+                "f f f f";
+    }
+    .gridMenu {
+        flex-direction: column;
     }
 }
 
-@media only screen and (max-width: 786px) {
+@media only screen and (min-width: 786px) {
     .container {
         height: 100%;
         display: grid;
         grid-gap: 3px;
+        grid-template-columns: 1fr 3fr 3fr 2fr;
         /*grid-template-rows: 40px minmax(400px, max-content) 24px auto 40px;*/
         grid-template-areas:
-                "h h h h h h h h h h h h h h h h"
-                "m m g g g g g g g g g g n n n n"
-                "m m t t t t t t t t p p p p p p"
-                "m m l l l l a a a a p p p p p p"
-                "f f f f f f f f f f f f f f f f";
+                "h h h h"
+                "m g g n"
+                "m t t p"
+                "m l a p"
+                "f f f f";
+    }
+    .gridMenu {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -52,6 +65,7 @@
     grid-gap: 10px;
     grid-template-rows: repeat(12, 1fr);
     padding-top: 10px;
+    list-style: none;
 }
 
 .menu1 {

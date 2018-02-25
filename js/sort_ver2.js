@@ -32,7 +32,7 @@ var Sorting = function () {
 
     var HIGHLIGHT_GRAY = "#CCCCCC";
 
-    var barWidth = 50;
+    var barWidth;
     var maxHeight = 230;
     var gapBetweenBars = 5;
     var maxNumOfElements = 20;
@@ -62,7 +62,7 @@ var Sorting = function () {
         .linear()
         .range([0, maxHeight]);
 
-    width = $(".gridGraph").width() - 10;
+    width = $(".gridGraph").width() - 20;
 
     canvas = d3.select("#viz-canvas")
         .attr("height", maxHeight * 2  + gapBetweenPrimaryAndSecondaryRows)
@@ -197,7 +197,7 @@ var Sorting = function () {
         else if (d.secondaryPositionStatus < 0)
             return 'translate(' + ((d.secondaryPositionStatus * -1 - 1) * barWidth) + ", " + (maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows - scaler(d.value)) + ')';
         else
-            return 'translation(0, 0)';
+            return 'translation(0, 0)'; // error
     }
 
 // end class FunctionList
@@ -947,7 +947,8 @@ var Sorting = function () {
     };
 
     var drawBars = function (state) {
-        barWidth = width / (state.entries.length);
+        // barWidth = (width - (state.entries.length - 1) * gapBetweenBars) / (state.entries.length);
+        barWidth = width / state.entries.length;
         scaler.domain([0, d3.max(state.entries, function (d) {
             return d.value;
         })]);
@@ -971,7 +972,7 @@ var Sorting = function () {
 
         newData.append("text")
             .attr("dy", ".35em")
-            .attr("x", (barWidth - gapBetweenBars - 10) / 2)
+            .attr("x", (barWidth - gapBetweenBars) / 2)
             .attr("y", FunctionList.text_y)
             .text(function (d) {
                 return d.value;
@@ -1229,7 +1230,7 @@ function responsivefy(svg) {
     d3.select(window).on("resize." + container.attr("id"), resize);
 
     function resize() {
-        var targetWidth = parseInt(container.style("width"));
+        var targetWidth = parseInt(container.style("width")) - 20;
         svg.attr("width", targetWidth);
         svg.attr("height", Math.round(targetWidth / aspect));
     }
