@@ -31,18 +31,20 @@
     </div>
 </nav>
 <!--End of Navigation bar-->
-
-<div class="sidenav">
-    <a href="#" class="selected">Bubble Sort</a>
-    <a href="#">Selection Sort</a>
-    <a href="#">Quick Sort</a>
-    <a href="#">Insertion Sort</a>
-    <a href="#">Cocktail Shaker Sort</a>
-    <a href="#">Merge Sort</a>
+<div class="sidenav-wrap">
+    <div class="sidenav">
+        <a href="#" class="selected">Bubble Sort</a>
+        <a href="#">Selection Sort</a>
+        <a href="#">Quick Sort</a>
+        <a href="#">Insertion Sort</a>
+        <a href="#">Cocktail Shaker Sort</a>
+        <a href="#">Merge Sort</a>
+    </div>
 </div>
+
 <!--<div class="container-fluid" style="padding-left: 0px !important; padding-right: 0px !important;">-->
-<div class="container-fluid details-content">
-    <div class="header" style="text-align: center;">
+<div class="container-fluid details-content" style="height: calc(100% - 50px);">
+    <div class="header" style="text-align: center; height: 5.3%">
         <h2 id="header">Bubble Sort</h2>
     </div>
     <div class="row visual-div">
@@ -102,15 +104,15 @@
         </div>
     </div>
 
-    <div class="row command-div">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 log-div">
-            <div class="form-group">
-                <label for="log" style="font-size: 1vw;">Log:</label>
-                <textarea class="form-control" rows="10" id="log" style="cursor: auto; resize: none;" disabled>À lố, em à</textarea>
+    <div class="row command-div" style="bottom: 0;">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 log-div" style="height: 100%;">
+            <div class="form-group" style="height: 100%;">
+                <label class="command-div-1-1" for="log" style="font-size: 1vw; height: 15%;">Log:</label>
+                <textarea class="form-control" rows="10" id="log" style="cursor: auto; resize: none; height: 85%;" disabled>À lố, em à</textarea>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-            <div id="codetrace" style="border: #ddd solid 1px; font-family: monospace;">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 command-div-1" style="height: 100%;">
+            <div id="codetrace" style="border: #ddd solid 1px; font-family: monospace; height: 100%;">
                 <p id="code1" style="padding-top: 5px;">Hello</p>
                 <p id="code2" class="hightlighted">mark first element as sorted</p>
                 <p id="code3" class="hightlighted">&nbsp;&nbsp;for each unsorted element X</p>
@@ -121,7 +123,7 @@
                 <p id="code8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break loop and insert X here</p>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 action-div">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 action-div command-div-1" style="height: 100%;">
             <button type="button" class="btn btn-default">Default</button>
             <button type="button" class="btn btn-default">Default</button>
             <button type="button" class="btn btn-primary btn-lg btn-block" id="execute">Execute</button>
