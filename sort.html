@@ -9,17 +9,19 @@
 <body>
 <div class="container">
     <div class="gridHeader">
-        <div>HOME</div>
-        <div id="title" style="font-size: 20px"></div>
+        <div style="font-size: 20px">HOME</div>
+        <div id="title" style="font-size: 20px; text-align: center"></div>
     </div>
     <div class="gridMenu">
-        <a class="menu1" id="bubbleSort">Bubble Sort</a>
-        <a class="menu2" id="selectionSort">Selection Sort</a>
-        <a class="menu3" id="quickSort">Quick Sort</a>
-        <a class="menu4" id="insertionSort">Insertion Sort</a>
-        <a class="menu5" id="cocktailSort">Cocktail Shaker Sort</a>
-        <a class="menu6" id="shellSort">Shell Sort</a>
-        <a class="menu7" id="mergeSort">Merge Sort</a>
+        <ul>
+            <li><a class="menu" id="bubbleSort">Bubble Sort</a></li>
+            <li><a class="menu" id="selectionSort">Selection Sort</a></li>
+            <li><a class="menu" id="quickSort">Quick Sort</a></li>
+            <li><a class="menu" id="insertionSort">Insertion Sort</a></li>
+            <li><a class="menu" id="cocktailSort">Cocktail Shaker Sort</a></li>
+            <li><a class="menu" id="shellSort">Shell Sort</a></li>
+            <li><a class="menu" id="mergeSort">Merge Sort</a></li>
+        </ul>
     </div>
     <div class="gridGraph" style="background-color: white">
         <svg id="viz-canvas" style="margin: 10px"></svg>
