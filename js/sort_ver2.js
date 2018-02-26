@@ -33,10 +33,10 @@ var Sorting = function () {
     var HIGHLIGHT_GRAY = "#CCCCCC";
 
     var barWidth;
-    var maxHeight = 230;
+    var maxHeight = 180;
     var gapBetweenBars = 5;
     var maxNumOfElements = 20;
-    var gapBetweenPrimaryAndSecondaryRows = 30; // of the bars
+    var gapBetweenPrimaryAndSecondaryRows = 20; // of the bars
     var maxElementValue = 50;
 
 
@@ -58,11 +58,15 @@ var Sorting = function () {
     var canvas;
     var width;
 
+    var height = $(window).height();
+
     scaler = d3.scale
         .linear()
         .range([0, maxHeight]);
 
     width = $(".gridGraph").width() - 20;
+
+    maxHeight = (height * 0.6 - gapBetweenPrimaryAndSecondaryRows) / 2;
 
     canvas = d3.select("#viz-canvas")
         .attr("height", maxHeight * 2  + gapBetweenPrimaryAndSecondaryRows)
@@ -220,6 +224,11 @@ var Sorting = function () {
 
     this.clearPseudocode = function () {
         populatePseudocode([]);
+    }
+
+    this.clearLog = function () {
+        // var logMessage = document.getElementById('log');
+        // logMessage.innerHTML = '';
     }
 
     var populatePseudocode = function (code) {
@@ -1108,6 +1117,7 @@ var note = document.getElementById('noteContent');
 // var gw = new Sorting();
 
 $('#bubbleSort').click(function () {
+    gw.clearLog();
     if (!gw.issPlaying) {
         title.innerHTML = "Bubble Sort";
         changeSortType(gw.bubbleSort);
@@ -1120,6 +1130,7 @@ $('#bubbleSort').click(function () {
 });
 
 $('#selectionSort').click(function () {
+    gw.clearLog();
     if (!gw.issPlaying) {
         title.innerHTML = "Selection Sort";
         changeSortType(gw.selectionSort);
@@ -1221,7 +1232,7 @@ function responsivefy(svg) {
     var container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")),
         height = parseInt(svg.style("height")),
-        aspect = width / height;
+        aspect = 2;
 
     svg.attr("viewBox", "0 0 " + width + " " + height)
         .attr("preserveAspectRatio", "xMinYMid")
