@@ -69,7 +69,7 @@ var Sorting = function () {
     maxHeight = (height * 0.6 - gapBetweenPrimaryAndSecondaryRows) / 2;
 
     canvas = d3.select("#viz-canvas")
-        .attr("height", maxHeight * 2  + gapBetweenPrimaryAndSecondaryRows)
+        .attr("height", maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows)
         .attr("width", width);
 
     var statelist = new Array();
@@ -78,7 +78,6 @@ var Sorting = function () {
     // var canvas = d3.select("#viz-canvas")
     //     .attr("height", maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows)
     //     .attr("width", barWidth * maxNumOfElements);
-
 
 
 // var canvas = d3.select("div#viz-canvas")
@@ -233,7 +232,7 @@ var Sorting = function () {
 
     var populatePseudocode = function (code) {
         var i = 1;
-        for (; i <= 7 && i <= code.length; i++) {
+        for (; i <= 12 && i <= code.length; i++) {
             $("#code" + i).html(
                 code[i - 1].replace(
                     /^\s+/,
@@ -637,8 +636,10 @@ var Sorting = function () {
         initLogMessage(state);
 
         // Mark first element is sorted
-        state.status = "Mark the first element ({first}) as sorted"
+        state.status = "<div>Mark the first element ({first}) as sorted.</div>"
             .replace('{first}', state.backlinks[0].value);
+        state.logMessage = "<div>Mark the first element ({first}) as sorted.</div>"
+            .replace('{first}', state.backlinks[0].value) + state.logMessage;
         state.backlinks[0].highlight = HIGHLIGHT_SORTED;
         state.lineNo = 1;
         StateHelper.updateCopyPush(statelist, state);
@@ -647,7 +648,8 @@ var Sorting = function () {
         for (var i = 1; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
             state.lineNo = [2, 3];
-            state.status = "Extract the first unsorted element ({val})".replace('{val}', state.backlinks[i].value);
+            state.status = "<div>Extract the first unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value);
+            state.logMessage = "<div>Extract the first unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value) + state.logMessage;
             StateHelper.updateCopyPush(statelist, state);
             state.backlinks[i].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
 
@@ -655,7 +657,8 @@ var Sorting = function () {
             for (var j = (i - 1); j >= 0; j--) {
                 state.backlinks[j].highlight = HIGHLIGHT_STANDARD;
                 state.lineNo = 4;
-                state.status = "Figure where to insert extracted element; comparing with sorted element {val}.".replace('{val}', state.backlinks[j].value);
+                state.status = "<div>Figure where to insert extracted element; comparing with sorted element {val}.</div>".replace('{val}', state.backlinks[j].value);
+                state.logMessage = "<div>Figure where to insert extracted element; comparing with sorted element {val}.</div>".replace('{val}', state.backlinks[j].value) + state.logMessage;
                 StateHelper.updateCopyPush(statelist, state);
                 if (state.backlinks[j].value > state.backlinks[j + 1].value) {
                     // Swap
@@ -663,6 +666,8 @@ var Sorting = function () {
                     state.lineNo = [5, 6];
                     state.status = "<div>{val1} > {val2} is true, hence move current sorted element ({val1}) to the right by 1.</div>"
                         .replace('{val1}', state.backlinks[j].value).replace('{val2}', state.backlinks[j + 1].value);
+                    state.logMessage = "<div>{val1} > {val2} is true, hence move current sorted element ({val1}) to the right by 1.</div>"
+                        .replace('{val1}', state.backlinks[j].value).replace('{val2}', state.backlinks[j + 1].value) + state.logMessage;
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, j, j + 1);
 
                     if (j > 0) {
@@ -673,9 +678,12 @@ var Sorting = function () {
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     state.backlinks[j + 1].highlight = HIGHLIGHT_SORTED;
                     state.lineNo = 7;
-                    state.status = "{val1} > {val2} is false, insert element at current position."
+                    state.status = "<div>{val1} > {val2} is false, insert element at current position.</div>"
                         .replace('{val1}', state.backlinks[j].value)
                         .replace('{val2}', state.backlinks[j + 1].value);
+                    state.logMessage = "<div>{val1} > {val2} is false, insert element at current position.</div>"
+                        .replace('{val1}', state.backlinks[j].value)
+                        .replace('{val2}', state.backlinks[j + 1].value) + state.logMessage;
                     state.backlinks[j + 1].secondaryPositionStatus = POSITION_USE_PRIMARY;
                     StateHelper.updateCopyPush(statelist, state);
                     break;
@@ -694,7 +702,8 @@ var Sorting = function () {
         } // End forward loop
 
         state.lineNo = 0;
-        state.status = "List sorted!";
+        state.status = "<div>List sorted!</div>";
+        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
         StateHelper.updateCopyPush(statelist, state);
 
         this.play(callback);
@@ -705,6 +714,23 @@ var Sorting = function () {
         var numElements = statelist[0].backlinks.length;
         var state = StateHelper.copyState(statelist[0]);
 
+        populatePseudocode([
+            'swapped = false, start = 0, end = last index',
+            'while (swapped)',
+            '  for i = start to end',
+            '    if leftElement > rightElement',
+            '      swap(leftElement, rightElement); swapped = true',
+            '  if swapped = false: break loop',
+            '  else: swapped = false and end--',
+            '  for i = end to start',
+            '    if rightElement < leftElement',
+            '      swap(leftElement, rightElement); swapped = true',
+            '  if swapped = false: break loop',
+            '  else: swapped = false and start++'
+        ]);
+
+        initLogMessage(state);
+
         var swapped = true;
         var start = 0;
         var end = numElements;
@@ -713,25 +739,34 @@ var Sorting = function () {
         while (swapped) {
             // Reset the swapped flag to enter the loop
             swapped = false;
+            state.lineNo = 2;
+            StateHelper.updateCopyPush(statelist, state);
 
             // Start loop forward, sort like bubble sort
             for (var i = start; i < end - 1; i++) {
                 state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
+                state.lineNo = 3;
+                state.status = "<div>Extract left unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value);
+                state.logMessage = "<div>Extract left unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value) + state.logMessage;
                 StateHelper.updateCopyPush(statelist, state);
 
                 if (i + 1 <= end) {
                     state.backlinks[i + 1].highlight = HIGHLIGHT_SPECIAL;
+                    state.lineNo = 4;
+                    state.status = "<div>Checking if {val1} > {val2}.</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i + 1].value);
+                    state.logMessage = "<div>Checking if {val1} > {val2}.</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i + 1].value) + state.logMessage;
                     StateHelper.updateCopyPush(statelist, state);
                 }
 
                 if (state.backlinks[i].value > state.backlinks[i + 1].value) {
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, i, i + 1);
-                    StateHelper.updateCopyPush(statelist, state);
-
                     state.backlinks[i].highlight = HIGHLIGHT_NONE;
+                    state.lineNo = 5;
                     if (i === end - 2) {
                         state.backlinks[end - 1].highlight = HIGHLIGHT_SORTED;
                     }
+                    state.status = "<div>{val1} > {val2}, swap positions of {val1} and {val2}</div><div>Set swapped = true</div>".replace(/{val1}/g, state.backlinks[i + 1].value).replace(/{val2}/g, state.backlinks[i].value);
+                    state.logMessage = "<div>{val1} > {val2}, swap positions of {val1} and {val2}</div><div>Set swapped = true</div>".replace(/{val1}/g, state.backlinks[i + 1].value).replace(/{val2}/g, state.backlinks[i].value) + state.logMessage;
                     StateHelper.updateCopyPush(statelist, state);
                     swapped = true;
                 } else {
@@ -746,32 +781,52 @@ var Sorting = function () {
             }
 
             if (!swapped) {
+                state.lineNo = 6;
+                state.status = "<div>There\'s no unsorted element left.</div>";
+                state.logMessage = "<div>There\'s no unsorted element left.</div>" + state.logMessage;
+                StateHelper.updateCopyPush(statelist, state);
                 break;
+            } else {
+                // Set swapped flag to run loop backward
+                swapped = false;
+
+                // Last index is already sorted
+                end = end - 1;
+                state.lineNo = 7;
+                state.status = "<div>Element ({val}) is sorted.</div><div>Set swapped = false.</div>".replace('{val}', state.backlinks[end].value);
+                state.logMessage = "<div>Element ({val}) is sorted.</div><div>Set swapped = false.</div>".replace('{val}', state.backlinks[end].value) + state.logMessage;
+                StateHelper.updateCopyPush(statelist, state);
             }
 
-            // Set swapped flag to run loop backward
-            swapped = false;
-
-            // Last index is already sorted
-            end = end - 1;
 
             for (var i = end - 1; i > start; i--) {
                 state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
+                state.lineNo = 8;
+                state.status = "<div>Extract right unsorted element ({val})</div>".replace('{val}', state.backlinks[i].value);
+                state.logMessage = "<div>Extract right unsorted element ({val})</div>".replace('{val}', state.backlinks[i].value) + state.logMessage;
                 StateHelper.updateCopyPush(statelist, state);
 
                 if (i - 1 >= start) {
                     state.backlinks[i - 1].highlight = HIGHLIGHT_SPECIAL;
+                    state.lineNo = 9;
+                    state.status = "<div>Checking if {val1} < {val2}</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i - 1].value);
+                    state.logMessage = "<div>Checking if {val1} < {val2}</div>".replace('{val1}', state.backlinks[i].value).replace('{val2}', state.backlinks[i - 1].value);
                     StateHelper.updateCopyPush(statelist, state);
                 }
 
                 if (state.backlinks[i].value < state.backlinks[i - 1].value) {
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, i, i - 1);
-                    StateHelper.updateCopyPush(statelist, state);
-
                     state.backlinks[i].highlight = HIGHLIGHT_NONE;
+                    state.lineNo = 10;
                     if (i === start + 1) {
                         state.backlinks[start].highlight = HIGHLIGHT_SORTED;
                     }
+                    state.status = "<div>{val1} < {val2}, swap positions of {val1} and {val2}</div><div>Set swapped = true</div>"
+                        .replace(/{val1}/g, state.backlinks[i - 1].value)
+                        .replace(/{val2}/g, state.backlinks[i].value);
+                    state.logMessage = "<div>{val1} < {val2}, swap positions of {val1} and {val2}</div><div>Set swapped = true</div>"
+                        .replace(/{val1}/g, state.backlinks[i - 1].value)
+                        .replace(/{val2}/g, state.backlinks[i].value) + state.logMessage;
                     StateHelper.updateCopyPush(statelist, state);
                     swapped = true;
                 } else {
@@ -786,13 +841,18 @@ var Sorting = function () {
             }
 
             // First index is already sorted
+            state.lineNo = 12;
             start = start + 1;
+            state.status = "<div>Element ({val}) is sorted.</div><div>Set swapped = false.</div>".replace('{val}', state.backlinks[start].value);
+            state.logMessage = "<div>Element ({val}) is sorted.</div><div>Set swapped = false.</div>".replace('{val}', state.backlinks[start].value) + state.logMessage;
+            StateHelper.updateCopyPush(statelist, state);
         } // End while loop
 
         state.status = "List sorted!";
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
         }
+        state.lineNo = 0;
         StateHelper.updateCopyPush(statelist, state);
 
         this.play(callback);
@@ -802,6 +862,13 @@ var Sorting = function () {
     this.shellSort = function (callback) {
         var numElements = statelist[0].backlinks.length;
         var state = StateHelper.copyState(statelist[0]);
+
+        populatePseudocode([
+            'create gap by half of list length',
+            '  while (gapLength >= 1)'
+        ]);
+
+        initLogMessage(state);
 
         // Start big gap loop, then reduce gap by 1
         // You have to floor the gap, or it will get bug
@@ -840,7 +907,7 @@ var Sorting = function () {
                     j -= gap;
                 }
             } // End for i
-
+            window.alert('Gap length: ' + gap);
         } // End for gap
 
         state.status = "List sorted!";
@@ -867,6 +934,8 @@ var Sorting = function () {
             'copy elements back to original array'
         ]);
 
+        initLogMessage(state);
+
         this.mergeSortSplit(state, 0, numElements);
 
         state.status = "List sorted!";
@@ -890,7 +959,7 @@ var Sorting = function () {
         this.mergeSortMerge(state, startIndex, midIndex, endIndex);
 
         // Copy sorted array back to original array
-        state.status = "Copy sorted elements back to original array.";
+        state.status = "<div>Copy sorted elements back to original array.</div>";
         state.lineNo = 7;
 
         var duplicatedArray = new Array();
@@ -917,6 +986,15 @@ var Sorting = function () {
         for (var i = startIndex; i < endIndex; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
         }
+        state.status = '<div>We now merge partitions [{partition1}] (index {startIdx1} to {endIdx1} both inclusive) and [{partition2}] (index {startIdx2} to {endIdx2} both inclusive).</div>'
+            .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function(d) {
+                return d.value;
+            }))
+            .replace("{startIdx1}", startIndex).replace("{endIdx1}", (midIndex - 1))
+            .replace("{partition2}", state.backlinks.slice(midIndex, endIndex).map(function(d) {
+                return d.value;
+            }))
+            .replace("{startIdx2}", midIndex).replace("{endIdx2}", (endIndex - 1));
         state.lineNo = 2;
         StateHelper.updateCopyPush(statelist, state);
 
@@ -924,13 +1002,27 @@ var Sorting = function () {
 
             if (leftIndex < midIndex && (rightIndex >= endIndex || state.backlinks[leftIndex].value <= state.backlinks[rightIndex].value)) {
                 state.backlinks[leftIndex].secondaryPositionStatus = i;
+                if (rightIndex < endIndex) {
+                    state.status = '<div>Since {leftPart} (left partition) <= {rightPart} (right partition), we copy {leftPart} into new array.</div>'
+                        .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace("{rightPart}", state.backlinks[rightIndex].value);
+                }
+                else {
+                    state.status = '<div>Since right partition is empty, we copy {leftPart} (left partition) into new array.</div>'.replace("{leftPart}", state.backlinks[leftIndex].value);
+                }
                 state.lineNo = [3, 4, 5];
 
                 leftIndex++;
                 StateHelper.updateCopyPush(statelist, state);
             } else {
                 state.backlinks[rightIndex].secondaryPositionStatus = i;
-                state.lineNo  = [3, 6];
+                if (leftIndex < midIndex) {
+                    state.status = '<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>'
+                        .replace("{leftPart}", state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value);
+                }
+                else {
+                    state.status = '<div>Since left partition is empty, we copy {rightPart} (right partition) into new array.</div>'.replace("{rightPart}", state.backlinks[rightIndex].value);
+                }
+                state.lineNo = [3, 6];
 
                 rightIndex++;
                 StateHelper.updateCopyPush(statelist, state);
