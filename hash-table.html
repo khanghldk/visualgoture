@@ -1,0 +1,107 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/index_new.css">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/navbar.css">
+</head>
+<body>
+
+<nav class="main-menu">
+    <ul>
+        <li>
+            <a href="home.html">
+                <i class="fa fa-2x fa-home"></i>
+                <span class="nav-text">
+                    HOME
+                </span>
+            </a>
+        </li>
+        <li>
+            <a id="title-LP">
+                <h1 class="fa">LP</h1>
+                <span class="nav-text">
+                    Linear Probing
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="title-SC">
+                <h1 class="fa">SC</h1>
+                <span class="nav-text">
+                    Separate Chaining
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="title-DH">
+                <h1 class="fa">DH</h1>
+                <span class="nav-text">
+                    Double Hashing
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="title-QP">
+                <h1 class="fa">QP</h1>
+                <span class="nav-text">
+                    Quadratic Probing
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="area">
+    <div class="container">
+        <div class="gridHeader">
+            <div id="title" style="font-size: 20px; color: white"></div>
+        </div>
+        <div class="gridGraph" style="background-color: white">
+            <svg id="viz-canvas" style="margin: 10px"></svg>
+        </div>
+        <div class="gridNote">
+            <div id="noteContent" style="text-align: justify">
+
+            </div>
+        </div>
+        <div class="gridTimeline" style="background-color: white; text-align: center">
+            <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">first_page</i>
+            <i class="material-icons" id="previous" onclick="stepBackward()">skip_previous</i>
+            <i class="material-icons" id="pause" onclick="pause()">pause</i>
+            <i class="material-icons" id="play" onclick="play()">play_arrow</i>
+            <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
+            <i class="material-icons" id="go-to-end" onclick="goToEnd()">last_page</i>
+        </div>
+        <div class="gridAction" style="background-color: white">
+            <div id="status" class="panel"><p style="font-size: 15px"></p></div>
+        </div>
+        <div class="gridLog" style="margin: auto; background-color: white">
+            <div id="log" class="panel"><p style="font-size: 15px"></p></div>
+        </div>
+        <div class="gridPseudo" style="background-color: white">
+            <div id="codetrace" class="panel">
+                <p id="code1" style="padding-top: 10px;"></p>
+                <p id="code2"></p>
+                <p id="code3"></p>
+                <p id="code4"></p>
+                <p id="code5"></p>
+                <p id="code6"></p>
+                <p id="code7" style="padding-bottom: 10px;"></p>
+            </div>
+        </div>
+        <div class="gridFooter" style="background-color: #212121; height: 50px">
+            FOOTER
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/d3.min.js"></script>
+<script type="text/javascript" src="js/viz.js"></script>
+
+<script type="text/javascript" src="js/d3.v3.min.js"></script>
+<script type="text/javascript" src="js/hash_table.js"></script>
+
+</body>
+</html>

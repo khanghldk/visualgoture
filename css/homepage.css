@@ -1,34 +1,36 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+
 
 .square {
     float:left;
     position: relative;
     width: 30%;
-    padding-bottom : 30%;
-    margin:1.66%;
-    background-color:#1E1E1E;
-    overflow:hidden;
+    padding-bottom: 30%;
+    margin: 1.66% 1.66% 3.33% 1.66%;
+    overflow:visible;
 }
 
-.square:hover{
+
+
+.square img:hover{
     opacity: 0.7;
 }
 
 .content {
     position:absolute;
-    height:90%;
+    float: left;
     width:100%;
     padding: 5%;
-
 }
 
 
-.content .rs{
-    width:auto;
-    height:auto;
-    max-height:90%;
-    max-width:100%;
+.content img{
+    margin-bottom: 5.263157894736842%;
 }
+
+
+
+a { color: inherit; }
 
 .bg{
     background-position:center center;
@@ -38,7 +40,7 @@
 }
 
 body {
-    font-size:20px;
+    font-size:25px;
     font-family: 'Lato',verdana, sans-serif;
     background:#ECECEC;
 }
@@ -55,6 +57,37 @@ body {
     font-size:100px;
 }
 
-svg{
-    position: center;
+
+
+@media screen
+and (min-width: 1024px)
+and (max-width: 1920px)
+and (-webkit-min-device-pixel-ratio: 1) {
+    .rowg{
+        width: 960px;
+    }
+    .colorNav > ul > li > a{
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width : 1024px)
+and (min-width: 650px){
+    .colorNav > ul > li > a{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width : 650px)
+and (min-width: 500px){
+    .colorNav > ul > li > a{
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (max-width : 500px) {
+    .colorNav > ul > li > a{
+        font-size: 11px;
+    }
 }
