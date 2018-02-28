@@ -716,7 +716,7 @@ var Sorting = function () {
 
         populatePseudocode([
             'swapped = false, start = 0, end = last index',
-            'while (swapped)',
+            'while (swapped = true)',
             '  for i = start to end',
             '    if leftElement > rightElement',
             '      swap(leftElement, rightElement); swapped = true',
@@ -865,14 +865,34 @@ var Sorting = function () {
 
         populatePseudocode([
             'create gap by half of list length',
+            '  do',
+            '    divide gap by 2',
+            '    do',
+            '      if gapHeadElement > gapTailElement',
+            '        swap(gapHeadElement, gapTailElement)',
+            '    while (firstIndexToGapHead\'s length < gapLength)',
             '  while (gapLength >= 1)'
         ]);
 
         initLogMessage(state);
 
+        var firstRun = true;
+
         // Start big gap loop, then reduce gap by 1
         // You have to floor the gap, or it will get bug
         for (var gap = Math.floor(numElements / 2); gap > 0; gap = Math.floor(gap / 2)) {
+            if (firstRun) {
+                state.status = "<div>Create gap by diving list length in 2 (gap = {gap}).</div>".replace('{gap}', gap);
+                state.logMessage = "<div>Create gap by diving list length in 2 (gap = {gap}).</div>".replace('{gap}', gap) + state.logMessage;
+                state.lineNo = 1;
+                StateHelper.updateCopyPush(statelist, state);
+                firstRun = false;
+            } else {
+                state.status = "<div>Divide gap length by 2 (gap = {gap}).</div>".replace('{gap}', gap);
+                state.logMessage = "<div>Divide gap length by 2 (gap = {gap}).</div>".replace('{gap}', gap) + state.logMessage;
+                state.lineNo = 3;
+                StateHelper.updateCopyPush(statelist, state);
+            }
 
             for (var i = gap; i < numElements; i++) {
 
@@ -881,24 +901,33 @@ var Sorting = function () {
                     state.backlinks[j].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
                     state.backlinks[j - gap].highlight = HIGHLIGHT_STANDARD;
                     state.backlinks[j - gap].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
+                    state.status = "<div>Checking if {val1} > {val2}.</div>"
+                        .replace('{val1}', state.backlinks[j - gap].value)
+                        .replace('{val2}', state.backlinks[j].value);
+                    state.logMessage = "<div>Checking if {val1} > {val2}.</div>"
+                        .replace('{val1}', state.backlinks[j - gap].value)
+                        .replace('{val2}', state.backlinks[j].value) + state.logMessage;
+                    state.lineNo = 5;
                     StateHelper.updateCopyPush(statelist, state);
                     if (state.backlinks[j - gap].value > state.backlinks[j].value) {
                         EntryBacklinkHelper.swapBacklinks(state.backlinks, j, j - gap);
+                        state.status = "<div>{val1} > {val2}, swap position of ({val1}) and ({val2}).</div>"
+                            .replace(/{val1}/g, state.backlinks[j].value)
+                            .replace(/{val2}/g, state.backlinks[j - gap].value);
+                        state.logMessage = "<div>{val1} > {val2}, swap position of ({val1}) and ({val2}).</div>"
+                            .replace(/{val1}/g, state.backlinks[j].value)
+                            .replace(/{val2}/g, state.backlinks[j - gap].value) + state.logMessage;
+                        state.lineNo = 6;
                         StateHelper.updateCopyPush(statelist, state);
 
                         state.backlinks[j].secondaryPositionStatus = POSITION_USE_PRIMARY;
                         state.backlinks[j - gap].secondaryPositionStatus = POSITION_USE_PRIMARY;
-                        StateHelper.updateCopyPush(statelist, state);
-
-
                         state.backlinks[j].highlight = HIGHLIGHT_NONE;
                         state.backlinks[j - gap].highlight = HIGHLIGHT_NONE;
                         StateHelper.updateCopyPush(statelist, state);
                     } else {
                         state.backlinks[j].secondaryPositionStatus = POSITION_USE_PRIMARY;
                         state.backlinks[j - gap].secondaryPositionStatus = POSITION_USE_PRIMARY;
-                        StateHelper.updateCopyPush(statelist, state);
-
                         state.backlinks[j].highlight = HIGHLIGHT_NONE;
                         state.backlinks[j - gap].highlight = HIGHLIGHT_NONE;
                         StateHelper.updateCopyPush(statelist, state);
@@ -907,14 +936,16 @@ var Sorting = function () {
                     j -= gap;
                 }
             } // End for i
-            window.alert('Gap length: ' + gap);
         } // End for gap
 
-        state.status = "List sorted!";
+        state.status = "<div>List sorted!</div>";
+        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
-            StateHelper.updateCopyPush(statelist, state);
         }
+        state.lineNo = 0;
+        StateHelper.updateCopyPush(statelist, state);
+
         this.play(callback);
 
         return true;
@@ -938,10 +969,11 @@ var Sorting = function () {
 
         this.mergeSortSplit(state, 0, numElements);
 
-        state.status = "List sorted!";
+        state.status = "<div>List sorted!</div>";
         for (var i = 0; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
         }
+        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
         StateHelper.updateCopyPush(statelist, state);
         this.play(callback);
 
@@ -960,6 +992,7 @@ var Sorting = function () {
 
         // Copy sorted array back to original array
         state.status = "<div>Copy sorted elements back to original array.</div>";
+        state.logMessage = "<div>Copy sorted elements back to original array.</div>" + state.logMessage;
         state.lineNo = 7;
 
         var duplicatedArray = new Array();
@@ -986,15 +1019,24 @@ var Sorting = function () {
         for (var i = startIndex; i < endIndex; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
         }
-        state.status = '<div>We now merge partitions [{partition1}] (index {startIdx1} to {endIdx1} both inclusive) and [{partition2}] (index {startIdx2} to {endIdx2} both inclusive).</div>'
-            .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function(d) {
+        state.status = "<div>We now merge partitions [{partition1}] (index {startIdx1} to {endIdx1} both inclusive) and [{partition2}] (index {startIdx2} to {endIdx2} both inclusive).</div>"
+            .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function (d) {
                 return d.value;
             }))
-            .replace("{startIdx1}", startIndex).replace("{endIdx1}", (midIndex - 1))
-            .replace("{partition2}", state.backlinks.slice(midIndex, endIndex).map(function(d) {
+            .replace('{startIdx1}', startIndex).replace('{endIdx1}', (midIndex - 1))
+            .replace('{partition2}', state.backlinks.slice(midIndex, endIndex).map(function (d) {
                 return d.value;
             }))
-            .replace("{startIdx2}", midIndex).replace("{endIdx2}", (endIndex - 1));
+            .replace('{startIdx2}', midIndex).replace('{endIdx2}', (endIndex - 1));
+        state.logMessage = "<div>We now merge partitions [{partition1}] (index {startIdx1} to {endIdx1} both inclusive) and [{partition2}] (index {startIdx2} to {endIdx2} both inclusive).</div>"
+            .replace('{partition1}', state.backlinks.slice(startIndex, midIndex).map(function (d) {
+                return d.value;
+            }))
+            .replace('{startIdx1}', startIndex).replace('{endIdx1}', (midIndex - 1))
+            .replace('{partition2}', state.backlinks.slice(midIndex, endIndex).map(function (d) {
+                return d.value;
+            }))
+            .replace('{startIdx2}', midIndex).replace('{endIdx2}', (endIndex - 1)) + state.logMessage;
         state.lineNo = 2;
         StateHelper.updateCopyPush(statelist, state);
 
@@ -1003,11 +1045,15 @@ var Sorting = function () {
             if (leftIndex < midIndex && (rightIndex >= endIndex || state.backlinks[leftIndex].value <= state.backlinks[rightIndex].value)) {
                 state.backlinks[leftIndex].secondaryPositionStatus = i;
                 if (rightIndex < endIndex) {
-                    state.status = '<div>Since {leftPart} (left partition) <= {rightPart} (right partition), we copy {leftPart} into new array.</div>'
-                        .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace("{rightPart}", state.backlinks[rightIndex].value);
+                    state.status = "<div>Since {leftPart} (left partition) <= {rightPart} (right partition), we copy {leftPart} into new array.</div>"
+                        .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value);
+                    state.logMessage = "<div>Since {leftPart} (left partition) <= {rightPart} (right partition), we copy {leftPart} into new array.</div>"
+                        .replace(/{leftPart}/g, state.backlinks[leftIndex].value).replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 else {
-                    state.status = '<div>Since right partition is empty, we copy {leftPart} (left partition) into new array.</div>'.replace("{leftPart}", state.backlinks[leftIndex].value);
+                    state.status = "<div>Since right partition is empty, we copy {leftPart} (left partition) into new array.</div>".replace('{leftPart}', state.backlinks[leftIndex].value);
+                    state.logMessage = "<div>Since right partition is empty, we copy {leftPart} (left partition) into new array.</div>".replace('{leftPart}', state.backlinks[leftIndex].value)
+                        + state.logMessage;
                 }
                 state.lineNo = [3, 4, 5];
 
@@ -1016,11 +1062,14 @@ var Sorting = function () {
             } else {
                 state.backlinks[rightIndex].secondaryPositionStatus = i;
                 if (leftIndex < midIndex) {
-                    state.status = '<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>'
-                        .replace("{leftPart}", state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value);
+                    state.status = "<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>"
+                        .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value);
+                    state.logMessage = "<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>"
+                        .replace('{leftPart}', state.backlinks[leftIndex].value).replace(/{rightPart}/g, state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 else {
-                    state.status = '<div>Since left partition is empty, we copy {rightPart} (right partition) into new array.</div>'.replace("{rightPart}", state.backlinks[rightIndex].value);
+                    state.status = "<div>Since left partition is empty, we copy {rightPart} (right partition) into new array.</div>".replace('{rightPart}', state.backlinks[rightIndex].value);
+                    state.logMessage = "<div>Since left partition is empty, we copy {rightPart} (right partition) into new array.</div>".replace('{rightPart}', state.backlinks[rightIndex].value) + state.logMessage;
                 }
                 state.lineNo = [3, 6];
 
