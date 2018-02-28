@@ -1,72 +1,86 @@
-@charset "utf-8";
-
-html, body, p {
-    margin: 0px;
-    padding: 0px;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+.card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-html, body {
-    /*background-color: black;*/
+.card {
+    margin-top: 10px;
     box-sizing: border-box;
-    height: 100%;
+    border-radius: 2px;
+    background-clip: padding-box;
+}
+.card span.card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
 }
 
-#codetrace, #status {
-    /*background: #eeeeee;*/
-    font-family: "PT Sans";
-    font-size: 13px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-
-#status {
-    overflow: auto;
-}
-
-/*.container > div:nth-child(1n) {*/
-    /*background-color: #96ceb4;*/
-/*}*/
-
-/*.container > div:nth-child(3n) {*/
-    /*background-color: #88d8b0;*/
-/*}*/
-
-/*.container > div:nth-child(2n) {*/
-    /*background-color: #ff6f69;*/
-/*}*/
-
-/*.container > div:nth-child(4n) {*/
-    /*background-color: white;*/
-/*}*/
-
-.container > div {
-    /*background-color: white;*/
-    /*color: black;*/
-    align-items: center;
-    padding: 0px 10px;
-}
-
-a, i {
-    cursor: pointer;
-}
-
-#title {
+.card .card-image {
     position: relative;
-    float: left;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+.card .card-image img {
+    border-radius: 2px 2px 0 0;
+    background-clip: padding-box;
+    position: relative;
+    z-index: -1;
+}
+.card .card-image span.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 16px;
+}
+.card .card-content {
+    padding: 16px;
+    border-radius: 0 0 2px 2px;
+    background-clip: padding-box;
+    box-sizing: border-box;
+}
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+}
+.card .card-content span.card-title {
+    line-height: 48px;
+}
+.card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 16px;
+}
+.card .card-action a {
+    color: #ffab40;
+    margin-right: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+}
+.card .card-action a:hover {
+    color: #ffd8a6;
+    text-decoration: none;
 }
 
-.material-icons {
-    color: black;
+.menu {
+    background-color: #42A5F5;
 }
 
-#log {
-    height: 200px;
-    max-height: inherit;
-    width: inherit;
-    /*border:1px solid #ccc;*/
-    overflow: auto;
-    /*white-space: nowrap;*/
+.menu a {
+    color: white;
+}
+
+.menu div:last-child div {
+    float: right;
+    margin: 0 25px 0 25px;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+#search-form {
+    text-align: center;
+}
+
+.list-structures a {
+    text-decoration: none;
 }
