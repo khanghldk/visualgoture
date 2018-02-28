@@ -29,8 +29,8 @@ div ul {
         grid-template-areas:
                 "h h h h h h h h h h h h"
                 ". g g g g g g g g n n n"
-                ". t t t t t t t p p p p"
-                ". l l l a a a a p p p p"
+                ". t t t t t t t a a a a"
+                ". c c c l l l l p p p p"
                 "f f f f f f f f f f f f";
     }
     div ul {
@@ -47,8 +47,8 @@ div ul {
         grid-template-areas:
                 "h h h h h h h h h h h h"
                 ". g g g g g g g g n n n"
-                ". t t t t t t t p p p p"
-                ". l l l a a a a p p p p"
+                ". t t t t t t t a a a a"
+                ". c c c l l l l p p p p"
                 "f f f f f f f f f f f f";
     }
     div ul {
