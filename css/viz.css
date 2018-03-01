@@ -15,6 +15,40 @@ html {
     user-select: none;
 }
 
+#viz-radix-sort-canvas {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    padding-top: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+div .radix-sort-element {
+    position: absolute;
+    border: 1px solid black;
+    width: 55px;
+    font: 20px sans-serif;
+    color: black;
+}
+
+#radix-sort-bucket-labels {
+    position: absolute;
+    bottom: 620px;
+    left: 500px;
+}
+
+.radix-sort-bucket-label {
+    position: absolute;
+    border-top: 1px solid black;
+    width: 57px;
+    font: 20px sans-serif;
+    color: black;
+}
+
 /*.panel {*/
     /*position: fixed;*/
     /*color: white;*/
