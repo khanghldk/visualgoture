@@ -3,7 +3,7 @@ var codetraceColor = 'white';
 actionsWidth = 0;
 
 function highlightLine(lineNumbers) {
-    $('#codetrace p').css('background-color', 'white').css('color', 'black');
+    $('#codetrace p').css('background-color', colourTheThird).css('color', codetraceColor);
     if (lineNumbers instanceof Array) {
         for (var i = 0; i < lineNumbers.length; i++)
             if (lineNumbers[i] != 0)
@@ -163,7 +163,25 @@ function initUI() {
     $('.action-menu-pullout').css('left', actionsWidth + 43 + 'px');
     $('.action-menu-pullout').children().css('float', 'left');
     $('.coloured-menu-option').css("background-color", colourTheSecond).css('color', 'white');
-
+    $('#codetrace').css("background-color", colourTheThird);
+    $('#codetrace-hide').css("background-color", colourTheThird);
+    if (colourTheThird == '#fec515' || colourTheThird == '#a7d41e') {
+        $('#codetrace').css('color', 'black');
+        var imgUrl = $('#codetrace-hide img').attr('src');
+        if (imgUrl) {
+            $('#codetrace-hide img').attr('src', imgUrl.replace('white', 'black'));
+        }
+        codetraceColor = 'black';
+    }
+    $('#status').css("background-color", colourTheFourth);
+    $('#status-hide').css("background-color", colourTheFourth);
+    if (colourTheFourth == '#fec515' || colourTheFourth == '#a7d41e') {
+        $('#status').css('color', 'black');
+        var imgUrl = $('#status-hide img').attr('src');
+        if (imgUrl) {
+            $('#status-hide img').attr('src', imgUrl.replace('white', 'black'));
+        }
+    }
 }
 
 function end_eLecture() {
@@ -246,11 +264,14 @@ $(function () {
             hideCodetracePanel(); else
             showCodetracePanel();
     });
+
     $('#actions-hide').click(function () {
         if (isActionsOpen())
-            hideEntireActionsPanel(); else
+            hideEntireActionsPanel();
+        else
             showActionsPanel();
     });
+
     $('.electure-dialog .electure-end').click(end_eLecture);
     $('.electure-dialog .electure-prev').click(function () {
         openSlide($(this).attr('data-nextid'));
@@ -331,8 +352,7 @@ function play() {
         $('#pause').show();
         $('#play').hide();
         if (isAtEnd())
-            gw.replay();
-        else
+            gw.replay(); else
             gw.play();
     }
 }
@@ -375,35 +395,4 @@ function stop() {
     isPlaying = false;
     $('#pause').show();
     $('#play').hide();
-}
-
-
-$('#status').bind("DOMSubtreeModified",function(){
-
-    $('#console').prepend($('#status').html());
-
-});
-
-function clearConsole(callback) {
-    $('#console').html('');
-}
-
-function removeFirstLine(){
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-}
-
-
-function checkPlay(){
-    if (isAtEnd()){
-        clearConsole();
-    }
-}
-
-function checkEnd(){
-    if (!isAtEnd()){
-        goToEnd();
-    }
 }
