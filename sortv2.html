@@ -75,6 +75,14 @@
                 </span>
             </a>
         </li>
+        <li class="has-subnav">
+            <a id="radixSort">
+                <h1 class="fa">RS</h1>
+                <span class="nav-text">
+                    Radix Sort
+                </span>
+            </a>
+        </li>
     </ul>
 </nav>
 <div class="area">
@@ -83,7 +91,21 @@
             <div id="title" style="font-size: 20px; color: white"></div>
         </div>
         <div class="gridGraph" style="background-color: white">
-            <svg id="viz-canvas" style="margin: 10px"></svg>
+            <svg id="viz-canvas" style="margin: 10px;"></svg>
+            <div id="viz-radix-sort-canvas" style="display: none; margin: 10px;">
+                <span id="radix-sort-bucket-labels">
+                    <span class="radix-sort-bucket-label">0</span>
+                    <span class="radix-sort-bucket-label">1</span>
+                    <span class="radix-sort-bucket-label">2</span>
+                    <span class="radix-sort-bucket-label">3</span>
+                    <span class="radix-sort-bucket-label">4</span>
+                    <span class="radix-sort-bucket-label">5</span>
+                    <span class="radix-sort-bucket-label">6</span>
+                    <span class="radix-sort-bucket-label">7</span>
+                    <span class="radix-sort-bucket-label">8</span>
+                    <span class="radix-sort-bucket-label">9</span>
+                </span>
+            </div>
         </div>
         <div class="gridNote">
             <div id="noteContent" style="text-align: justify">
@@ -138,6 +160,12 @@
     var svg = d3.select("#viz-canvas");
     $('#bubbleSort').click();
     window.addEventListener('resize', responsivefy(svg));
+    d3.selectAll("#radix-sort-bucket-labels span")
+        .style({
+            "left": function (d, i) {
+                return 17.5 + i * 65 + "px";
+            }
+        });
 </script>
 </body>
 </html>
