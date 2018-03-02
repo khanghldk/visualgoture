@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
+    <title>Graph Travelsal</title>
+
 </head>
 <body>
 
@@ -20,66 +22,18 @@
             </a>
         </li>
         <li>
-            <a id="bubbleSort">
-                <h1 class="fa">BS</h1>
+            <a id="dfs" onclick="dfs()">
+                <h1 class="fa">DFS</h1>
                 <span class="nav-text">
-                    Bubble Sort
+                    Deep First Search
                 </span>
             </a>
         </li>
         <li class="has-subnav">
-            <a id="selectionSort">
-                <h1 class="fa">SS</h1>
+            <a id="bfs" onclick="bfs()">
+                <h1 class="fa">BFS</h1>
                 <span class="nav-text">
-                    Selection Sort
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="quickSort">
-                <h1 class="fa">QS</h1>
-                <span class="nav-text">
-                    Quick Sort
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="insertionSort">
-                <h1 class="fa">IS</h1>
-                <span class="nav-text">
-                    Insertion Sort
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="cocktailSort">
-                <h1 class="fa">CSS</h1>
-                <span class="nav-text">
-                    Cocktail Shaker Sort
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="shellSort">
-                <h1 class="fa">SS</h1>
-                <span class="nav-text">
-                    Shell Sort
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="mergeSort">
-                <h1 class="fa">MS</h1>
-                <span class="nav-text">
-                    Merge Sort
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="radixSort">
-                <h1 class="fa">RS</h1>
-                <span class="nav-text">
-                    Radix Sort
+                    Breath First Search
                 </span>
             </a>
         </li>
@@ -91,21 +45,7 @@
             <div id="title" style="font-size: 20px; color: white"></div>
         </div>
         <div class="gridGraph" style="background-color: white">
-            <svg id="viz-canvas" style="margin: 10px;"></svg>
-            <div id="viz-radix-sort-canvas" style="display: none; margin: 10px;">
-                <span id="radix-sort-bucket-labels">
-                    <span class="radix-sort-bucket-label">0</span>
-                    <span class="radix-sort-bucket-label">1</span>
-                    <span class="radix-sort-bucket-label">2</span>
-                    <span class="radix-sort-bucket-label">3</span>
-                    <span class="radix-sort-bucket-label">4</span>
-                    <span class="radix-sort-bucket-label">5</span>
-                    <span class="radix-sort-bucket-label">6</span>
-                    <span class="radix-sort-bucket-label">7</span>
-                    <span class="radix-sort-bucket-label">8</span>
-                    <span class="radix-sort-bucket-label">9</span>
-                </span>
-            </div>
+            <div id="viz" style="margin: 10px;"></div>
         </div>
         <div class="gridNote">
             <div id="noteContent" style="text-align: justify">
@@ -154,18 +94,23 @@
 <script src="js/viz.js"></script>
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="js/sort_ver2.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/graph_library.js"></script>
+<script src="js/home.js"></script>
 <script>
-    var gw = new Sorting();
-    var svg = d3.select("#viz-canvas");
-    $('#bubbleSort').click();
-    window.addEventListener('resize', responsivefy(svg));
-//    d3.selectAll("#radix-sort-bucket-labels span")
-//        .style({
-//            "left": function (d, i) {
-//                return 17.5 + i * 65 + "px";
-//            }
-//        });
+    var gtw = new GraphTraversal();
+    var options = [CP3_4_1, CP3_4_3, CP3_4_4, CP3_4_9, CP3_4_17, CP3_4_18, CP3_4_19];
+
+    var gw = gtw.getGraphWidget();
+
+    gtw.examples(CP3_4_1);
+
+    var graphJSON = getQueryVariable("create");
+    if (graphJSON.length > 0) {
+        importjson(graphJSON);
+        window.history.pushState("object or string", "Title", window.location.href.split('?')[0]);
+    }
+
 </script>
 </body>
 </html>

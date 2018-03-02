@@ -11,7 +11,6 @@ function commonAction(retval, msg) {
         $('#current-action').show();
         $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
         $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
-        triggerRightPanels();
         isPlaying = true;
     }
     //}, 500);

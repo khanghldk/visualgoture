@@ -1744,9 +1744,9 @@ var UfdsHelper = function () {
         }, this.updateGraph = function (t, e) {
             (null == e || isNaN(e)) && (e = w), i(t, e), setTimeout(function () {
                 document.body.style.zoom = "100.1%"
-            }, 500), setTimeout(function () {
+            }, 1000), setTimeout(function () {
                 document.body.style.zoom = "100%"
-            }, 600)
+            }, 1000)
         }, this.startAnimation = function (t, e) {
             null != t && (d = t), x = 0, n.play(e)
         }, this.animate = function (t) {
