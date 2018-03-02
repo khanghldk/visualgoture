@@ -2045,7 +2045,10 @@ var GraphTraversal = function () {
     }
 }
 
+var title = document.getElementById('title');
+
 function dfs(callback) {
+    title.innerHTML = "Deep First Search";
     if (isPlaying) stop();
     var input = 0;
     $('#play').hide();
@@ -2056,6 +2059,7 @@ function dfs(callback) {
 }
 
 function bfs(callback) {
+    title.innerHTML = "Breath First Search";
     if (isPlaying) stop();
     var input = 0;
     $('#play').hide();
