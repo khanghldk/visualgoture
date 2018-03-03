@@ -31,6 +31,14 @@ var HashTable = function () {
                     HT = [14, EMPTY, EMPTY, 7, 18, EMPTY, EMPTY];
                     N = 3;
                 }
+                else if (activeStatus == "CP") {
+                    HT = [14, EMPTY, EMPTY, 7, 18, EMPTY, EMPTY];
+                    N = 3;
+                }
+                else if(activeStatus == "RLP") {
+                    HT = [14, 21, 1, EMPTY, 18, EMPTY, EMPTY];
+                    N = 4;
+                }
                 init(HT);
             }
         }
@@ -255,7 +263,7 @@ var HashTable = function () {
             // key = {key}, it must be between [0..99] in this visualization.
             // -1 = empty cell (blank) and -2 = deleted item.
             cs["status"] = 'key = {key}, it must be between [0..99] in this visualization.<br>-1 = empty cell (blank) and -2 = deleted item.'.replace("{key}", key);
-
+            
             stateList.push(cs);
         }
         else {
@@ -268,7 +276,7 @@ var HashTable = function () {
             cs["status"] = 'key = {key} is hashed to i = base = {key}%{length} = {i}.'.replace("{key}", key).replace("{key}", key).replace("{length}", M).replace("{i}", i);
             cs["vl"][i * 7]["state"] = VERTEX_HIGHLIGHTED;
             cs["lineNo"] = 1;
-
+            
             stateList.push(cs);
             vertexTraversed[i * 7] = true; // this is traversed in future iteration
 
@@ -277,7 +285,7 @@ var HashTable = function () {
                 cs["status"] = 'Checking this vertex';
                 cs["vl"][i * 7 + (j + 1)]["state"] = VERTEX_HIGHLIGHTED;
                 cs["lineNo"] = [2, 3];
-
+                
                 stateList.push(cs);
                 vertexTraversed[i * 7 + (j + 1)] = true; // this is traversed in future iteration
                 if (HT_SC[i][j] == key) {
@@ -285,7 +293,7 @@ var HashTable = function () {
                     cs["status"] = '{key} is found in Hash Table'.replace("{key}", key);
                     cs["vl"][i * 7 + (j + 1)]["state"] = VERTEX_HIGHLIGHTED;
                     cs["lineNo"] = [4];
-
+                    
                     stateList.push(cs);
                     break;
                 }
@@ -295,7 +303,7 @@ var HashTable = function () {
                 cs = createStateSC(vertexTraversed, edgeTraversed);
                 cs["status"] = '{key} is not found in Hash Table'.replace("{key}", key);
                 cs["lineNo"] = 5;
-
+                
                 stateList.push(cs);
             }
         }
@@ -320,7 +328,7 @@ var HashTable = function () {
                 // key = {key}, it must be between [0..99] in this visualization.
                 // -1 = empty cell (blank) and -2 = deleted item.
                 cs["status"] = 'key = {key}, it must be between [0..99] in this visualization.<br>-1 = empty cell (blank) and -2 = deleted item.'.replace("{key}", key);
-
+                
                 stateList.push(cs);
             }
             else if (HT.indexOf(key) != -1) {
@@ -328,7 +336,7 @@ var HashTable = function () {
                 // key = {key} is already in the Hash Table.
                 // We prevent insertion of duplicate keys.
                 cs["status"] = 'key = {key} is already in the Hash Table.<br>We prevent insertion of duplicate keys.'.replace("{key}", key);
-
+                
                 stateList.push(cs);
             }
             else {
@@ -338,7 +346,7 @@ var HashTable = function () {
                     // We cannot insert a new integer.
                     cs["status"] = 'Sorry, the Hash Table HT is nearly full (load factor too high).<br>We cannot insert a new integer.';
                     cs["lineNo"] = 1;
-
+                    
                     stateList.push(cs);
                 }
                 else { // not yet full, do the insertion
@@ -358,7 +366,7 @@ var HashTable = function () {
                     cs["status"] = 'The hash table is not yet full.<br>key = {key} is hashed to i = base = {key}%{length} = {i}.'.replace("{key}", key).replace("{key}", key).replace("{length}", HT.length).replace("{i}", i);
                     cs["vl"][i]["state"] = VERTEX_HIGHLIGHTED;
                     cs["lineNo"] = 2;
-
+                    
                     stateList.push(cs);
                     vertexTraversed[i] = true; // this is traversed in future iteration
 
@@ -375,6 +383,17 @@ var HashTable = function () {
                             jump = secondary;
                             strategy = "double hashing";
                         }
+                        else if(activeStatus == "CP") {
+                            jump = step * step;
+                            strategy = "cubic probing";
+                        }
+                        else if(activeStatus == "RLP") {
+                            jump = -1;
+                            strategy = "reverse linear probing";
+                        }
+
+                        if(base == 0){ base = HT.length;}
+
 
                         i_next = (base + step * jump) % HT.length;
 
@@ -387,7 +406,7 @@ var HashTable = function () {
                             .replace("{strategy}", strategy).replace("{base}", base).replace("{step}", step).replace("{jump}", jump).replace("{length}", HT.length).replace("{i_next}", i_next);
                         cs["vl"][i_next]["state"] = VERTEX_HIGHLIGHTED;
                         cs["lineNo"] = 3;
-
+                        
                         stateList.push(cs);
                         vertexTraversed[i_next] = true; // this is traversed in future iteration
                         i = i_next;
@@ -399,7 +418,7 @@ var HashTable = function () {
                         // After {step} probe steps, we still cannot find an insertion point.
                         // Reporting failure...
                         cs["status"] = 'After {step} probe steps, we still cannot find an insertion point.<br>Reporting failure...'.replace("{step}", step);
-
+                        
                         stateList.push(cs);
                     }
                     else {
@@ -411,7 +430,7 @@ var HashTable = function () {
                         cs["status"] = 'Found insertion point: Insert {key} at HT[{i}].<br>There are now {N} items in the Hash Table.'.replace("{key}", key).replace("{i}", i).replace("{N}", N);
                         cs["vl"][i]["state"] = VERTEX_TRAVERSED;
                         cs["lineNo"] = 4;
-
+                        
                         stateList.push(cs);
                     }
                 }
@@ -452,7 +471,7 @@ var HashTable = function () {
                     // key = {key} is already in the Hash Table.
                     // We prevent insertion of duplicate keys.
                     cs["status"] = 'key = {key} is already in the Hash Table.<br>We prevent insertion of duplicate keys.'.replace("{key}", key);
-
+                    
                     stateList.push(cs);
                 }
                 else { // key [0..99] and not inside
@@ -463,7 +482,7 @@ var HashTable = function () {
                     cs["status"] = 'The hash table is not yet full.<br>key = {key} is hashed to i = base = {key}%{length} = {i}.'.replace("{key}", key).replace("{key}", key).replace("{length}", M).replace("{i}", i);
                     cs["vl"][i * 7]["state"] = VERTEX_HIGHLIGHTED;
                     cs["lineNo"] = 1;
-
+                    
                     stateList.push(cs);
                     vertexTraversed[i * 7] = true; // this is traversed in future iteration
 
@@ -472,7 +491,7 @@ var HashTable = function () {
                         cs["status"] = 'Sorry, due to the limitation of this visualization<br>We do not allow any more extension to linked list {i}'.replace("{i}", i);
                         cs["vl"][i * 7]["state"] = VERTEX_HIGHLIGHTED;
                         cs["lineNo"] = 2;
-
+                        
                         stateList.push(cs);
                     }
                     else {
@@ -482,7 +501,7 @@ var HashTable = function () {
                         cs["vl"][i * 7 + (HT_SC[i].length - 1)]["state"] = VERTEX_HIGHLIGHTED;
                         cs["vl"][i * 7 + (HT_SC[i].length)]["state"] = VERTEX_HIGHLIGHTED;
                         cs["lineNo"] = 3;
-
+                        
                         stateList.push(cs);
                     }
                 }
@@ -748,7 +767,10 @@ var HashTable = function () {
             jump = 'step';
         else if (activeStatus == "DH")
             jump = 'sec';
-
+        else if (activeStatus == "CP")
+            jump = 'step^2';
+        else if (activeStatus == "RLP")
+            jump = '-1';
         switch (act) {
             case 0: // search
                 $('#code1').html('step = 0; i = base = key%HT.length;');
@@ -897,29 +919,63 @@ function hideEntireActionsPanel() {
 }
 
 
+var title = document.getElementById('title');
 
+var note = document.getElementById('noteContent');
 
 $('#title-LP').click(function () {
     if (isPlaying) stop();
     htw.setActiveStatus("LP");
-
+    title.innerHTML = "Linear Probing";
+    note.innerHTML = '<h1>Linear Probing</h1><br/>';
+    note.innerHTML += "<div>Linear probing is a scheme in computer programming for resolving collisions in hash tables, " +
+        "data structures for maintaining a collection of key–value pairs and looking up the value associated with a given key. " +
+        "It was invented in 1954 by Gene Amdahl, Elaine M. McGraw, and Arthur Samuel and first analyzed in 1963 by Donald Knuth.</div>";
 });
 $('#title-QP').click(function () {
     if (isPlaying) stop();
     htw.setActiveStatus("QP");
+    title.innerHTML = "Quadratic Probing";
+    note.innerHTML = '<h1>Quadratic Probing</h1><br/>';
+    note.innerHTML += "<div>Quadratic probing is an open addressing scheme in computer programming for resolving collisions " +
+        "in hash tables—when an incoming data's hash value indicates it should be stored in an already-occupied slot or bucket. " +
+        "Quadratic probing operates by taking the original hash index and adding successive values of an arbitrary quadratic polynomial until an open slot is found.</div>";
 
 });
 $('#title-DH').click(function () {
     if (isPlaying) stop();
     htw.setActiveStatus("DH");
-    AbbreviateTitle();
-    $('#title-DH').text('Double Hashing');
+    title.innerHTML = "Double Hashing";
+    note.innerHTML = '<h1>Double Hashing</h1><br/>';
+    note.innerHTML += "<div>Double hashing is a computer programming technique used in hash tables to resolve hash collisions, " +
+        "in cases when two different values to be searched for produce the same hash key. It is a popular collision-resolution technique " +
+        "in open-addressed hash tables. Double hashing is implemented in many popular libraries.</div>";
 });
 $('#title-SC').click(function () {
     if (isPlaying) stop();
     htw.setActiveStatus("SC");
+    title.innerHTML = "Separate Chaining";
+    note.innerHTML = '<h1>Separate Chaining</h1><br/>';
+    note.innerHTML += "<div>In the method known as separate chaining, each bucket is independent, and has some sort of list of entries with the same index. " +
+        "The time for hash table operations is the time to find the bucket (which is constant) plus the time for the list operation.</div>";
 });
 
+$('#title-CP').click(function () {
+    if (isPlaying) stop();
+    htw.setActiveStatus("CP");
+    title.innerHTML = "Cubic Probing";
+    note.innerHTML = '<h1>Cubic Probing</h1><br/>';
+    note.innerHTML += "<div>Cubic Probing is identical to Quadratic Probing but when collision occurs, it operates by taking " +
+        "the original hash index and adding successive values of an arbitrary cubic polynomial until an open slot is found.</div>";
+});
+
+$('#title-RLP').click(function () {
+    if (isPlaying) stop();
+    htw.setActiveStatus("RLP");
+    title.innerHTML = "Reverse Linear Probing";
+    note.innerHTML = '<h1>Reverse Linear Probing</h1><br/>';
+    note.innerHTML += "<div>Reverse Linear Probing is identical to Linear Probing but when collision occurs, next index is in reverse direction compared to Linear Probing.</div>";
+});
 
 // local
 $('#play').hide();
@@ -927,8 +983,8 @@ var htw = new HashTable();
 var gw = htw.getGraphWidget();
 
 $(function () {
-    var four_modes = ["LP", "SC"];
-    $('#title-'+four_modes[Math.floor(Math.random()*2)]).click(); // randomly open one of the four default example every time
+    var all_modes = ["LP", "SC", "DH", "QP", "CP", "RLP"];
+    $('#title-'+all_modes[Math.floor(Math.random()*5)]).click(); // randomly open one of the four default example every time
 
     var hashMode = getQueryVariable("mode");
     if (hashMode.length > 0) {

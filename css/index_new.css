@@ -111,4 +111,14 @@ div ul {
 .gridLog {
     grid-area: l;
     border: 1px solid black;
+    color: white;
+    overflow: scroll;
+    background-color: #2A2E45;
+}
+
+.gridControl{
+    grid-area: c;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
 }
