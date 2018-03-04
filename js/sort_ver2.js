@@ -974,6 +974,83 @@ var Sorting = function () {
         return true;
     }
 
+    this.combSort = function (callback) {
+        var numElements = statelist[0].backlinks.length;
+        var state = StateHelper.copyState(statelist[0]);
+
+        populatePseudocode([
+            'swapped = false, gap = listLength',
+            'while (swapped = true or gap != 1)',
+            '  gap = gap / 1.3',
+            '  swap = false',
+            '  for i = 0 to listLength - gap',
+            '    if gapHeadElement > gapTailElement',
+            '      swap(gapHeadElement, gapTailElement)',
+            '      swapped = true'
+        ]);
+
+        initLogMessage(state);
+
+        var gap = numElements;
+        var swapped = false;
+
+        state.status = "<div>Create gap = list length (gap = {gap}), swapped = false</div>".replace('{gap}', gap);
+        state.logMessage = "<div>Create gap = list length (gap = {gap}), swapped = false</div>".replace('{gap}', gap) + state.logMessage;
+        state.lineNo = 1;
+        StateHelper.updateCopyPush(statelist, state);
+
+        while(swapped || gap != 1) {
+            gap = Math.floor(gap / 1.3);
+            if (gap < 1)
+                gap = 1;
+            state.status = "<div>Gap / 1.3 = {gap}, set swapped = false.</div>".replace('{gap}', gap);
+            state.logMessage = "<div>Gap / 1.3 = {gap}, set swapped = false.</div>".replace('{gap}', gap) + state.logMessage;
+            state.lineNo = 3;
+            StateHelper.updateCopyPush(statelist, state);
+
+            for (var i = 0; i < numElements - gap; i++) {
+                state.backlinks[i].highlight = HIGHLIGHT_STANDARD;
+                state.backlinks[i + gap].highlight = HIGHLIGHT_STANDARD;
+                state.status = "<div>Check if {val1} > {val2}.</div>"
+                    .replace('{val1}', state.backlinks[i].value)
+                    .replace('{val2}', state.backlinks[i + gap].value);
+                state.logMessage = "<div>Check if {val1} > {val2}.</div>"
+                    .replace('{val1}', state.backlinks[i].value)
+                    .replace('{val2}', state.backlinks[i + gap].value) + state.logMessage;
+                state.lineNo = 6;
+                StateHelper.updateCopyPush(statelist, state);
+
+                if (state.backlinks[i].value > state.backlinks[i + gap].value) {
+                    EntryBacklinkHelper.swapBacklinks(state.backlinks, i, i + gap);
+                    state.status = "<div>{val1} > {val2}, swap position of ({val1}) and ({val2}). Swapped = true.</div>"
+                        .replace(/{val1}/g, state.backlinks[i + gap].value)
+                        .replace(/{val2}/g, state.backlinks[i].value);
+                    state.logMessage = "<div>{val1} > {val2}, swap position of ({val1}) and ({val2}). Swapped = true.</div>"
+                        .replace(/{val1}/g, state.backlinks[i + gap].value)
+                        .replace(/{val2}/g, state.backlinks[i].value) + state.logMessage;
+                    state.lineNo = [7, 8];
+                    StateHelper.updateCopyPush(statelist, state);
+                }
+
+                state.backlinks[i].highlight = HIGHLIGHT_NONE;
+                state.backlinks[i + gap].highlight = HIGHLIGHT_NONE;
+                StateHelper.updateCopyPush(statelist, state);
+            }
+        }
+
+        state.status = "<div>List sorted!</div>";
+        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
+        for (var i = 0; i < numElements; i++) {
+            state.backlinks[i].highlight = HIGHLIGHT_SORTED;
+        }
+        state.lineNo = 0;
+        StateHelper.updateCopyPush(statelist, state);
+
+        this.play(callback);
+
+        return true;
+    }
+
     this.shellSort = function (callback) {
         var numElements = statelist[0].backlinks.length;
         var state = StateHelper.copyState(statelist[0]);
@@ -1567,6 +1644,23 @@ $('#cocktailSort').click(function () {
 
         note.innerHTML = '<h2>Cocktail Shaker Sort</h2><br/>';
         note.innerHTML += "<div>Cocktail shaker sort, also known as bidirectional bubble sort, cocktail sort, shaker sort (which can also refer to a variant of selection sort), ripple sort, shuffle sort, or shuttle sort, is a variation of bubble sort that is both a stable sorting algorithm and a comparison sort. The algorithm differs from a bubble sort in that it sorts in both directions on each pass through the list. This sorting algorithm is only marginally more difficult to implement than a bubble sort, and solves the problem of turtles in bubble sorts</div>  ";
+
+    } else {
+        sort();
+    }
+});
+
+$('#combSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
+    if (!gw.issPlaying) {
+        title.innerHTML = "Comb Sort";
+        changeSortType(gw.combSort);
+
+        note.innerHTML = '<h2>Comb Sort</h2><br/>';
+        note.innerHTML += "<div>Comb Sort is mainly an improvement over Bubble Sort. Bubble sort always compares adjacent values. So all inversions are removed one by one. Comb Sort improves on Bubble Sort by using gap of size more than 1. The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1. Thus Comb Sort removes more than one inversion counts with one swap and performs better than Bublle Sort.</div>";
 
     } else {
         sort();
