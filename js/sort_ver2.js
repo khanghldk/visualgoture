@@ -321,7 +321,9 @@ var Sorting = function () {
 
             // Set the swapped flag to false.
             // Then iterate from 1 to {endIdx} inclusive.
-            state.status = 'Set the swapped flag to false.<div>Then iterate from 1 to {endIdx} inclusive.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1);
+            state.status = '<div>Set the swapped flag to false.</div><div>Then iterate from 1 to {endIdx} inclusive.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1);
+            state.logMessage = '<div>Set the swapped flag to false.</div><div>Then iterate from 1 to {endIdx} inclusive.</div>'.replace("{endIdx}", indexOfLastUnsortedElement - 1)
+                + state.logMessage;
             state.lineNo = [2, 3];
             StateHelper.updateCopyPush(statelist, state);
 
@@ -331,7 +333,14 @@ var Sorting = function () {
 
                 // Checking if {val1} > {val2} and swap them if that is true.
                 // The current value of swapped = {swapped}.
-                state.status = '<div>Checking if {val1} &gt; {val2} and swap them if that is true.</div>The current value of swapped = {swapped}.'.replace("{val1}", state.backlinks[i - 1].value).replace("{val2}", state.backlinks[i].value).replace("{swapped}", swapped);
+                state.status = '<div>Checking if {val1} &gt; {val2} and swap them if that is true.</div><div>The current value of swapped = {swapped}.</div>'
+                    .replace("{val1}", state.backlinks[i - 1].value)
+                    .replace("{val2}", state.backlinks[i].value)
+                    .replace("{swapped}", swapped);
+                state.logMessage = '<div>Checking if {val1} &gt; {val2} and swap them if that is true.</div><div>The current value of swapped = {swapped}.</div>'
+                    .replace("{val1}", state.backlinks[i - 1].value)
+                    .replace("{val2}", state.backlinks[i].value)
+                    .replace("{swapped}", swapped) + state.logMessage;
                 state.lineNo = 4;
                 StateHelper.updateCopyPush(statelist, state);
 
@@ -340,10 +349,13 @@ var Sorting = function () {
 
                     // Swapping the positions of {val1} and {val2}.
                     // Set swapped = true.
-                    state.status = 'Swapping the positions of {val1} and {val2}.<div>Set swapped = true.</div>'
+                    state.status = '<div>Swapping the positions of {val1} and {val2}.</div><div>Set swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value);
-                    state.logMessage = '<div>swap {val1} and {val2}</div>'
+                    // state.logMessage = '<div>swap {val1} and {val2}</div>'
+                    //     .replace("{val1}", state.backlinks[i - 1].value)
+                    //     .replace("{val2}", state.backlinks[i].value) + state.logMessage;
+                    state.logMessage = '<div>Swapping the positions of {val1} and {val2}.</div><div>Set swapped = true.</div>'
                         .replace("{val1}", state.backlinks[i - 1].value)
                         .replace("{val2}", state.backlinks[i].value) + state.logMessage;
                     if (this.computeInversionIndex) {
@@ -368,12 +380,14 @@ var Sorting = function () {
             if (swapped == false)
             // No swap is done in this pass.
             // We can terminate Bubble Sort now.
-                state.status = 'No swap is done in this pass.<div>We can terminate Bubble Sort now</div>';
-            else
-            // Mark last unsorted element as sorted now.
-            // As at least one swap is done in this pass, we continue.
+                state.status = '<div>No swap is done in this pass.</div><div>We can terminate Bubble Sort now</div>';
+            // state.logMessage = '<div>No swap is done in this pass.</div><div>We can terminate Bubble Sort now</div>' + state.logMessage;
+            else {
+                // Mark last unsorted element as sorted now.
+                // As at least one swap is done in this pass, we continue.
                 state.status = '<div>Mark last unsorted element as sorted now.</div><div>As at least one swap is done in this pass, we continue.</div>';
-
+                state.logMessage = '<div>Mark last unsorted element as sorted now.</div><div>As at least one swap is done in this pass, we continue.</div>' + state.logMessage;
+            }
             state.lineNo = 7;
             StateHelper.updateCopyPush(statelist, state);
         }
@@ -383,7 +397,8 @@ var Sorting = function () {
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
 
         // The array/list is now sorted.
-        state.status = 'List sorted!';
+        state.status = '<div>List sorted!</div>';
+        state.logMessage = '<div>List sorted!</div>' + state.logMessage;
         if (this.computeInversionIndex)
         // Inversion Index = {swapCounter}.
             state.status += ' Inversion Index = {swapCounter}.'.replace("swapCounter", swapCounter);
@@ -415,7 +430,12 @@ var Sorting = function () {
 
             // Iteration {iteration}: Set {val} as the current minimum.
             // Then iterate through the rest to find the true minimum.
-            state.status = 'Iteration {iteration}: Set {val} as the current minimum, then iterate through the remaining unsorted elements to find the true minimum.'.replace("{iteration}", (i + 1)).replace("{val}", state.backlinks[i].value);
+            state.status = '<div>Iteration {iteration}: Set {val} as the current minimum, then iterate through the remaining unsorted elements to find the true minimum.</div>'
+                .replace("{iteration}", (i + 1))
+                .replace("{val}", state.backlinks[i].value);
+            state.logMessage = '<div>Iteration {iteration}: Set {val} as the current minimum, then iterate through the remaining unsorted elements to find the true minimum.</div>'
+                .replace("{iteration}", (i + 1))
+                .replace("{val}", state.backlinks[i].value) + state.logMessage;
             state.lineNo = [1, 2, 3];
             state.backlinks[minPosition].highlight = HIGHLIGHT_SPECIAL;
 
@@ -423,7 +443,12 @@ var Sorting = function () {
 
             for (var j = i + 1; j < numElements; j++) {
                 // Check if {val} is smaller than the current minimum ({minVal}).
-                state.status = 'Check if {val} is smaller than the current minimum ({minVal}).'.replace("{val}", state.backlinks[j].value).replace("{minVal}", state.backlinks[minPosition].value);
+                state.status = '<div>Check if {val} is smaller than the current minimum ({minVal}).</div>'
+                    .replace("{val}", state.backlinks[j].value)
+                    .replace("{minVal}", state.backlinks[minPosition].value);
+                state.logMessage = '<div>Check if {val} is smaller than the current minimum ({minVal}).</div>'
+                    .replace("{val}", state.backlinks[j].value)
+                    .replace("{minVal}", state.backlinks[minPosition].value) + state.logMessage;
                 state.lineNo = 4;
                 state.backlinks[j].highlight = HIGHLIGHT_STANDARD;
                 StateHelper.updateCopyPush(statelist, state);
@@ -431,9 +456,11 @@ var Sorting = function () {
                 state.backlinks[j].highlight = HIGHLIGHT_NONE;
 
                 if (state.backlinks[j].value < state.backlinks[minPosition].value) {
-                    state.status = 'Set {val} as the new minimum.'
+                    state.status = '<div>Set {val} as the new minimum.</div>'
                         .replace("{val}", state.backlinks[j].value);
-                    state.logMessage = '<div>{val} is the current minimum</div>'
+                    // state.logMessage = '<div>{val} is the current minimum</div>'
+                    //     .replace("{val}", state.backlinks[j].value) + state.logMessage;
+                    state.logMessage = '<div>Set {val} as the new minimum.</div>'
                         .replace("{val}", state.backlinks[j].value) + state.logMessage;
                     state.lineNo = 5;
                     state.backlinks[minPosition].highlight = HIGHLIGHT_NONE;
@@ -446,11 +473,14 @@ var Sorting = function () {
 
             if (minPosition != i) { // Highlight the first-most unswapped position, if it isn't the minimum
                 // Set {val} as the new minimum.
-                state.status = 'Swap the minimum ({minVal}) with the first unsorted element ({element}).'
+                state.status = '<div>Swap the minimum ({minVal}) with the first unsorted element ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value);
 
-                state.logMessage = '<div>swap {minVal} and {element}</div>'
+                // state.logMessage = '<div>swap {minVal} and {element}</div>'
+                //     .replace("{minVal}", state.backlinks[minPosition].value)
+                //     .replace("{element}", state.backlinks[i].value) + state.logMessage;
+                state.logMessage = '<div>Swap the minimum ({minVal}) with the first unsorted element ({element}).</div>'
                     .replace("{minVal}", state.backlinks[minPosition].value)
                     .replace("{element}", state.backlinks[i].value) + state.logMessage;
 
@@ -463,13 +493,15 @@ var Sorting = function () {
             }
             else {
                 // As the minimum is the first unsorted element, no swap is necessary.
-                state.status = 'As the minimum is the first unsorted element, no swap is necessary.';
+                state.status = '<div>As the minimum is the first unsorted element, no swap is necessary.</div>';
+                state.logMessage = '<div>As the minimum is the first unsorted element, no swap is necessary.</div>' + state.logMessage;
                 state.lineNo = 6;
                 StateHelper.updateCopyPush(statelist, state);
             }
 
             // {val} is now considered sorted.
-            state.status = '{val} is now considered sorted.'.replace("{val}", state.backlinks[i].value);
+            state.status = '<div>{val} is now considered sorted.</div>'.replace("{val}", state.backlinks[i].value);
+            state.logMessage = '<div>{val} is now considered sorted.</div>'.replace("{val}", state.backlinks[i].value) + state.logMessage;
             state.backlinks[minPosition].highlight = HIGHLIGHT_NONE;
             state.backlinks[i].highlight = HIGHLIGHT_SORTED;
             StateHelper.updateCopyPush(statelist, state);
@@ -480,6 +512,7 @@ var Sorting = function () {
         // The array/list is now sorted.
         // (After all iterations, the last element will naturally be sorted.)
         state.status = 'List sorted!' + '<br>' + '(After all iterations, the last element will naturally be sorted.)';
+        state.logMessage = "<div>List sorted!</div>" + state.logMessage;
         status.lineNo = 0;
         StateHelper.updateCopyPush(statelist, state);
 
@@ -508,7 +541,8 @@ var Sorting = function () {
         quickSortSplit(state, 0, numElements - 1);
 
         state.lineNo = 0;
-        state.status = 'List sorted!';
+        state.status = '<div>List sorted!</div>';
+        state.logMessage = '<div>List sorted!</div>' + state.logMessage;
 
         for (var i = 0; i < numElements; i++)
             state.backlinks[i].highlight = HIGHLIGHT_SORTED; //unhighlight everything
@@ -516,11 +550,16 @@ var Sorting = function () {
     }
 
     var quickSortSplit = function (state, startIndex, endIndex) { //startIndex & endIndex inclusive
-        state.status = 'Working on partition [{partition}] (index {startIndex} to {endIndex} both inclusive).'
+        state.status = '<div>Working on partition [{partition}] (index {startIndex} to {endIndex} both inclusive).</div>'
             .replace("{partition}", state.backlinks.slice(startIndex, endIndex + 1).map(function (d) {
                 return d.value;
             }))
             .replace("{startIndex}", startIndex).replace("{endIndex}", endIndex);
+        state.logMessage = '<div>Working on partition [{partition}] (index {startIndex} to {endIndex} both inclusive).</div>'
+            .replace("{partition}", state.backlinks.slice(startIndex, endIndex + 1).map(function (d) {
+                return d.value;
+            }))
+            .replace("{startIndex}", startIndex).replace("{endIndex}", endIndex) + state.logMessage;
         state.lineNo = 1;
 
         if (startIndex > endIndex)
@@ -528,6 +567,7 @@ var Sorting = function () {
 
         if (startIndex == endIndex) {
             state.status += '<div>Since partition size == 1, element inside partition is necessarily at sorted position.</div>';
+            state.logMessage += '<div>Since partition size == 1, element inside partition is necessarily at sorted position.</div>' + state.logMessage;
             state.backlinks[startIndex].highlight = HIGHLIGHT_SORTED;
             StateHelper.updateCopyPush(statelist, state);
             return;
@@ -545,19 +585,30 @@ var Sorting = function () {
 
             pivotIndex = generateRandomNumber(startIndex, endIndex);
 
-            state.status += ' Randomly selected {pivot} (index {index}) as pivot.'.replace("{pivot}", state.backlinks[pivotIndex].value).replace("{index}", pivotIndex);
+            state.status += '<div>Randomly selected {pivot} (index {index}) as pivot.</div>'
+                .replace("{pivot}", state.backlinks[pivotIndex].value)
+                .replace("{index}", pivotIndex);
+            state.logMessage += '<div>Randomly selected {pivot} (index {index}) as pivot.</div>'
+                .replace("{pivot}", state.backlinks[pivotIndex].value)
+                .replace("{index}", pivotIndex) + state.logMessage;
             state.lineNo = [1, 2];
 
             state.backlinks[pivotIndex].highlight = HIGHLIGHT_PIVOT;
             StateHelper.updateCopyPush(statelist, state);
 
             if (pivotIndex != startIndex) {
-                state.status = 'Swap pivot ({pivot}}, index {index}) with first element ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)'
+                state.status = '<div>Swap pivot ({pivot}}, index {index}) with first element ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)</div>'
                     .replace("{pivot}", state.backlinks[pivotIndex].value)
                     .replace("{index}", pivotIndex)
                     .replace("{first}", state.backlinks[startIndex].value)
                     .replace("{firstIndex}", startIndex)
                     .replace("{storeIndex}", (startIndex + 1));
+                state.logMessage = '<div>Swap pivot ({pivot}}, index {index}) with first element ({first}, index {firstIndex}). (storeIndex = {storeIndex}.)</div>'
+                    .replace("{pivot}", state.backlinks[pivotIndex].value)
+                    .replace("{index}", pivotIndex)
+                    .replace("{first}", state.backlinks[startIndex].value)
+                    .replace("{firstIndex}", startIndex)
+                    .replace("{storeIndex}", (startIndex + 1)) + state.logMessage;
 
                 state.lineNo = [2, 3];
 
@@ -573,8 +624,11 @@ var Sorting = function () {
                 .replace("{pivot}", state.backlinks[pivotIndex].value)
                 .replace("{storeIndex}", (startIndex + 1));
 
-            state.logMessage = '<div>Select {val} as pivot</div>'
-                .replace("{val}", state.backlinks[pivotIndex].value) + state.logMessage;
+            // state.logMessage = '<div>Select {val} as pivot</div>'
+            //     .replace("{val}", state.backlinks[pivotIndex].value) + state.logMessage;
+            state.logMessage += '<div>Selecting {pivot} as pivot. (storeIndex = {storeIndex}.)</div>'
+                .replace("{pivot}", state.backlinks[pivotIndex].value)
+                .replace("{storeIndex}", (startIndex + 1)) + state.logMessage;
 
             state.lineNo = [1, 2, 3];
 
@@ -586,16 +640,19 @@ var Sorting = function () {
         var pivotValue = state.backlinks[pivotIndex].value;
 
         for (var i = storeIndex; i <= endIndex; i++) {
-            state.status = 'Checking if {val} < {pivot} (pivot).'
+            state.status = '<div>Checking if {val} < {pivot} (pivot).</div>'
                 .replace("{val}", state.backlinks[i].value)
                 .replace("{pivot}", pivotValue);
+            state.logMessage = '<div>Checking if {val} < {pivot} (pivot).</div>'
+                .replace("{val}", state.backlinks[i].value)
+                .replace("{pivot}", pivotValue) + state.logMessage;
             state.lineNo = [4, 5];
 
             state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
             StateHelper.updateCopyPush(statelist, state);
             if (state.backlinks[i].value < pivotValue) {
 
-                state.status = '{val} < {pivot} (pivot) is true. <div>Swapping index {idx} (value = {valI}) with element at storeIndex (index = {storeIdx}, value = {storeVal}).</div> (Value of storeIndex after swap = {newStoreIdx}).'
+                state.status = '<div>{val} < {pivot} (pivot) is true. <div>Swapping index {idx} (value = {valI}) with element at storeIndex (index = {storeIdx}, value = {storeVal}).</div> (Value of storeIndex after swap = {newStoreIdx}).</div>'
                     .replace("{idx}", i)
                     .replace("{val}", state.backlinks[i].value)
                     .replace("{valI}", state.backlinks[i].value)
@@ -603,6 +660,14 @@ var Sorting = function () {
                     .replace("{storeIdx}", storeIndex)
                     .replace("{storeVal}", state.backlinks[storeIndex].value)
                     .replace("{newStoreIdx}", (storeIndex + 1));
+                state.logMessage = '<div>{val} < {pivot} (pivot) is true. <div>Swapping index {idx} (value = {valI}) with element at storeIndex (index = {storeIdx}, value = {storeVal}).</div> (Value of storeIndex after swap = {newStoreIdx}).</div>'
+                    .replace("{idx}", i)
+                    .replace("{val}", state.backlinks[i].value)
+                    .replace("{valI}", state.backlinks[i].value)
+                    .replace("{pivot}", pivotValue)
+                    .replace("{storeIdx}", storeIndex)
+                    .replace("{storeVal}", state.backlinks[storeIndex].value)
+                    .replace("{newStoreIdx}", (storeIndex + 1)) + state.logMessage;
 
                 state.lineNo = [4, 6];
 
@@ -621,26 +686,33 @@ var Sorting = function () {
                 state.backlinks[i].highlight = HIGHLIGHT_RIGHT;
             }
         }
-        state.status = 'Iteration complete.';
+        state.status = '<div>Iteration complete.</div>';
+        state.logMessage = '<div>Iteration complete.</div>' + state.logMessage;
         state.lineNo = 4;
         StateHelper.updateCopyPush(statelist, state);
         if (storeIndex - 1 != pivotIndex) {
-            state.status = 'Swapping pivot (index = {pivotIdx}, value = {pivot}) with element at storeIndex - 1 (index = {newIdx}, value = {newVal}).'
+            state.status = '<div>Swapping pivot (index = {pivotIdx}, value = {pivot}) with element at storeIndex - 1 (index = {newIdx}, value = {newVal}).</div>'
                 .replace("{pivotIdx}", pivotIndex)
                 .replace("{pivot}", pivotValue)
                 .replace("{newIdx}", (storeIndex - 1))
                 .replace("{newVal}", state.backlinks[storeIndex - 1].value);
 
-            state.logMessage = '<div>Swap {val1} and {val2}</div>'
-                .replace("{val1}", pivotValue)
-                .replace("{val2}", state.backlinks[storeIndex - 1].value) + state.logMessage;
+            // state.logMessage = '<div>Swap {val1} and {val2}</div>'
+            //     .replace("{val1}", pivotValue)
+            //     .replace("{val2}", state.backlinks[storeIndex - 1].value) + state.logMessage;
+            state.logMessage = '<div>Swapping pivot (index = {pivotIdx}, value = {pivot}) with element at storeIndex - 1 (index = {newIdx}, value = {newVal}).</div>'
+                .replace("{pivotIdx}", pivotIndex)
+                .replace("{pivot}", pivotValue)
+                .replace("{newIdx}", (storeIndex - 1))
+                .replace("{newVal}", state.backlinks[storeIndex - 1].value) + state.logMessage;
 
             state.lineNo = 7;
             EntryBacklinkHelper.swapBacklinks(state.backlinks, storeIndex - 1, pivotIndex);
             StateHelper.updateCopyPush(statelist, state);
         }
 
-        state.status = 'Pivot is now at its sorted position.';
+        state.status = '<div>Pivot is now at its sorted position.</div>';
+        state.logMessage = '<div>Pivot is now at its sorted position.</div>' + state.logMessage;
         state.lineNo = 7;
 
         for (var i = startIndex; i <= endIndex; i++)
@@ -1134,7 +1206,7 @@ var Sorting = function () {
         var state = StateHelper.copyState(statelist[0]);
 
         populatePseudocode([
-           'Hello my friends'
+            'Hello my friends'
         ]);
 
         secondaryStateList = [false];
@@ -1142,7 +1214,7 @@ var Sorting = function () {
         var targetPlacing = 1;
         var backlinkBuckets = [[], [], [], [], [], [], [], [], [], []];
 
-        var maxValue = d3.max(state.backlinks, function(d) {
+        var maxValue = d3.max(state.backlinks, function (d) {
             return d.value;
         });
         while (maxValue >= 10) {
