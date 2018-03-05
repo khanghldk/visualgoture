@@ -2050,7 +2050,7 @@ var title = document.getElementById('title');
 function dfs(callback) {
     var options = [CP3_4_1, CP3_4_3, CP3_4_4, CP3_4_9, CP3_4_17, CP3_4_18, CP3_4_19];
     gtw.examples(options[Math.floor(Math.random()*7)]);
-    title.innerHTML = "Deep First Search";
+    title.innerHTML = "Depth-First Search";
     if (isPlaying) stop();
     var input = 0;
     $('#play').hide();
@@ -2063,7 +2063,7 @@ function dfs(callback) {
 function bfs(callback) {
     var options = [CP3_4_1, CP3_4_3, CP3_4_4, CP3_4_9, CP3_4_17, CP3_4_18, CP3_4_19];
     gtw.examples(options[Math.floor(Math.random()*7)]);
-    title.innerHTML = "Breath First Search";
+    title.innerHTML = "Breath-First Search";
     if (isPlaying) stop();
     var input = 0;
     $('#play').hide();
