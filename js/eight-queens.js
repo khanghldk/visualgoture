@@ -5,7 +5,7 @@ var note = document.getElementById('noteContent');
 $('#title-BK').click(function () {
 
 
-    title.innerHTML = "Backtracking";
+    title.innerHTML = "Eight Queens Puzzle";
     note.innerHTML = '<h1>Backtracking</h1><br/>';
     note.innerHTML += "<div>Backtracking is a general algorithm for finding all (or some) solutions to some computational " +
         "problems, notably constraint satisfaction problems, that incrementally builds candidates to the solutions, and abandons" +
@@ -69,7 +69,7 @@ function search() {
 
         document.getElementById('status').innerHTML
             = "<p style='font-size: 15px'>No queen can be placed in row " + (k + 2)
-            + "Backtrack to the row " + (k + 1) + "</p>";
+            + " -> Backtrack to the row " + (k + 1) + "</p>";
         $('#code1').html('');
         $('#code2').html('while (row != 8)');
         $('#code3').html('&nbsp&nbsp; FindPosition(k){');
