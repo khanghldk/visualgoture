@@ -67,7 +67,7 @@ var Sorting = function () {
         .linear()
         .range([0, maxHeight]);
 
-    width = $(".gridGraph").width() - 10;
+    width = $(".gridGraph").width();
 
     canvas = d3.select("#viz-canvas")
         .attr("height", maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows)
@@ -1741,7 +1741,7 @@ window.onload = function () {
 function responsivefy(svg) {
 
     var container = d3.select(svg.node().parentNode),
-        width = parseInt(svg.style("width")),
+        width = parseInt(svg.style("width")) + 30,
         height = parseInt(svg.style("height")),
         aspect = width / height;
 
