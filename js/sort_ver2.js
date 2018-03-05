@@ -760,8 +760,10 @@ var Sorting = function () {
         for (var i = 1; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
             state.lineNo = [2, 3];
-            state.status = "<div>Extract the first unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value);
-            state.logMessage = "<div>Extract the first unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value) + state.logMessage;
+            state.status = "<div>Extract the first unsorted element ({val}).</div>"
+                .replace('{val}', state.backlinks[i].value);
+            state.logMessage = "<div>Extract the first unsorted element ({val}).</div>"
+                .replace('{val}', state.backlinks[i].value) + state.logMessage;
             StateHelper.updateCopyPush(statelist, state);
             state.backlinks[i].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
 
@@ -776,10 +778,14 @@ var Sorting = function () {
                     // Swap
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     state.lineNo = [5, 6];
-                    state.status = "<div>{val1} > {val2} is true, hence move current sorted element ({val1}) to the right by 1.</div>"
-                        .replace('{val1}', state.backlinks[j].value).replace('{val2}', state.backlinks[j + 1].value);
-                    state.logMessage = "<div>{val1} > {val2} is true, hence move current sorted element ({val1}) to the right by 1.</div>"
-                        .replace('{val1}', state.backlinks[j].value).replace('{val2}', state.backlinks[j + 1].value) + state.logMessage;
+                    state.status = "<div>{val1} > {val2} is true, hence move current sorted element ({val}) to the right by 1.</div>"
+                        .replace('{val1}', state.backlinks[j].value)
+                        .replace('{val2}', state.backlinks[j + 1].value)
+                        .replace('{val}', state.backlinks[j].value);
+                    state.logMessage = "<div>{val1} > {val2} is true, hence move current sorted element ({val}) to the right by 1.</div>"
+                        .replace('{val1}', state.backlinks[j].value)
+                        .replace('{val2}', state.backlinks[j + 1].value)
+                        .replace('{val}', state.backlinks[j].value) + state.logMessage;
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, j, j + 1);
 
                     if (j > 0) {
