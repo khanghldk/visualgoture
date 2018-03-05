@@ -1,0 +1,219 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/index_new.css">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="css/commonMaster.css">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/navbar.css">
+</head>
+<body>
+
+<nav class="main-menu">
+    <ul>
+        <li>
+            <a href="home.html">
+                <i class="fa fa-2x fa-home"></i>
+                <span class="nav-text">
+                    HOME
+                </span>
+            </a>
+        </li>
+        <li>
+            <a id="title-LP">
+                <h1 class="fa">LP</h1>
+                <span class="nav-text">
+                    Linear Probing
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="title-SC">
+                <h1 class="fa">SC</h1>
+                <span class="nav-text">
+                    Separate Chaining
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="title-DH">
+                <h1 class="fa">DH</h1>
+                <span class="nav-text">
+                    Double Hashing
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+        <a id="title-QP">
+            <h1 class="fa">QP</h1>
+            <span class="nav-text">
+                    Quadratic Probing
+                </span>
+        </a>
+    </li>
+        <li class="has-subnav">
+            <a id="title-CP">
+                <h1 class="fa">CP</h1>
+                <span class="nav-text">
+                    Cubic Probing
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="title-RLP">
+                <h1 class="fa">RLP</h1>
+                <span class="nav-text">
+                    Reverse Linear Probing
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="area">
+    <div class="container">
+        <div class="gridHeader">
+            <div id="title" style="font-size: 20px; color: white"></div>
+        </div>
+        <div class="gridGraph" style="background-color: white">
+            <div id="viz">
+            </div>
+        </div>
+        <div class="gridNote">
+            <div id="noteContent" style="text-align: justify">
+
+            </div>
+        </div>
+        <div class="gridTimeline" style="background-color: white; text-align: center">
+            <i class="material-icons" id="go-to-beginning" onclick="clearConsole(); goToBeginning();">first_page</i>
+            <i class="material-icons" id="previous" onclick="stepBackward(); removeFirstLine();">skip_previous</i>
+            <i class="material-icons" id="pause" onclick="pause()">pause</i>
+            <i class="material-icons" id="play" onclick="checkPlay(); play()">play_arrow</i>
+            <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
+            <i class="material-icons" id="go-to-end" onclick="checkEnd();">last_page</i>
+        </div>
+        <div class="gridAction" style="background-color: white">
+            <div id="status" class="panel"><p style="font-size: 15px"></p></div>
+        </div>
+
+        <div class="gridControl" style="background-color: white">
+
+
+            <table>
+                <tr>
+                    <td>
+                        <div id="create-input" class="new-menu-option" style="float: left;">
+                        <p>
+                            Create empty hash table of size =
+                        </p>
+                    </div>
+                    </td>
+                    <td>
+                        <input type="number" id="v-create" title="Enter an Integer" autocomplete="off" min="0" max="19" value="13" style="width:100px;" >
+
+                    </td>
+                    <td>
+                        <div id="create-go" class="execAction" onclick="createTable(); clearConsole();" style="float: left; background-color: rgb(167, 212, 30); color: rgb(255, 255, 255);">
+                            <span>Go</span>
+                        </div>
+                        <div id="create-err" class="err" style="float: left;"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div id="search-input" class="new-menu-option" style="float: left;">Search v =
+
+                    </div></td>
+                    <td>
+                        <input type="number" id="v-search" title="Enter an Integer" autocomplete="off" min="0" value="7" style="width:100px;">
+                    </td>
+                    <td>
+                        <div id="search-go" class="execAction" onclick="searchInteger(); clearConsole();" style="float: left; background-color: rgb(167, 212, 30); color: rgb(255, 255, 255);">
+                            <span>Go</span>
+                        </div>
+                        <div id="search-err" class="err" style="float: left;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="insert-input" class="new-menu-option" style="float: left;">Insert v =
+
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" id="v-insert" title="Enter an Integer or comma-separated array of Integers" autocomplete="off" value="35,77" style="width:100px;">
+                    </td>
+                    <td>
+                        <div id="insert-go" class="execAction" onclick="insertInteger(); clearConsole();" style="float: left; background-color: rgb(167, 212, 30); color: rgb(255, 255, 255);">
+                            <span>Go</span>
+                        </div>
+                        <div id="insert-err" class="err" style="float: left;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="remove-input" class="new-menu-option" style="float: left;">Remove v =</div>
+                    </td>
+                    <td>
+                        <input type="number" id="v-remove" title="Enter an Integer" autocomplete="off" min="0" value="21" style="width:100px;">
+                    </td>
+                    <td>
+                        <div id="remove-go" class="execAction" onclick="removeInteger(); clearConsole();" style="float: left; background-color: rgb(167, 212, 30); color: rgb(255, 255, 255);">
+                        <span>Go</span>
+                    </div>
+                        <div id="remove-err" class="err" style="float: left;"></div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="gridLog" style="background-color: #2A2E45;">
+            <div id="console" class="panel">
+            </div>
+        </div>
+        <div class="gridPseudo">
+            <div id="codetrace" class="panel">
+                <p id="code1" style="padding-top: 10px;"></p>
+                <p id="code2"></p>
+                <p id="code3"></p>
+                <p id="code4"></p>
+                <p id="code5"></p>
+                <p id="code6"></p>
+                <p id="code7" style="padding-bottom: 10px;"></p>
+            </div>
+        </div>
+        <div class="gridFooter" style="background-color: #212121; height: 50px">
+            FOOTER
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript" src="js/home.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/d3.min.js"></script>
+<script type="text/javascript" src="js/viz-1.0.3.js"></script>
+<script type="text/javascript" src="js/viz.js"></script>
+<script type="text/javascript" src="js/graph_library.js"></script>
+
+<script type="text/javascript" src="js/hash_table.js"></script>
+
+</body>
+</html>
