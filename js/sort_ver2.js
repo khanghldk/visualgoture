@@ -19,6 +19,8 @@ var colourTheSecond = colourArray[generatedColours[1]];
 var colourTheThird = colourArray[generatedColours[2]];
 var colourTheFourth = colourArray[generatedColours[3]];
 
+var isRadixSort = false;
+
 var Sorting = function () {
 
     var HIGHLIGHT_NONE = "lightblue";
@@ -38,6 +40,7 @@ var Sorting = function () {
     var maxNumOfElements = 20;
     var gapBetweenPrimaryAndSecondaryRows = 30; // of the bars
     var maxElementValue = 50;
+    var maxRadixElementValue = 9999;
 
 
 // green, pink, blue, red, yellow, indigo, orange, lime
@@ -49,6 +52,7 @@ var Sorting = function () {
     var currentStep;
     var centreBarsOffset;
     var computeInversionIndex = false;
+    var radixSortBucketOrdering;
 
     this.selectedSortFunction;
 
@@ -56,6 +60,7 @@ var Sorting = function () {
 
     var scaler;
     var canvas;
+    var radixSortCanvas;
     var width;
 
     scaler = d3.scale
@@ -65,16 +70,18 @@ var Sorting = function () {
     width = $(".gridGraph").width() - 10;
 
     canvas = d3.select("#viz-canvas")
-        .attr("height", maxHeight * 2  + gapBetweenPrimaryAndSecondaryRows)
+        .attr("height", maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows)
         .attr("width", width);
 
+    radixSortCanvas = d3.select("#viz-radix-sort-canvas");
+
     var statelist = new Array();
+    var secondaryStateList = new Array();
 
 
     // var canvas = d3.select("#viz-canvas")
     //     .attr("height", maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows)
     //     .attr("width", barWidth * maxNumOfElements);
-
 
 
 // var canvas = d3.select("div#viz-canvas")
@@ -198,6 +205,47 @@ var Sorting = function () {
             return 'translate(' + ((d.secondaryPositionStatus * -1 - 1) * barWidth) + ", " + (maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows - scaler(d.value)) + ')';
         else
             return 'translation(0, 0)';
+    }
+
+    FunctionList.radixElement_left = function (d) {
+        if (d.secondaryPositionStatus == POSITION_USE_PRIMARY) {
+            return d.position * 65 + centreBarsOffset + "px";
+        }
+        return d.secondaryPositionStatus * 65 + 520 + "px";
+    }
+
+    FunctionList.radixElement_bottom = function (d, i) {
+        if (d.secondaryPositionStatus == POSITION_USE_PRIMARY) {
+            return 900 - 24 + "px";
+        }
+        return radixSortBucketOrdering[i] * 30 + 625 + "px";
+    }
+
+    FunctionList.radixElement_html = function (d) {
+        if (d.highlight == HIGHLIGHT_NONE) {
+            return d.value;
+        }
+
+        var text = "" + d.value;
+        while (text.length != 4) {
+            text = " " + text;
+        }
+
+        var positionToHighLight = 0;
+        var positionCounter = d.highlight;
+        while (positionCounter != 1) {
+            positionToHighLight++;
+            positionCounter /= 10;
+        }
+
+        positionToHighLight = 3 - positionToHighLight;
+
+        if (text.charAt(positionToHighLight) != " ") {
+            text = text.slice(0, positionToHighLight) + "<span style='color: red;'>" + text.charAt(positionToHighLight) + "</span>" + text.slice(positionToHighLight + 1);
+        }
+
+        text = text.trim();
+        return text;
     }
 
 // end class FunctionList
@@ -759,10 +807,10 @@ var Sorting = function () {
                     }
                     state.status = "<div>{val1} > {val2}, swap positions of {val1} and {val2}</div><div>Set swapped = true</div>"
                         .replace(/{val1}/g, state.backlinks[i + 1].value)
-                        .replace(/{val2}/g,state.backlinks[i].value);
+                        .replace(/{val2}/g, state.backlinks[i].value);
                     state.logMessage = "<div>{val1} > {val2}, swap positions of {val1} and {val2}</div><div>Set swapped = true</div>"
                         .replace(/{val1}/g, state.backlinks[i + 1].value)
-                        .replace(/{val2}/g,state.backlinks[i].value) + state.logMessage;
+                        .replace(/{val2}/g, state.backlinks[i].value) + state.logMessage;
                     StateHelper.updateCopyPush(statelist, state);
                     swapped = true;
                 } else {
@@ -1061,7 +1109,7 @@ var Sorting = function () {
             } else {
                 state.backlinks[rightIndex].secondaryPositionStatus = i;
 
-                state.lineNo  = [3, 6];
+                state.lineNo = [3, 6];
 
                 if (leftIndex < midIndex) {
                     state.status = "<div>Since {leftPart} (left partition) > {rightPart} (right partition), we copy {rightPart} into new array.</div>"
@@ -1081,6 +1129,69 @@ var Sorting = function () {
         }
     }
 
+    this.radixSort = function (callback) {
+        var numElements = statelist[0].backlinks.length;
+        var state = StateHelper.copyState(statelist[0]);
+
+        populatePseudocode([
+           'Hello my friends'
+        ]);
+
+        secondaryStateList = [false];
+        var currentPlacing = 1;
+        var targetPlacing = 1;
+        var backlinkBuckets = [[], [], [], [], [], [], [], [], [], []];
+
+        var maxValue = d3.max(state.backlinks, function(d) {
+            return d.value;
+        });
+        while (maxValue >= 10) {
+            targetPlacing *= 10;
+            maxValue = Math.floor(maxValue / 10);
+        }
+
+        for (; currentPlacing <= targetPlacing; currentPlacing *= 10) {
+            for (var i = 0; i < numElements; i++) {
+                state.backlinks[i].highlight = currentPlacing;
+            }
+
+            StateHelper.updateCopyPush(statelist, state);
+            secondaryStateList.push(true);
+
+            for (var i = 0; i < numElements; i++) {
+                var currentDigit = Math.floor(state.backlinks[i].value / currentPlacing) % 10;
+                state.backlinks[i].secondaryPositionStatus = currentDigit;
+                backlinkBuckets[currentDigit].push(state.backlinks[i]);
+                StateHelper.updateCopyPush(statelist, state);
+                secondaryStateList.push(true);
+            }
+
+            for (var i = 0, j = 0; i <= 9;) {
+                if (backlinkBuckets[i].length == 0) {
+                    i++;
+                    continue;
+                }
+                state.backlinks[j++] = backlinkBuckets[i].shift();
+            }
+
+            for (var i = 0; i < numElements; i++) {
+                state.backlinks[i].secondaryPositionStatus = POSITION_USE_PRIMARY;
+                StateHelper.updateCopyPush(statelist, state);
+                secondaryStateList.push(true);
+            }
+        }
+
+        for (var i = 0; i < numElements; i++) {
+            state.backlinks[i].highlight = HIGHLIGHT_NONE;
+        }
+        StateHelper.updateCopyPush(statelist, state);
+        secondaryStateList.push(false);
+
+        this.play(callback);
+
+        return true;
+    }
+
     var drawCurrentState = function () {
         drawState(currentStep);
         if (currentStep == (statelist.length - 1)) {
@@ -1092,7 +1203,11 @@ var Sorting = function () {
     }
 
     var drawState = function (stateIndex) {
-        drawBars(statelist[stateIndex]);
+        if (isRadixSort) {
+            drawRadixSortCanvas(statelist[stateIndex], secondaryStateList[stateIndex]);
+        } else {
+            drawBars(statelist[stateIndex]);
+        }
         $('#status p').html(statelist[stateIndex].status);
         $('#log p').html(statelist[stateIndex].logMessage);
         highlightLine(statelist[stateIndex].lineNo);
@@ -1151,6 +1266,47 @@ var Sorting = function () {
             .attr("transform", FunctionList.g_transform)
     };
 
+    var drawRadixSortCanvas = function (state, secondaryState) {
+        centreBarsOffset = (1700 - (state.entries.length * 65 - 10)) / 2;
+        var canvasData = radixSortCanvas.selectAll("div").data(state.entries);
+        var radixSortBucket = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        radixSortBucketOrdering = new Array(state.backlinks.length);
+
+        for (var i = 0; i < state.backlinks.length; i++) {
+            if (state.backlinks.secondaryPositionStatus != POSITION_USE_PRIMARY) {
+                radixSortBucketOrdering[state.backlinks[i].entryPosition] = radixSortBucket[state.backlinks[i].secondaryPositionStatus]++;
+            }
+        }
+
+        // If there's step needs bucket to show
+        if (secondaryState) {
+            $('#radix-sort-bucket-labels').show();
+        } else {
+            $('#radix-sort-bucket-labels').hide();
+        }
+
+        // Exit ==============================
+        var exitData = canvasData.exit()
+            .remove();
+
+        // Entry ==============================
+        var newData = canvasData.enter()
+            .append('div')
+            .classed({"radix-sort-element": true})
+            .style({
+                "left": FunctionList.radixElement_left,
+                "bottom": FunctionList.radixElement_bottom
+            }).html(FunctionList.radixElement_html);
+
+        // Update ==============================
+        canvasData.html(FunctionList.radixElement_html)
+            .transition()
+            .style({
+                "left": FunctionList.radixElement_left,
+                "bottom": FunctionList.radixElement_bottom
+            });
+    };
+
     this.play = function (callback) {
         issPlaying = true;
         drawCurrentState();
@@ -1196,12 +1352,17 @@ var Sorting = function () {
         currentStep = 0;
 
         statelist = [StateHelper.createNewState(numArray)];
+        secondaryStateList = [null];
         drawState(0);
     }
 
     this.createList = function () {
         var numArrayMaxListSize = 20;
         var numArrayMaxElementValue = maxElementValue;
+        if (isRadixSort) {
+            numArrayMaxListSize = 15;
+            numArrayMaxElementValue = maxRadixElementValue;
+        }
 
         var numArray = generateRandomNumberArray(generateRandomNumber(10, numArrayMaxListSize), numArrayMaxElementValue);
 
@@ -1259,6 +1420,10 @@ var note = document.getElementById('noteContent');
 // var gw = new Sorting();
 
 $('#bubbleSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Bubble Sort";
         changeSortType(gw.bubbleSort);
@@ -1271,6 +1436,10 @@ $('#bubbleSort').click(function () {
 });
 
 $('#selectionSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Selection Sort";
         changeSortType(gw.selectionSort);
@@ -1283,6 +1452,10 @@ $('#selectionSort').click(function () {
 });
 
 $('#quickSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Quick Sort";
         changeSortType(gw.quickSort);
@@ -1295,6 +1468,10 @@ $('#quickSort').click(function () {
 });
 
 $('#insertionSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Insertion Sort";
         changeSortType(gw.insertionSort);
@@ -1308,6 +1485,10 @@ $('#insertionSort').click(function () {
 });
 
 $('#cocktailSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Cocktail Shaker Sort";
         changeSortType(gw.cocktailShakerSort);
@@ -1321,6 +1502,10 @@ $('#cocktailSort').click(function () {
 });
 
 $('#shellSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Shell Sort";
         changeSortType(gw.shellSort);
@@ -1333,12 +1518,32 @@ $('#shellSort').click(function () {
 });
 
 $('#mergeSort').click(function () {
+    $('#viz-canvas').show();
+    $('#viz-radix-sort-canvas').hide();
+    isRadixSort = false;
+
     if (!gw.issPlaying) {
         title.innerHTML = "Merge Sort";
         changeSortType(gw.mergeSort);
 
         note.innerHTML = '<h1>Merge Sort</h1><br/>';
         note.innerHTML += "<div>In computer science, merge sort (also commonly spelled mergesort) is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the implementation preserves the input order of equal elements in the sorted output. Mergesort is a divide and conquer algorithm that was invented by John von Neumann in 1945. A detailed description and analysis of bottom-up mergesort appeared in a report by Goldstine and Neumann as early as 1948.</div>";
+    } else {
+        sort();
+    }
+});
+
+$('#radixSort').click(function () {
+    $('#viz-canvas').hide();
+    $('#viz-radix-sort-canvas').show();
+    isRadixSort = true;
+
+    if (!gw.issPlaying) {
+        title.innerHTML = "Radix Sort";
+        changeSortType(gw.radixSort);
+
+        note.innerHTML = '<h1>Radix Sort</h1><br/>';
+        note.innerHTML += "<div>In computer science, radix sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. A positional notation is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, radix sort is not limited to integers. Radix sort dates back as far as 1887 to the work of Herman Hollerith on tabulating machines.</div>";
     } else {
         sort();
     }

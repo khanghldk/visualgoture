@@ -109,11 +109,12 @@ div ul {
 }
 
 .gridLog {
+    max-height: 150px;
     grid-area: l;
     border: 1px solid black;
-    color: white;
+    color: black;
     overflow: scroll;
-    background-color: #2A2E45;
+    background-color: white;
 }
 
 .gridControl{
