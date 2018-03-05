@@ -126,3 +126,12 @@ div .radix-sort-element {
     top: 0;
     left: 0;
 }
+
+.execAction{
+    visibility: visible;
+    padding: 8px;
+}
+
+.execAction:hover{
+    opacity: 0.7;
+}

@@ -65,24 +65,58 @@ function search() {
 
         queens[k] = -1;
         k--; // back track to the previous row
-
+        resetPseudoCode();
 
         document.getElementById('status').innerHTML
             = "<p style='font-size: 15px'>No queen can be placed in row " + (k + 2)
             + "Backtrack to the row " + (k + 1) + "</p>";
+        $('#code1').html('');
+        $('#code2').html('while (row != 8)');
+        $('#code3').html('&nbsp&nbsp; FindPosition(k){');
+        $('#code4').html('&nbsp&nbsp; if (!isValid(row, column)');
+        $('#code5').html('&nbsp;&nbsp; row--;');
+        $('#code6').html('goBack();');
+        $('#code7').html('}');
 
+        $("#code5").css("background-color", "black");
+        $("#code5").css("color", "white");
+        $("#code6").css("background-color", "black");
+        $("#code6").css("color", "white");
     } else {
         queens[k] = j;
         k++;
         displayQueens();
         if (k == 8) {
+            resetPseudoCode();
             document.getElementById('status').innerHTML
                 = "<p style='font-size: 15px'>A solution is found.</p>" +
                 "";
+            $('#code1').html('');
+            $('#code2').html('while (row != 8)');
+            $('#code3').html('&nbsp&nbsp; FindPosition(k){');
+            $('#code4').html('&nbsp&nbsp; if (!isValid(row, column)');
+            $('#code5').html('&nbsp;&nbsp; row--;');
+            $('#code6').html('goBack();');
+            $('#code7').html('}');
+
+            $("#code7").css("background-color", "black");
+            $("#code7").css("color", "white");
         }
         else {
+            resetPseudoCode();
             document.getElementById('status').innerHTML
                 = "<p style='font-size: 15px'>A queen is placed in row " + k +"</p>";
+            $('#code1').html('');
+            $('#code2').html('while (row != 8)');
+            $('#code3').html('&nbsp&nbsp; FindPosition(k){');
+
+            $("#code3").css("background-color", "black");
+            $("#code3").css("color", "white");
+
+            $('#code4').html('&nbsp&nbsp; if (!isValid(row, column)');
+            $('#code5').html('&nbsp;&nbsp; row--;');
+            $('#code6').html('goBack();');
+            $('#code7').html('}');
         }
     }
 }
@@ -182,4 +216,21 @@ function init1() {
     }
 
 
+}
+
+function resetPseudoCode(){
+    $("#code1").css("background-color", "white");
+    $("#code1").css("color", "black");
+    $("#code2").css("background-color", "white");
+    $("#code2").css("color", "black");
+    $("#code3").css("background-color", "white");
+    $("#code3").css("color", "black");
+    $("#code4").css("background-color", "white");
+    $("#code4").css("color", "black");
+    $("#code5").css("background-color", "white");
+    $("#code5").css("color", "black");
+    $("#code6").css("background-color", "white");
+    $("#code6").css("color", "black");
+    $("#code7").css("background-color", "white");
+    $("#code7").css("color", "black");
 }
