@@ -270,6 +270,14 @@ var Sorting = function () {
         populatePseudocode([]);
     }
 
+    this.clearLog = function () {
+        $('#log > p').html('');
+    }
+
+    this.clearStatus = function () {
+        $('#status > p').html('');
+    }
+
     var populatePseudocode = function (code) {
         var i = 1;
         for (; i <= 12 && i <= code.length; i++) {
@@ -1509,9 +1517,11 @@ var Sorting = function () {
         statelist = [StateHelper.createNewState(numArray)];
         secondaryStateList = [null];
         drawState(0);
+        this.clearLog();
+        this.clearStatus();
     }
 
-    this.createList = function () {
+    this.createList = function (type) {
         var numArrayMaxListSize = 20;
         var numArrayMaxElementValue = maxElementValue;
         if (isRadixSort) {
@@ -1521,11 +1531,45 @@ var Sorting = function () {
 
         var numArray = generateRandomNumberArray(generateRandomNumber(10, numArrayMaxListSize), numArrayMaxElementValue);
 
+        switch (type) {
+            case 'random':
+                break;
+            case 'custom':
+                numArray = $('#custom-input').val().split(",");
+
+                if (numArray.length > numArrayMaxListSize) {
+                    window.alert('List max size is ' + numArrayMaxListSize);
+                    return false;
+                }
+
+                for (var i = 0; i < numArray.length; i++) {
+                    var num = convertToNumber(numArray[i]);
+
+                    if (numArray[i].trim() == "") {
+                        window.alert('Missing element in custom list!');
+                        return false;
+                    }
+
+                    if (isNaN(num)) {
+                        window.alert('Element \"{el}\" is not number!'.replace('{el}', numArray[i].trim()));
+                        return false;
+                    }
+
+                    if (num < 1 || num > numArrayMaxElementValue) {
+                        window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}',numArrayMaxElementValue));
+                        return false;
+                    }
+
+                    numArray[i] = convertToNumber(numArray[i]);
+                }
+                break;
+        }
+
         this.loadNumberList(numArray);
     }
 
     this.init = function () {
-        this.createList();
+        this.createList('random');
         // showCodetracePanel();
         // showStatusPanel();
     }
@@ -1573,6 +1617,18 @@ var title = document.getElementById('title');
 var note = document.getElementById('noteContent');
 
 // var gw = new Sorting();
+
+$('#execute').click(function() {
+   sort();
+});
+
+$('#create-random').click(function() {
+    createList('random');
+});
+
+$('#create-custom').click(function() {
+   createList('custom');
+});
 
 $('#bubbleSort').click(function () {
     $('#viz-canvas').show();
@@ -1766,7 +1822,7 @@ function responsivefy(svg) {
 
 function changeSortType(newSortingFunction) {
 
-    createList();
+    createList('random');
 
     if (isPlaying) stop();
     gw.clearPseudocode();
@@ -1776,10 +1832,10 @@ function changeSortType(newSortingFunction) {
 
 }
 
-function createList() {
+function createList(type) {
     if (isPlaying) stop();
     setTimeout(function () {
-        gw.createList();
+        gw.createList(type);
         isPlaying = false;
     }, 1000);
 }
@@ -1791,4 +1847,8 @@ function sort(callback) {
             isPlaying = true;
         }
     }, 1000);
+}
+
+function convertToNumber(num) {
+    return +num;
 }

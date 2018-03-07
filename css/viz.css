@@ -126,3 +126,75 @@ div .radix-sort-element {
     top: 0;
     left: 0;
 }
+
+.gridControl-item {
+    margin: 2.5px 0;
+}
+
+.gridControl button {
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #af4e4c;
+    padding: 15px 23px;
+}
+
+.gridControl > * {
+    width: 100%;
+}
+
+.gridControl button:hover {
+    background-color: #96605f;
+}
+
+.gridControl input {
+    padding: 5px 6px;
+}
+
+#execute {
+    background-color: #4CAF50;
+    font-weight: bold;
+}
+
+#execute:hover {
+    background-color: #5f9661;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    text-align: center;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover button {
+    background-color: #96605f;
+}
+
+.dropdown-content-item {
+    width: 100%;
+}
