@@ -5,6 +5,7 @@ html {
 
 #viz {
     width: 100%;
+    height: 500px;
     text-align: center;
     overflow: hidden;
     padding-top: 10px;
@@ -91,4 +92,92 @@ html {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.execAction {
+    cursor: pointer;
+}
+
+.execAction p:hover {
+    background: black;
+    color: white;
+}
+
+.menu-highlighted {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.panel {
+    position: fixed;
+    color: white;
+    width: 0px;
+    overflow: hidden;
+    background: #777;
+    white-space: nowrap;
+}
+
+.panel-hide {
+    position: fixed;
+    cursor: pointer;
+    background: #777;
+}
+
+#current-action {
+    top: 30px;
+    right: 60px;
+    width: 100px;
+    display: block;
+    background: none;
+    overflow: normal;
+    white-space: normal;
+    text-align: right;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#actions {
+    top: 30px;
+    left: 43px;
+}
+
+#actions p {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#actions {
+    color: white;
+}
+
+#actions p:hover {
+    background: black;
+    color: white;
+}
+
+#actions p:first-of-type {
+    padding-top: 10px;
+}
+
+#actions p:last-of-type {
+    padding-bottom: 10px;
+}
+
+#actions-hide {
+    top: 30px;
+    left: 0px;
+    padding-left: 14px;
+    padding-right: 15px;
+}
+
+.action-menu-pullout {
+    display: none;
+    position: absolute;
+    left: 320px;
+}
+
+.action-menu-pullout input {
+    background: black;
+    color: white;
 }
