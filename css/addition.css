@@ -1,0 +1,71 @@
+.material-icons {
+    color: black;
+}
+
+#log {
+    height: 200px;
+    max-height: inherit;
+    width: inherit;
+    /*border:1px solid #ccc;*/
+    overflow: auto;
+    /*white-space: nowrap;*/
+}
+
+a, i {
+    cursor: pointer;
+}
+
+#codetrace, #status {
+    font-family: "PT Sans";
+    font-size: 13px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#status {
+    -overflow: auto;
+}
+
+.dropdown-content {
+    text-align: center;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover button {
+    background-color: #96605f;
+}
+
+.dropdown-content-item {
+    width: 100%;
+}
+
+.execAction{
+    padding-bottom: 7px;
+    padding-top: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.execAction:hover{
+    opacity: 0.7;
+}

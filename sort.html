@@ -10,6 +10,9 @@
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="css/sub-menu.css">
     <link rel="stylesheet" href="css/vendor.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/addition.css">
     <!-- Theme initialization -->
 
 
@@ -35,7 +38,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
             </div>
-            <div class="header-block header-block-search">
+            <div class="header-block header-block-search col-md-3">
                 <form role="search">
                     <div class="input-container">
                         <i class="fa fa-search"></i>
@@ -43,6 +46,9 @@
                         <div class="underline"></div>
                     </div>
                 </form>
+            </div>
+            <div class="header-block header-block-buttons col-md-9">
+                <div id="title" style="font-size: 20px; color: black"></div>
             </div>
         </header>
         <aside class="sidebar">
@@ -54,17 +60,17 @@
                 </div>
                 <nav class="menu">
                     <ul class="sidebar-menu metismenu" id="sidebar-menu">
-                        <li class="active">
+                        <li>
                             <a href="index.html">
                                 <i class="fa fa-home"></i> Home </a>
                         </li>
-                        <li>
+                        <li class="active open">
                             <a href="">
                                 <i class="fa fa-th-large"></i> Sorting
                                 <i class="fa arrow"></i>
                             </a>
                             <ul class="sidebar-nav">
-                                <li>
+                                <li class="active">
                                     <a id="bubbleSort"> Bubble Sort </a>
                                 </li>
                                 <li>
@@ -288,124 +294,103 @@
         <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
         <div class="mobile-menu-handle"></div>
         <article class="content dashboard-page">
-            <section class="section">
+
                 <div class="row sameheight-container">
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s1" style="background-color: #233D4D">
-                                    <img src="icons/sorting.png" alt="Sorting" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="red">
-                                                <a href="sort.html">Sorting</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="gridGraph" style="background-color: white">
+                                <svg id="viz-canvas" style="margin: 10px;"></svg>
+                                <div id="viz-radix-sort-canvas" style="display: none; margin: 10px;">
+                                <span id="radix-sort-bucket-labels">
+                                    <span class="radix-sort-bucket-label">0</span>
+                                    <span class="radix-sort-bucket-label">1</span>
+                                    <span class="radix-sort-bucket-label">2</span>
+                                    <span class="radix-sort-bucket-label">3</span>
+                                    <span class="radix-sort-bucket-label">4</span>
+                                    <span class="radix-sort-bucket-label">5</span>
+                                    <span class="radix-sort-bucket-label">6</span>
+                                    <span class="radix-sort-bucket-label">7</span>
+                                    <span class="radix-sort-bucket-label">8</span>
+                                    <span class="radix-sort-bucket-label">9</span>
+                                </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s2" style="background-color: #E3BAC6">
+                        <div class="card-block">
+                            <div class="title-block">
+                                <h4 class="title" id="noteTitle"></h4>
 
-                                    <img src="icons/linked-list.png" alt="List" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="blue">
-                                                <a href="https://huydang61318.github.io/BinarySearchTree/list.html">
-                                                    Linked List
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s3" style="background-color: #BDD4E7">
+                            <div id="noteContent" style="text-align: justify">
 
-                                    <img src="icons/binary-search-tree.png" alt="Binary Search Tree"
-                                         height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="yellow">
-                                                <a href="https://huydang61318.github.io/BinarySearchTree/bst.html">
-                                                    Binary Search Tree
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section class="section">
+                <div class="row">
+                    <div class="col-md-8" style="text-align: center">
+                        <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">first_page</i>
+                        <i class="material-icons" id="previous" onclick="stepBackward()">skip_previous</i>
+                        <i class="material-icons" id="pause" onclick="pause()">pause</i>
+                        <i class="material-icons" id="play" onclick="play()">play_arrow</i>
+                        <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
+                        <i class="material-icons" id="go-to-end" onclick="goToEnd()">last_page</i>
+                    </div>
+                </div>
                 <div class="row sameheight-container">
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s4" style="background-color: #1985A1">
-                                    <a href="hash-table.html">
-                                        <img src="icons/hashing.png" alt="Hashing" height="100%" width="100%">
-                                        <nav class="colorNav">
-                                            <ul>
-                                                <li class="purple">
-                                                    <a href="hash-table.html">Hashing</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </a>
+                    <div class="col-md-3">
+                        <button id="execute" class="btn btn-primary" style="width: 100%">Execute</button>
+                        <div class="dropdown gridControl-item">
+                            <button class="btn btn-primary" style="width: 100%">Create</button>
+                            <div class="dropdown-content">
+                                <button id="create-random" class="btn btn-success dropdown-content-item">
+                                    Random
+                                </button>
+                                <div class="dropdown-content-item">
+                                    <input type="text" id="custom-input" style="width: 100%;" autocomplete="none"/>
+                                    <button id="create-custom" class="btn btn-success dropdown-content-item">
+                                        Custom
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s5" style="background-color: #DD9AC2">
-
-                                    <img src="icons/graph.png" alt="Graph" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="green">
-                                                <a href="graphTravelsal.html">Graph</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-
-                                </div>
-                            </div>
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div id="log" class="panel"><p style="font-size: 13px"></p></div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div class="square" id="s6" style="background-color: #C2E812">
-                                    <img src="icons/recursion.png" alt="Array" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="blue">
-                                                <a href="#">Recursion</a>
-                                                <ul>
-                                                    <li><a href="eight-queens.html">BackTracking</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                        <div class="row card items">
+                            <ul class="item-list striped" style="font-size: 13px">
+                                <li class="item" style="height: 50px">
+                                    <div id="status" class="panel"><p></p></div>
+                                </li>
+                                <li class="item">
+                                    <div class="gridPseudo" style="background-color: white">
+                                        <div id="codetrace" class="panel">
+                                            <p id="code1" style="padding-top: 10px;"></p>
+                                            <p id="code2"></p>
+                                            <p id="code3"></p>
+                                            <p id="code4"></p>
+                                            <p id="code5"></p>
+                                            <p id="code6"></p>
+                                            <p id="code7"></p>
+                                            <p id="code8"></p>
+                                            <p id="code9"></p>
+                                            <p id="code10"></p>
+                                            <p id="code11"></p>
+                                            <p id="code12" style="padding-bottom: 10px;"></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
                         </div>
                     </div>
                 </div>
-            </section>
         </article>
         <footer class="footer">
 
@@ -508,6 +493,26 @@
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-80463319-4', 'auto');
     ga('send', 'pageview');
+</script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+<script src="js/viz.js"></script>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="js/sort_ver2.js"></script>
+<script>
+    var gw = new Sorting();
+    var svg = d3.select("#viz-canvas");
+    $('#bubbleSort').click();
+    window.addEventListener('resize', responsivefy(svg));
+    //    d3.selectAll("#radix-sort-bucket-labels span")
+    //        .style({
+    //            "left": function (d, i) {
+    //                return 17.5 + i * 65 + "px";
+    //            }
+    //        });
 </script>
 <script src="js/vendor.js"></script>
 <script src="js/app.js"></script>
