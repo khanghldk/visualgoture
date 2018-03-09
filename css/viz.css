@@ -198,3 +198,14 @@ div .radix-sort-element {
 .dropdown-content-item {
     width: 100%;
 }
+
+.execAction{
+    padding-bottom: 7px;
+    padding-top: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.execAction:hover{
+    opacity: 0.7;
+}
