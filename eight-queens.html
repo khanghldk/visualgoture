@@ -1,0 +1,141 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/index_new.css">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="css/commonMaster.css">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/boxes.css">
+    <link rel="stylesheet" href="css/codecolor.css">
+
+    <script type="text/javascript" src="js/GetElementPosition.js"></script>
+
+    <style>
+        #highlight {
+            background-color:chocolate;
+            opacity: 0.75;
+            position:absolute;
+            width:315px;
+            height: 35px;
+            /*          padding: 3px;
+                      margin-top:0px;*/
+            top: 79px;
+            left: 62px;
+        }
+
+        .cell {
+            position:absolute;
+            width:40px;
+            height: 40px;
+            left:20px;
+            top:40px;
+            border-width: 2px;
+            border-color: black;
+            background-color:gray;
+        }
+    </style>
+</head>
+<body onload="init()" onresize="init()">
+
+<nav class="main-menu">
+    <ul>
+        <li>
+            <a href="home.html">
+                <i class="fa fa-2x fa-home"></i>
+                <span class="nav-text">
+                    HOME
+                </span>
+            </a>
+        </li>
+        <li>
+            <a id="title-BK">
+                <h1 class="fa">BK</h1>
+                <span class="nav-text">
+                    Backtracking
+                </span>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+<div class="area">
+    <div class="container">
+        <div class="gridHeader">
+            <div id="title" style="font-size: 20px; color: white"></div>
+        </div>
+        <div class="gridGraph" style="background-color: white">
+            <div id="program" style="width: 320px; height: 500px; font-family: courier; font-size: 12; margin: 0px auto; border: 1px; text-align: left">
+                <script>
+                    for (var i = 0; i < 8; i++) {
+                        document.writeln('<div>');
+                        for (var j = 0; j < 8; j++) {
+                            document.writeln('<div id="cell' + i + j + '" class = "cell"></div>');
+                        }
+                        document.writeln('</div>');
+                    }
+
+                    for (var i = 0; i < 8; i++) {
+                        document.writeln("<img id='queen" + i + "' style='position: absolute; " +
+                            "top: 60px; border-width: 1px; border-style:solid; " +
+                            "border-color:red; left: 40px; width: 40px; height: 40px' " +
+                            "src = 'icons/queen.jpg' / > ");
+                    }
+                </script>
+            </div>
+            <div id="highlight" style="visibility: visible; top: 347.438px; left: 140px;"></div>
+        </div>
+        <div class="gridNote">
+            <div id="noteContent" style="text-align: justify">
+
+            </div>
+        </div>
+        <div class="gridTimeline" style="background-color: white; text-align: center">
+            <i class="material-icons" id="go-to-beginning" onclick="clearConsole(); goToBeginning(); restart();">first_page</i>
+            <i class="material-icons" id="previous" onclick="stepBackward(); removeFirstLine();">skip_previous</i>
+            <i class="material-icons" id="pause" onclick="pause()">pause</i>
+            <i class="material-icons" id="play" onclick="start();">play_arrow</i>
+            <i class="material-icons" id="next" onclick="stepForward(); next();">skip_next</i>
+            <i class="material-icons" id="go-to-end" onclick=" pause(); goToEnd();">last_page</i>
+        </div>
+        <div class="gridAction" style="background-color: white">
+            <div id="status" class="panel"><p style="font-size: 15px"></p></div>
+        </div>
+
+        <div class="gridControl" style="background-color: white">
+
+
+        </div>
+        <div class="gridLog">
+            <div id="console" class="panel" style="height: 100%">
+            </div>
+        </div>
+        <div class="gridPseudo">
+            <div id="codetrace" class="panel">
+                <p id="code1" style="padding-top: 10px;"></p>
+                <p id="code2"></p>
+                <p id="code3"></p>
+                <p id="code4"></p>
+                <p id="code5"></p>
+                <p id="code6"></p>
+                <p id="code7" style="padding-bottom: 10px;"></p>
+            </div>
+        </div>
+        <div class="gridFooter" style="background-color: #212121; height: 50px">
+            FOOTER
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript" src="js/home.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/d3.min.js"></script>
+<script type="text/javascript" src="js/viz-1.0.3.js"></script>
+<script type="text/javascript" src="js/viz.js"></script>
+<script type="text/javascript" src="js/graph_library.js"></script>
+
+<script type="text/javascript" src="js/eight-queens.js"></script>
+
+</body>
+</html>

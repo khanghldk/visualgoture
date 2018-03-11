@@ -37,7 +37,7 @@ var Sorting = function () {
     var barWidth = 50;
     var maxHeight = 230;
     var gapBetweenBars = 5;
-    var maxNumOfElements = 20;
+    var maxNumOfElements = 15;
     var gapBetweenPrimaryAndSecondaryRows = 30; // of the bars
     var maxElementValue = 50;
     var maxRadixElementValue = 9999;
@@ -67,7 +67,7 @@ var Sorting = function () {
         .linear()
         .range([0, maxHeight]);
 
-    width = $(".gridGraph").width() - 10;
+    width = $(".gridGraph").width();
 
     canvas = d3.select("#viz-canvas")
         .attr("height", maxHeight * 2 + gapBetweenPrimaryAndSecondaryRows)
@@ -268,6 +268,14 @@ var Sorting = function () {
 
     this.clearPseudocode = function () {
         populatePseudocode([]);
+    }
+
+    this.clearLog = function () {
+        $('#log > p').html('');
+    }
+
+    this.clearStatus = function () {
+        $('#status > p').html('');
     }
 
     var populatePseudocode = function (code) {
@@ -760,8 +768,10 @@ var Sorting = function () {
         for (var i = 1; i < numElements; i++) {
             state.backlinks[i].highlight = HIGHLIGHT_SPECIAL;
             state.lineNo = [2, 3];
-            state.status = "<div>Extract the first unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value);
-            state.logMessage = "<div>Extract the first unsorted element ({val}).</div>".replace('{val}', state.backlinks[i].value) + state.logMessage;
+            state.status = "<div>Extract the first unsorted element ({val}).</div>"
+                .replace('{val}', state.backlinks[i].value);
+            state.logMessage = "<div>Extract the first unsorted element ({val}).</div>"
+                .replace('{val}', state.backlinks[i].value) + state.logMessage;
             StateHelper.updateCopyPush(statelist, state);
             state.backlinks[i].secondaryPositionStatus = POSITION_USE_SECONDARY_IN_DEFAULT_POSITION;
 
@@ -776,10 +786,14 @@ var Sorting = function () {
                     // Swap
                     state.backlinks[j].highlight = HIGHLIGHT_SORTED;
                     state.lineNo = [5, 6];
-                    state.status = "<div>{val1} > {val2} is true, hence move current sorted element ({val1}) to the right by 1.</div>"
-                        .replace('{val1}', state.backlinks[j].value).replace('{val2}', state.backlinks[j + 1].value);
-                    state.logMessage = "<div>{val1} > {val2} is true, hence move current sorted element ({val1}) to the right by 1.</div>"
-                        .replace('{val1}', state.backlinks[j].value).replace('{val2}', state.backlinks[j + 1].value) + state.logMessage;
+                    state.status = "<div>{val1} > {val2} is true, hence move current sorted element ({val}) to the right by 1.</div>"
+                        .replace('{val1}', state.backlinks[j].value)
+                        .replace('{val2}', state.backlinks[j + 1].value)
+                        .replace('{val}', state.backlinks[j].value);
+                    state.logMessage = "<div>{val1} > {val2} is true, hence move current sorted element ({val}) to the right by 1.</div>"
+                        .replace('{val1}', state.backlinks[j].value)
+                        .replace('{val2}', state.backlinks[j + 1].value)
+                        .replace('{val}', state.backlinks[j].value) + state.logMessage;
                     EntryBacklinkHelper.swapBacklinks(state.backlinks, j, j + 1);
 
                     if (j > 0) {
@@ -1283,7 +1297,7 @@ var Sorting = function () {
         var state = StateHelper.copyState(statelist[0]);
 
         populatePseudocode([
-            'Hello my friends'
+
         ]);
 
         secondaryStateList = [false];
@@ -1503,10 +1517,12 @@ var Sorting = function () {
         statelist = [StateHelper.createNewState(numArray)];
         secondaryStateList = [null];
         drawState(0);
+        this.clearLog();
+        this.clearStatus();
     }
 
-    this.createList = function () {
-        var numArrayMaxListSize = 20;
+    this.createList = function (type) {
+        var numArrayMaxListSize = 15;
         var numArrayMaxElementValue = maxElementValue;
         if (isRadixSort) {
             numArrayMaxListSize = 15;
@@ -1515,11 +1531,45 @@ var Sorting = function () {
 
         var numArray = generateRandomNumberArray(generateRandomNumber(10, numArrayMaxListSize), numArrayMaxElementValue);
 
+        switch (type) {
+            case 'random':
+                break;
+            case 'custom':
+                numArray = $('#custom-input').val().split(",");
+
+                if (numArray.length > numArrayMaxListSize) {
+                    window.alert('List max size is ' + numArrayMaxListSize);
+                    return false;
+                }
+
+                for (var i = 0; i < numArray.length; i++) {
+                    var num = convertToNumber(numArray[i]);
+
+                    if (numArray[i].trim() == "") {
+                        window.alert('Missing element in custom list!');
+                        return false;
+                    }
+
+                    if (isNaN(num)) {
+                        window.alert('Element \"{el}\" is not number!'.replace('{el}', numArray[i].trim()));
+                        return false;
+                    }
+
+                    if (num < 1 || num > numArrayMaxElementValue) {
+                        window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}',numArrayMaxElementValue));
+                        return false;
+                    }
+
+                    numArray[i] = convertToNumber(numArray[i]);
+                }
+                break;
+        }
+
         this.loadNumberList(numArray);
     }
 
     this.init = function () {
-        this.createList();
+        this.createList('random');
         // showCodetracePanel();
         // showStatusPanel();
     }
@@ -1566,18 +1616,41 @@ var title = document.getElementById('title');
 
 var note = document.getElementById('noteContent');
 
+var noteTitle = document.getElementById('noteTitle');
+
 // var gw = new Sorting();
+
+$('#execute').click(function() {
+   sort();
+});
+
+$('#create-random').click(function() {
+    createList('random');
+});
+
+$('#create-custom').click(function() {
+   createList('custom');
+});
+
+this.changeClass = function () {
+    // $('li').removeClass('active');
+    // $(this).closest('li').addClass('active');
+}
+
+
 
 $('#bubbleSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
 
+    changeClass();
+
     if (!gw.issPlaying) {
         title.innerHTML = "Bubble Sort";
         changeSortType(gw.bubbleSort);
-        note.innerHTML = '<h1>Bubble Sort</h1><br/>';
-        note.innerHTML += "<div>Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.</div>";
+        noteTitle.innerHTML = 'Bubble Sort';
+        note.innerHTML = "<div>Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.</div>";
 
     } else {
         sort();
@@ -1588,13 +1661,13 @@ $('#selectionSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
+    changeClass();
     if (!gw.issPlaying) {
         title.innerHTML = "Selection Sort";
         changeSortType(gw.selectionSort);
 
-        note.innerHTML = '<h1>Selection Sort</h1><br/>';
-        note.innerHTML += "<div>Selection sort is a sorting algorithm, specifically an in-place comparison sort. It has O(n2) time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort. Selection sort is noted for its simplicity, and it has performance advantages over more complicated algorithms in certain situations, particularly where auxiliary memory is limited.</div>";
+        noteTitle.innerHTML = 'Selection Sort';
+        note.innerHTML = "<div>Selection sort is a sorting algorithm, specifically an in-place comparison sort. It has O(n2) time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort. Selection sort is noted for its simplicity, and it has performance advantages over more complicated algorithms in certain situations, particularly where auxiliary memory is limited.</div>";
     } else {
         sort();
     }
@@ -1604,13 +1677,13 @@ $('#quickSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
+    changeClass();
     if (!gw.issPlaying) {
         title.innerHTML = "Quick Sort";
         changeSortType(gw.quickSort);
 
-        note.innerHTML = '<h1>Quick Sort</h1><br/>';
-        note.innerHTML += "<div>Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm, serving as a systematic method for placing the elements of an array in order. Developed by Tony Hoare in 1959, with his work published in 1961, it is still a commonly used algorithm for sorting. When implemented well, it can be about two or three times faster than its main competitors, merge sort and heapsort.</div>";
+        noteTitle.innerHTML = 'Quick Sort';
+        note.innerHTML = "<div>Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm, serving as a systematic method for placing the elements of an array in order. Developed by Tony Hoare in 1959, with his work published in 1961, it is still a commonly used algorithm for sorting. When implemented well, it can be about two or three times faster than its main competitors, merge sort and heapsort.</div>";
     } else {
         sort();
     }
@@ -1620,13 +1693,13 @@ $('#insertionSort').click(function () {
     $('#viz-canvas').show();
     $('#viz-radix-sort-canvas').hide();
     isRadixSort = false;
-
+    changeClass();
     if (!gw.issPlaying) {
         title.innerHTML = "Insertion Sort";
         changeSortType(gw.insertionSort);
 
-        note.innerHTML = '<h1>Insertion Sort</h1><br/>';
-        note.innerHTML += "<div>Insertion sort is a simple sorting algorithm that builds the final sorted array (or list) one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort.</div>";
+        noteTitle.innerHTML = 'Insertion Sort';
+        note.innerHTML = "<div>Insertion sort is a simple sorting algorithm that builds the final sorted array (or list) one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort.</div>";
 
     } else {
         sort();
@@ -1642,8 +1715,8 @@ $('#cocktailSort').click(function () {
         title.innerHTML = "Cocktail Shaker Sort";
         changeSortType(gw.cocktailShakerSort);
 
-        note.innerHTML = '<h2>Cocktail Shaker Sort</h2><br/>';
-        note.innerHTML += "<div>Cocktail shaker sort, also known as bidirectional bubble sort, cocktail sort, shaker sort (which can also refer to a variant of selection sort), ripple sort, shuffle sort, or shuttle sort, is a variation of bubble sort that is both a stable sorting algorithm and a comparison sort. The algorithm differs from a bubble sort in that it sorts in both directions on each pass through the list. This sorting algorithm is only marginally more difficult to implement than a bubble sort, and solves the problem of turtles in bubble sorts</div>  ";
+        noteTitle.innerHTML = 'Cocktail Shaker Sort';
+        note.innerHTML = "<div>Cocktail shaker sort, also known as bidirectional bubble sort, cocktail sort, shaker sort (which can also refer to a variant of selection sort), ripple sort, shuffle sort, or shuttle sort, is a variation of bubble sort that is both a stable sorting algorithm and a comparison sort. The algorithm differs from a bubble sort in that it sorts in both directions on each pass through the list. This sorting algorithm is only marginally more difficult to implement than a bubble sort, and solves the problem of turtles in bubble sorts</div>  ";
 
     } else {
         sort();
@@ -1659,8 +1732,8 @@ $('#combSort').click(function () {
         title.innerHTML = "Comb Sort";
         changeSortType(gw.combSort);
 
-        note.innerHTML = '<h2>Comb Sort</h2><br/>';
-        note.innerHTML += "<div>Comb Sort is mainly an improvement over Bubble Sort. Bubble sort always compares adjacent values. So all inversions are removed one by one. Comb Sort improves on Bubble Sort by using gap of size more than 1. The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1. Thus Comb Sort removes more than one inversion counts with one swap and performs better than Bublle Sort.</div>";
+        noteTitle.innerHTML = 'Comb Sort';
+        note.innerHTML = "<div>Comb Sort is mainly an improvement over Bubble Sort. Bubble sort always compares adjacent values. So all inversions are removed one by one. Comb Sort improves on Bubble Sort by using gap of size more than 1. The gap starts with a large value and shrinks by a factor of 1.3 in every iteration until it reaches the value 1. Thus Comb Sort removes more than one inversion counts with one swap and performs better than Bublle Sort.</div>";
 
     } else {
         sort();
@@ -1676,8 +1749,8 @@ $('#shellSort').click(function () {
         title.innerHTML = "Shell Sort";
         changeSortType(gw.shellSort);
 
-        note.innerHTML = '<h1>Shell Sort</h1><br/>';
-        note.innerHTML += "<div>Shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort. It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort). The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared.</div>";
+        noteTitle.innerHTML = 'Shell Sort';
+        note.innerHTML = "<div>Shellsort, also known as Shell sort or Shell's method, is an in-place comparison sort. It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort). The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared.</div>";
     } else {
         sort();
     }
@@ -1692,8 +1765,8 @@ $('#mergeSort').click(function () {
         title.innerHTML = "Merge Sort";
         changeSortType(gw.mergeSort);
 
-        note.innerHTML = '<h1>Merge Sort</h1><br/>';
-        note.innerHTML += "<div>In computer science, merge sort (also commonly spelled mergesort) is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the implementation preserves the input order of equal elements in the sorted output. Mergesort is a divide and conquer algorithm that was invented by John von Neumann in 1945. A detailed description and analysis of bottom-up mergesort appeared in a report by Goldstine and Neumann as early as 1948.</div>";
+        noteTitle.innerHTML = 'Merge Sort';
+        note.innerHTML = "<div>In computer science, merge sort (also commonly spelled mergesort) is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the implementation preserves the input order of equal elements in the sorted output. Mergesort is a divide and conquer algorithm that was invented by John von Neumann in 1945. A detailed description and analysis of bottom-up mergesort appeared in a report by Goldstine and Neumann as early as 1948.</div>";
     } else {
         sort();
     }
@@ -1708,8 +1781,8 @@ $('#radixSort').click(function () {
         title.innerHTML = "Radix Sort";
         changeSortType(gw.radixSort);
 
-        note.innerHTML = '<h1>Radix Sort</h1><br/>';
-        note.innerHTML += "<div>In computer science, radix sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. A positional notation is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, radix sort is not limited to integers. Radix sort dates back as far as 1887 to the work of Herman Hollerith on tabulating machines.</div>";
+        noteTitle.innerHTML = 'Radix Sort';
+        note.innerHTML = "<div>In computer science, radix sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. A positional notation is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, radix sort is not limited to integers. Radix sort dates back as far as 1887 to the work of Herman Hollerith on tabulating machines.</div>";
     } else {
         sort();
     }
@@ -1741,7 +1814,7 @@ window.onload = function () {
 function responsivefy(svg) {
 
     var container = d3.select(svg.node().parentNode),
-        width = parseInt(svg.style("width")),
+        width = parseInt(svg.style("width")) + 30,
         height = parseInt(svg.style("height")),
         aspect = width / height;
 
@@ -1760,7 +1833,7 @@ function responsivefy(svg) {
 
 function changeSortType(newSortingFunction) {
 
-    createList();
+    createList('random');
 
     if (isPlaying) stop();
     gw.clearPseudocode();
@@ -1770,10 +1843,10 @@ function changeSortType(newSortingFunction) {
 
 }
 
-function createList() {
+function createList(type) {
     if (isPlaying) stop();
     setTimeout(function () {
-        gw.createList();
+        gw.createList(type);
         isPlaying = false;
     }, 1000);
 }
@@ -1785,4 +1858,8 @@ function sort(callback) {
             isPlaying = true;
         }
     }, 1000);
+}
+
+function convertToNumber(num) {
+    return +num;
 }

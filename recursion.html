@@ -6,8 +6,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <link rel="stylesheet" href="css/navbar.css">
-    <title>Graph Travelsal</title>
-
+    <title>Recursion</title>
 </head>
 <body>
 
@@ -22,26 +21,10 @@
             </a>
         </li>
         <li>
-            <a id="dfs" onclick="dfs()">
-                <h1 class="fa">DFS</h1>
+            <a id="kochCurve">
+                <h1 class="fa">KC</h1>
                 <span class="nav-text">
-                    Depth-First Search
-                </span>
-            </a>
-        </li>
-        <li class="has-subnav">
-            <a id="bfs" onclick="bfs()">
-                <h1 class="fa">BFS</h1>
-                <span class="nav-text">
-                    Breadth-First search
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="drawGraph.html">
-                <h1 class="fa">DG</h1>
-                <span class="nav-text">
-                    Draw Graph
+                    Koch Curve
                 </span>
             </a>
         </li>
@@ -53,7 +36,8 @@
             <div id="title" style="font-size: 20px; color: white"></div>
         </div>
         <div class="gridGraph" style="background-color: white">
-            <div id="viz" style="margin: 10px;"></div>
+            <!--<svg id="viz-canvas" style="margin: 10px;"></svg>-->
+            <canvas id="viz-canvas" style="margin: 10px;"></canvas>
         </div>
         <div class="gridNote">
             <div id="noteContent" style="text-align: justify">
@@ -71,7 +55,14 @@
         <div class="gridAction" style="background-color: white">
             <div id="status" class="panel"><p style="font-size: 15px"></p></div>
         </div>
-        <div class="gridLog" style="margin: auto;">
+        <div class="gridControl">
+            <button id="execute" class="gridControl-item">EXECUTE</button>
+            <div class="gridControl-item" style="text-align: center;">
+                <p style="width: 49%; display: inline-block;">Koch level (min = 0, max = 6)</p>
+                <input type="number" id="koch-level" style="width: 29%;" min="0" max="6" value="0" onkeydown="return false"/>
+            </div>
+        </div>
+        <div class="gridLog" style="margin: auto; background-color: white">
             <div id="log" class="panel"><p style="font-size: 15px"></p></div>
         </div>
         <div class="gridPseudo" style="background-color: white">
@@ -102,23 +93,15 @@
 <script src="js/viz.js"></script>
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="js/graph.js"></script>
-<script src="js/graph_library.js"></script>
-<script src="js/home.js"></script>
+<script src="js/recursion.js"></script>
 <script>
-    var gtw = new GraphTraversal();
-    var options = [CP3_4_1, CP3_4_3, CP3_4_4, CP3_4_9, CP3_4_17, CP3_4_18, CP3_4_19];
-
-    var gw = gtw.getGraphWidget();
-
-    gtw.examples(options[Math.floor(Math.random()*7)]);
-
-    var graphJSON = getQueryVariable("create");
-    if (graphJSON.length > 0) {
-        importjson(graphJSON);
-        window.history.pushState("object or string", "Title", window.location.href.split('?')[0]);
-    }
-
+    var gw = new Recursion();
+    var canvas = document.getElementById("viz-canvas");
+    canvas.width = $('.gridGraph').width();
+    canvas.height = $('.gridGraph').height() + $('.gridTimeline').height();
+    var ctx = canvas.getContext("2d");
+    $('#kochCurve').click();
+    // window.addEventListener('resize', responsivefy(svg));
 </script>
 </body>
 </html>

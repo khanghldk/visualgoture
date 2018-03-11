@@ -153,11 +153,6 @@ function initUI() {
     $('#actions-hide').css('padding-bottom', actionsHideBottom);
     $('#current-action').hide();
     $('#actions-hide img').addClass('rotateRight');
-    $('.electure-end').css("background-color", surpriseColour);
-    $('.electure-prev').css("background-color", surpriseColour);
-    $('.electure-next').css("background-color", surpriseColour);
-    $('#hide-popup').css('background-color', surpriseColour);
-    $('#progress-bar .ui-slider-range').css("background-color", surpriseColour);
     $('#actions').css("background-color", colourTheSecond);
     $('#actions-hide').css("background-color", colourTheSecond);
     $('.action-menu-pullout').css('left', actionsWidth + 43 + 'px');
@@ -219,7 +214,7 @@ $(function () {
         $('#other-modes').hide();
     });
     $('#mode-menu a').hover(function () {
-        $(this).css("background", surpriseColour);
+
     }, function () {
         $(this).css("background", "black");
     });
