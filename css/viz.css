@@ -129,12 +129,12 @@ div .radix-sort-element {
 
 .gridControl-item {
     margin: 2.5px 0;
+    font-size: 16px;
 }
 
 .gridControl button {
     color: white;
     border: none;
-    font-size: 16px;
     cursor: pointer;
     background-color: #af4e4c;
     padding: 15px 23px;
