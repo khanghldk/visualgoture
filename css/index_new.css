@@ -78,7 +78,7 @@ div ul {
 
 .gridGraph {
     grid-area: g;
-    max-height: 500px;
+    max-height: max-content;
 }
 
 .gridNote {

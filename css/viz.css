@@ -5,7 +5,7 @@ html {
 
 #viz {
     width: 100%;
-    height: 500px;
+    max-height: max-content;
     text-align: center;
     overflow: hidden;
     padding-top: 10px;
@@ -180,4 +180,82 @@ html {
 .action-menu-pullout input {
     background: black;
     color: white;
+}
+
+ #actions {
+     color: black;
+     /*position: fixed;*/
+     /*top: 570px;*/
+     /*left: 5px;*/
+ }
+
+
+
+#actions-extras input {
+    width: 35px;
+    padding: 5px 8px 7px;
+}
+
+.create {
+    top: 690px;
+}
+
+.search {
+    top: 720px;
+}
+
+.insert {
+    top: 750px;
+}
+
+.remove {
+    top: 780px;
+}
+
+#createfixedsize-input input, #createuserdefined-input input {
+    float: left;
+}
+
+#createfixedsize-go p, #createuserdefined-go p {
+    float: right;
+}
+
+#createuserdefined-input input {
+    width: 80px;
+}
+
+#inserthead-input input, #inserttail-input input, #insertkth-input input {
+    float: left;
+}
+
+#insertkth-input input {
+    margin-right: 3px;
+}
+
+#inserthead-go p, #inserttail-go p, #insertkth-go p {
+    float: right;
+}
+
+#removekth-input input {
+    float: left;
+}
+
+#removekth-go p {
+    float: right;
+}
+
+.inputline {
+    display: inline;
+}
+
+. inputinline {
+    display: inline;
+}
+
+.gridMenu a {
+    cursor: pointer;
+}
+
+.gridTimeline {
+    cursor: pointer;
 }

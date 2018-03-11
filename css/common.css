@@ -143,3 +143,97 @@ a, i {
 .list-structures a {
     text-decoration: none;
 }
+
+#actions {
+    color: black;
+    /*position: fixed;*/
+    /*top: 570px;*/
+    /*left: 5px;*/
+}
+
+/*.execAction {*/
+/*padding: 5px 8px;*/
+/*height: auto;*/
+/*}*/
+
+/*.err {*/
+/*padding: 5px 0px;*/
+/*}*/
+
+/*.execActionA {*/
+/*width: 50px;*/
+/*}*/
+
+/*#actions-extras {*/
+/*bottom: 30px;*/
+/*}*/
+
+#actions-extras input {
+    width: 35px;
+    padding: 5px 8px 7px;
+}
+
+.create {
+    top: 570px;
+}
+
+.search {
+    top: 600px;
+}
+
+.insert {
+    top: 625px;
+}
+
+.remove {
+    top: 655px;
+}
+
+#createfixedsize-input input, #createuserdefined-input input {
+    float: left;
+}
+
+#createfixedsize-go p, #createuserdefined-go p {
+    float: right;
+}
+
+#createuserdefined-input input {
+    width: 80px;
+}
+
+#inserthead-input input, #inserttail-input input, #insertkth-input input {
+    float: left;
+}
+
+#insertkth-input input {
+    margin-right: 3px;
+}
+
+#inserthead-go p, #inserttail-go p, #insertkth-go p {
+    float: right;
+}
+
+#removekth-input input {
+    float: left;
+}
+
+#removekth-go p {
+    float: right;
+}
+
+.inputline {
+    display: inline;
+}
+
+. inputinline {
+    display: inline;
+}
+
+.gridMenu a {
+    cursor: pointer;
+}
+
+.gridTimeline {
+    cursor: pointer;
+}
+
