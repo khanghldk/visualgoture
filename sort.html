@@ -505,6 +505,47 @@
 <script>
     var gw = new Sorting();
     var svg = d3.select("#viz-canvas");
+    $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+            return null;
+        }
+        else{
+            return decodeURI(results[1]) || 0;
+        }
+    }
+
+    var param = $.urlParam('type');
+    switch (param) {
+        case 'bubbleSort':
+            $('#bubbleSort').click();
+            break;
+        case 'selectionSort':
+            $('#selectionSort').click();
+            break;
+        case 'quickSort':
+            $('#quickSort').click();
+            break;
+        case 'insertionSort':
+            $('#insertionSort').click();
+            break;
+        case 'cocktailSort':
+            $('#cocktailSort').click();
+            break;
+        case 'combSort':
+            $('#combSort').click();
+            break;
+        case 'shellSort':
+            $('#shellSort').click();
+            break;
+        case 'mergeSort':
+            $('#mergeSort').click();
+            break;
+        case 'radixSort':
+            $('#radixSort').click();
+            break;
+    }
+
     // $('#bubbleSort').click();
     window.addEventListener('resize', responsivefy(svg));
 </script>
