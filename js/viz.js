@@ -153,11 +153,8 @@ function initUI() {
     $('#actions-hide').css('padding-bottom', actionsHideBottom);
     $('#current-action').hide();
     $('#actions-hide img').addClass('rotateRight');
-    $('#actions').css("background-color", colourTheSecond);
-    $('#actions-hide').css("background-color", colourTheSecond);
     $('.action-menu-pullout').css('left', actionsWidth + 43 + 'px');
     $('.action-menu-pullout').children().css('float', 'left');
-    $('.coloured-menu-option').css("background-color", colourTheSecond).css('color', 'white');
 
 }
 
