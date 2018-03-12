@@ -14,35 +14,73 @@ var svg = d3.select('#graph')
 //  - reflexive edges are indicated on the node (as a bold black circle).
 //  - links are always source < target; edge directions are set by 'left' and 'right'.
 
-var Node = function (id, reflexive) {
+var Node = function (id, reflexive, color) {
     this.id = id;
     this.reflexive = reflexive;
+    this.color = color;
 }
 
-var Link = function (source, target, left, right, length) {
+var Link = function (source, target, left, right, color) {
     this.source = source;
     this.target = target;
     this.left = left;
     this.right = right;
-    this.length = length;
+    this.color = color;
 }
 
-var nodes = [];
+var State = function (nodes, links, status, lineNo, logMessage) {
+    this.nodes = nodes; // array of Entry's
+    this.links = links; // array of Backlink's
+    this.status = status;
+    this.lineNo = lineNo; //integer or array, line of the code to highlight
+    this.logMessage = logMessage;
+}
 
-nodes.push(new Node(0, false));
-nodes.push(new Node(1, true));
-nodes.push(new Node(2, false));
-nodes.push(new Node(3, true));
+var StateHelper = new Object();
+
+StateHelper.createNewState = function () {
+    return new State(nodes, links, "", 0, "");
+}
+
+StateHelper.copyState = function (oldState) {
+    var newNodes = new Array();
+    var newLinks = new Array();
+    for (var i = 0; i < oldState.nodes.length; i++) {
+        newNodes.push(new Node(oldState.nodes[i].id, oldState.nodes[i].reflexive, oldState.nodes[i].color));
+    }
+
+    for (var i = 0; i < oldState.links.length; i++) {
+        newLinks.push(new Link(oldState.links[i].source, oldState.links[i].target,
+            oldState.links[i].left, oldState.links[i].right, oldState.links[i].color));
+    }
+
+    var newLineNo = oldState.lineNo;
+    if (newLineNo instanceof Array)
+        newLineNo = oldState.lineNo.slice();
+
+    return new State(newNodes, newLinks, oldState.status, newLineNo, oldState.logMessage);
+}
+
+StateHelper.updateCopyPush = function (list, stateToPush) {
+    list.push(StateHelper.copyState(stateToPush));
+}
+
+var nodes = new Array();
+
+// nodes.push(new Node(0, false));
+// nodes.push(new Node(1, true));
+// nodes.push(new Node(2, false));
+// nodes.push(new Node(3, true));
 
 
 
-var links = [];
+var links = new Array();
 
-links.push(new Link(nodes[0], nodes[1], false, true, 3));
-links.push(new Link(nodes[1], nodes[2], false, true, 2));
-links.push(new Link(nodes[2], nodes[3], true, false, 5));
+// links.push(new Link(nodes[0], nodes[1], false, true, 3));
+// links.push(new Link(nodes[1], nodes[2], false, true, 2));
+// links.push(new Link(nodes[2], nodes[3], true, false, 5));
 
-var lastNodeId = 3;
+var lastNodeId = -1;
 
 // init D3 force layout
 
@@ -134,10 +172,12 @@ function tick() {
             return 'rotate(0)';
         }
     });
+
 }
 
 // update graph (called when needed)
 function restart() {
+
     // path (link) group
     path = path.data(links);
 
@@ -298,6 +338,10 @@ function restart() {
 
     // set the graph in motion
     force.start();
+
+    // getMatrix();
+    // showMatrix();
+
 }
 
 function mousedown() {
@@ -311,7 +355,7 @@ function mousedown() {
 
     // insert new node at point
     var point = d3.mouse(this),
-        node = {id: ++lastNodeId, reflexive: false};
+        node = {id: ++lastNodeId, reflexive: false, color: colors(3)};
     node.x = point[0];
     node.y = point[1];
     nodes.push(node);
@@ -422,6 +466,184 @@ function keyup() {
         svg.classed('ctrl', false);
     }
 }
+
+
+function newMatrix( rows, cols, defaultValue){
+
+    var arr = [];
+
+    // Creates all lines:
+    for(var i=0; i < rows; i++){
+
+        // Creates an empty line
+        arr.push([]);
+
+        // Adds cols to the empty line:
+        arr[i].push( new Array(cols));
+
+        for(var j=0; j < cols; j++){
+            // Initializes:
+            arr[i][j] = defaultValue;
+        }
+    }
+
+    return arr;
+}
+
+var matrix;
+
+var getMatrix = function () {
+    matrix = newMatrix(nodes.length, nodes.length, 0);
+
+    for (var i = 0; i < links.length; i++) {
+        var l = links[i].left;
+        var r = links[i].right;
+
+        if (l) {
+            matrix[links[i].target.id][links[i].source.id] = 1;
+        }
+
+        if (r) {
+            matrix[links[i].source.id][links[i].target.id] = 1;
+        }
+
+    }
+}
+
+var showMatrix = function () {
+    for (var i = 0; i < nodes.length; i++) {
+        var message = "";
+        for (var j = 0; j < nodes.length; j++) {
+            message += matrix[i][j] + " ";
+        }
+        console.log(message);
+    }
+}
+
+
+
+var Travelsal = function () {
+    var normalColor = colors(1);
+    var highlightColor = colors(2);
+    var sourceColor = colors(0);
+
+    var stateList = new Array();
+
+    stateList.push(createNewState());
+    var state = StateHelper.copyState(statelist[0]);
+    
+    this.dfs = function (sourceVertex ,callback) {
+        if (nodes.length === 0) { // no graph
+            console.log("no graph");
+            return false;
+        }
+
+        if (sourceVertex >= nodes.length || sourceVertex < 0) { // source vertex not in range
+            console.log('This vertex does not exist in the graph. Please select another source vertex');
+            return false;
+        }
+
+        var UNVISITED = 0, EXPLORED = 1, VISITED = 2;
+        var p = {}, num = {}, Count = 0; // low = {},
+        for (var i = 0; i < nodes.length; i++) {
+            p[i] = -1;
+            num[i] = UNVISITED;
+        }
+        p[sourceVertex] = -2;
+
+        state.nodes[sourceVertex].color = sourceColor;
+
+        StateHelper.updateCopyPush(stateList, state);
+
+        function dfsRecur(u) {
+
+            if (u != sourceVertex) {
+                state.nodes[u].color = highlightColor;
+            }
+
+            state["status"] = "DFS(" + u + ")";
+            state["lineNo"] = 1;
+            StateHelper.updateCopyPush(stateList, state);
+
+            // delete vertexHighlighted[u];
+            // vertexTraversing[u] = true;
+
+            num[u] = EXPLORED; // low[u] = ++Count;
+
+            var neighbors = [];
+            for (var j = 0; j < amountEdge; j++) if (iEL[j]["u"] == u) neighbors.push(j);
+            neighbors.sort(function (a, b) {
+                return iEL[a]["v"] - iEL[b]["v"]
+            });
+
+            while (neighbors.length > 0) {
+                var j = neighbors.shift();
+                var u = iEL[j]["u"], v = iEL[j]["v"];
+                edgeHighlighted[j] = true;
+                for (var key in iEL) if (iEL[key]["u"] == v && iEL[key]["v"] == u) edgeHighlighted[key] = true;
+                cs = createState(iVL, iEL, vertexHighlighted, edgeHighlighted, vertexTraversed, vertexTraversing, treeEdge, backEdge, crossEdge, forwardEdge);
+                cs["status"] = 'Try edge {u} -> {v}'.replace("{u}", u).replace("{v}", v);
+                cs["lineNo"] = 2;
+                cs["el"][j]["animateHighlighted"] = true;
+                stateList.push(cs);
+
+                for (var key in iVL) delete vertexHighlighted[key];
+                for (var key in iEL) delete edgeHighlighted[key];
+
+                if (num[v] == UNVISITED) {
+                    vertexTraversing[v] = true;
+                    treeEdge[j] = true;
+                    for (var key in iEL) if (iEL[key]["u"] == v && iEL[key]["v"] == u) treeEdge[key] = true;
+                    cs = createState(iVL, iEL, vertexHighlighted, edgeHighlighted, vertexTraversed, vertexTraversing, treeEdge, backEdge, crossEdge, forwardEdge);
+                    cs["lineNo"] = [3];
+                    cs["status"] = 'Try edge {u} -> {v}<br>Vertex {v} is unvisited, we have a <font color="red">tree edge</font>.'
+                        .replace("{u}", u)
+                        .replace("{v}", v);
+                    stateList.push(cs);
+
+                    p[v] = u;
+                    dfsRecur(v);
+
+                    vertexHighlighted[u] = true;
+                    delete vertexHighlighted[v];
+                    cs = createState(iVL, iEL, vertexHighlighted, edgeHighlighted, vertexTraversed, vertexTraversing, treeEdge, backEdge, crossEdge, forwardEdge);
+                    cs["status"] = 'Finish DFS({v}), backtrack to DFS({u}).'.replace("{u}", u).replace("{v}", v);
+                    cs["lineNo"] = 1;
+                    stateList.push(cs);
+                }
+                else if (num[v] == EXPLORED) {
+                    if (p[u] != v) {
+                        backEdge[j] = true;
+                        for (var key in iEL) if (iEL[key]["u"] == v && iEL[key]["v"] == u) backEdge[key] = true;
+                    }
+                    cs = createState(iVL, iEL, vertexHighlighted, edgeHighlighted, vertexTraversed, vertexTraversing, treeEdge, backEdge, crossEdge, forwardEdge);
+                    var thisStatus = 'Try edge {u} -> {v}<br>Vertex {v} is explored, we have a '.replace("{u}", u).replace("{v}", v);
+                    if (p[u] == v)
+                        thisStatus = thisStatus + '<font color="blue">bidirectional edge</font> (a trivial cycle).';
+                    else
+                        thisStatus = thisStatus + '<font color="blue">back edge</font> (a true cycle).';
+                    cs["status"] = thisStatus;
+                    cs["lineNo"] = 4;
+                    stateList.push(cs);
+                }
+                else if (num[v] == VISITED) {
+                    forwardEdge[j] = true;
+                    for (var key in iEL) if (iEL[key]["u"] == v && iEL[key]["v"] == u) forwardEdge[key] = true;
+                    cs = createState(iVL, iEL, vertexHighlighted, edgeHighlighted, vertexTraversed, vertexTraversing, treeEdge, backEdge, crossEdge, forwardEdge);
+                    cs["status"] = 'Try edge {u} -> {v}<br>Vertex {v} is visited, we have a <font color="grey">forward/cross edge</font>.'.replace("{u}", u).replace("{v}", v);
+                    cs["lineNo"] = 5;
+                    stateList.push(cs);
+                }
+            }
+            num[u] = VISITED;
+            vertexTraversed[u] = true;
+            delete vertexTraversing[u];
+        }
+
+    }
+}
+
+
 
 // app starts here
 svg.on('mousedown', mousedown)

@@ -1378,7 +1378,9 @@ var Sorting = function () {
 
     var drawBars = function (state) {
         barWidth = width / (state.entries.length);
-        scaler.domain([0, d3.max(state.entries, function (d) {
+        scaler.domain([d3.min(state.entries, function (d) {
+            return d.value;
+        }) - 1, d3.max(state.entries, function (d) {
             return d.value;
         })]);
 
@@ -1523,6 +1525,7 @@ var Sorting = function () {
 
     this.createList = function (type) {
         var numArrayMaxListSize = 15;
+        var numArrayMinListSize = 3;
         var numArrayMaxElementValue = maxElementValue;
         if (isRadixSort) {
             numArrayMaxListSize = 15;
@@ -1542,6 +1545,11 @@ var Sorting = function () {
                     return false;
                 }
 
+                if (numArray.length < numArrayMinListSize) {
+                    window.alert('List min size is ' + numArrayMinListSize);
+                    return false;
+                }
+
                 for (var i = 0; i < numArray.length; i++) {
                     var num = convertToNumber(numArray[i]);
 
@@ -1555,10 +1563,10 @@ var Sorting = function () {
                         return false;
                     }
 
-                    if (num < 1 || num > numArrayMaxElementValue) {
-                        window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}',numArrayMaxElementValue));
-                        return false;
-                    }
+                    // if (num < 1 || num > numArrayMaxElementValue) {
+                    //     window.alert('Element range must be in range from {min} to {max}'.replace('{min}', '1').replace('{max}',numArrayMaxElementValue));
+                    //     return false;
+                    // }
 
                     numArray[i] = convertToNumber(numArray[i]);
                 }
