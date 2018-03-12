@@ -8,9 +8,9 @@ var PHP_DOMAIN = "";
 function commonAction(retval, msg) {
     //setTimeout(function() {
     if (retval) { // mode == "exploration" && // now not only for exploration mode, but check if this opens other problems
-        $('#current-action').show();
-        $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
-        $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
+        // $('#current-action').show();
+        // $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
+        // $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
         isPlaying = true;
     }
     //}, 500);

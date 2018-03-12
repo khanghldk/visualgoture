@@ -166,23 +166,23 @@ function end_eLecture() {
 }
 
 $(function () {
-    $("#speed-input").slider({
-        min: 200, max: 2000, value: 1500, change: function (event, ui) {
-            gw.setAnimationDuration(2200 - ui.value);
-        }
-    });
-    $("#progress-bar").slider({
-        range: "min", min: 0, value: 0, slide: function (event, ui) {
-            gw.pause();
-            gw.jumpToIteration(ui.value, 0);
-        }, stop: function (event, ui) {
-            if (!isPaused) {
-                setTimeout(function () {
-                    gw.play();
-                }, 500);
-            }
-        }
-    });
+    // $("#speed-input").slider({
+    //     min: 200, max: 2000, value: 1500, change: function (event, ui) {
+    //         gw.setAnimationDuration(2200 - ui.value);
+    //     }
+    // });
+    // $("#progress-bar").slider({
+    //     range: "min", min: 0, value: 0, slide: function (event, ui) {
+    //         gw.pause();
+    //         gw.jumpToIteration(ui.value, 0);
+    //     }, stop: function (event, ui) {
+    //         if (!isPaused) {
+    //             setTimeout(function () {
+    //                 gw.play();
+    //             }, 500);
+    //         }
+    //     }
+    // });
     initUI();
     $('#mode-button').click(function () {
         $('#other-modes').toggle();
