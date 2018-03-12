@@ -15144,7 +15144,6 @@ API.txt for details.
 	}
 }(function( $ ) {
 
-=======
 /*
  * jquery.flot.tooltip
  * 
