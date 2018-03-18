@@ -253,14 +253,15 @@ function stop() {
 }
 
 
+
 $('#status').bind("DOMSubtreeModified",function(){
 
-    $('#console').prepend($('#status').html());
+    $('#log').prepend($('#status').html());
 
 });
 
 function clearConsole(callback) {
-    $('#console').html('');
+    $('#log').html('');
 }
 
 function removeFirstLine(){

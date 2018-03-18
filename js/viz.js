@@ -153,16 +153,8 @@ function initUI() {
     $('#actions-hide').css('padding-bottom', actionsHideBottom);
     $('#current-action').hide();
     $('#actions-hide img').addClass('rotateRight');
-    $('.electure-end').css("background-color", surpriseColour);
-    $('.electure-prev').css("background-color", surpriseColour);
-    $('.electure-next').css("background-color", surpriseColour);
-    $('#hide-popup').css('background-color', surpriseColour);
-    $('#progress-bar .ui-slider-range').css("background-color", surpriseColour);
-    $('#actions').css("background-color", colourTheSecond);
-    $('#actions-hide').css("background-color", colourTheSecond);
     $('.action-menu-pullout').css('left', actionsWidth + 43 + 'px');
     $('.action-menu-pullout').children().css('float', 'left');
-    $('.coloured-menu-option').css("background-color", colourTheSecond).css('color', 'white');
 
 }
 
@@ -174,23 +166,23 @@ function end_eLecture() {
 }
 
 $(function () {
-    $("#speed-input").slider({
-        min: 200, max: 2000, value: 1500, change: function (event, ui) {
-            gw.setAnimationDuration(2200 - ui.value);
-        }
-    });
-    $("#progress-bar").slider({
-        range: "min", min: 0, value: 0, slide: function (event, ui) {
-            gw.pause();
-            gw.jumpToIteration(ui.value, 0);
-        }, stop: function (event, ui) {
-            if (!isPaused) {
-                setTimeout(function () {
-                    gw.play();
-                }, 500);
-            }
-        }
-    });
+    // $("#speed-input").slider({
+    //     min: 200, max: 2000, value: 1500, change: function (event, ui) {
+    //         gw.setAnimationDuration(2200 - ui.value);
+    //     }
+    // });
+    // $("#progress-bar").slider({
+    //     range: "min", min: 0, value: 0, slide: function (event, ui) {
+    //         gw.pause();
+    //         gw.jumpToIteration(ui.value, 0);
+    //     }, stop: function (event, ui) {
+    //         if (!isPaused) {
+    //             setTimeout(function () {
+    //                 gw.play();
+    //             }, 500);
+    //         }
+    //     }
+    // });
     initUI();
     $('#mode-button').click(function () {
         $('#other-modes').toggle();
@@ -199,11 +191,6 @@ $(function () {
         $('#other-modes').show();
     }, function () {
         $('#other-modes').hide();
-    });
-    $('#mode-menu a').hover(function () {
-        $(this).css("background", surpriseColour);
-    }, function () {
-        $(this).css("background", "black");
     });
     $('#other-modes a').click(function () {
         var currentMode = $('#mode-button').attr('title');
@@ -375,4 +362,35 @@ function stop() {
     isPlaying = false;
     $('#pause').show();
     $('#play').hide();
+}
+
+//Log Write
+$('#status').bind("DOMSubtreeModified",function(){
+
+    $('#log').prepend($('#status').html());
+
+});
+
+function clearConsole(callback) {
+    $('#log').html('');
+}
+
+function removeFirstLine(){
+    $('#log').find('p').first().remove();
+    $('#log').find('p').first().remove();
+    $('#log').find('p').first().remove();
+    $('#log').find('p').first().remove();
+}
+
+
+function checkPlay(){
+    if (isAtEnd()){
+        clearConsole();
+    }
+}
+
+function checkEnd(){
+    if (!isAtEnd()){
+        goToEnd();
+    }
 }
