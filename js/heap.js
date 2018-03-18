@@ -1,6 +1,371 @@
 
 
 
+function runSlide(slide) {
+    if (slide == '1') {
+        $("#e-lecture").html("slide " + slide + " (" + 2 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 4 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 6 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-3') {
+        $("#e-lecture").html("slide " + slide + " (" + 9 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-4') {
+        $("#e-lecture").html("slide " + slide + " (" + 11 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-5') {
+        $("#e-lecture").html("slide " + slide + " (" + 13 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-6') {
+        $("#e-lecture").html("slide " + slide + " (" + 15 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-7') {
+        $("#e-lecture").html("slide " + slide + " (" + 18 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-8') {
+        $("#e-lecture").html("slide " + slide + " (" + 20 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-9') {
+        $("#e-lecture").html("slide " + slide + " (" + 22 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '1-10') {
+        $("#e-lecture").html("slide " + slide + " (" + 25 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '2') {
+        $("#e-lecture").html("slide " + slide + " (" + 27 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '2-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 29 + "%)");
+        hw.restoreArray([999999, 71, 62, 53, 44, 35, 26, 17]);
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '2-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 31 + "%)");
+        hw.createRandom();
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '3') {
+        $("#e-lecture").html("slide " + slide + " (" + 34 + "%)");
+
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '3-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 36 + "%)");
+
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '4') {
+        $("#e-lecture").html("slide " + slide + " (" + 38 + "%)");
+        $("#insert").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '4-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 40 + "%)");
+        $("#insert").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '4-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 43 + "%)");
+        $("#insert").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '5') {
+        $("#e-lecture").html("slide " + slide + " (" + 45 + "%)");
+        $("#extractmax").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '5-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 47 + "%)");
+        $("#extractmax").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '5-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 50 + "%)");
+        $("#extractmax").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '6') {
+        $("#e-lecture").html("slide " + slide + " (" + 52 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '7') {
+        $("#e-lecture").html("slide " + slide + " (" + 54 + "%)");
+        $("#createNlogN").addClass("menu-highlighted");
+        $("#createN").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '7-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 56 + "%)");
+        $("#createNlogN").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '7-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 59 + "%)");
+        $("#createN").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '7-3') {
+        $("#e-lecture").html("slide " + slide + " (" + 61 + "%)");
+        $("#createN").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '7-4') {
+        $("#e-lecture").html("slide " + slide + " (" + 63 + "%)");
+        $("#createN").addClass("menu-highlighted");
+        hw.restoreArray([999999, 71, 62, 53, 44, 35, 26, 17]);
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '7-5') {
+        $("#e-lecture").html("slide " + slide + " (" + 65 + "%)");
+        $("#createN").addClass("menu-highlighted");
+        hw.restoreArray([999999, 71, 62, 53, 44, 35, 26, 17]);
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '8') {
+        $("#e-lecture").html("slide " + slide + " (" + 68 + "%)");
+        $("#heapsort").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '8-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 70 + "%)");
+        $("#heapsort").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '8-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 72 + "%)");
+        $("#heapsort").addClass("menu-highlighted");
+        showActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9') {
+        $("#e-lecture").html("slide " + slide + " (" + 75 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 77 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 79 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-3') {
+        $("#e-lecture").html("slide " + slide + " (" + 81 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-4') {
+        $("#e-lecture").html("slide " + slide + " (" + 84 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-5') {
+        $("#e-lecture").html("slide " + slide + " (" + 86 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-6') {
+        $("#e-lecture").html("slide " + slide + " (" + 88 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '9-7') {
+        $("#e-lecture").html("slide " + slide + " (" + 90 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '99') {
+        $("#e-lecture").html("slide " + slide + " (" + 93 + "%)");
+
+        hideEntireActionsPanel();
+
+        showStatusPanel();
+        showCodetracePanel();
+
+    }
+    if (slide == '99-1') {
+        $("#e-lecture").html("slide " + slide + " (" + 95 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '99-2') {
+        $("#e-lecture").html("slide " + slide + " (" + 97 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+    if (slide == '99-3') {
+        $("#e-lecture").html("slide " + slide + " (" + 100 + "%)");
+
+        hideEntireActionsPanel();
+        hideStatusPanel();
+        hideCodetracePanel();
+
+    }
+}
+
+window.onpopstate = function (event) {
+    var slide = event.state['slide'];
+    openSlide(slide, function () {
+        runSlide(slide);
+    });
+};
 
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -12,9 +377,623 @@ function getUrlParameter(sParam) {
     }
 };
 
+function pushState(slideValue) {
+    var url = '/en/heap';
+    if (typeof slideValue != 'undefined' && slideValue != null) url += '?slide=' + slideValue;
+    window.history.pushState({slide: slideValue}, "slide " + slideValue, url);
+}
+
+function showPopup(callback) {
+    $('#popup').fadeIn(100, callback);
+}
+
+function hidePopup(callback) {
+    $('#popup').fadeOut(100, callback);
+}
+
+function showOverlay() {
+    $('#overlay').css('opacity', 0.5);
+    $('#overlay').show();
+}
+
+function hideOverlay() {
+    $('#overlay').hide();
+    $("#e-lecture").html("");
+}
+
+function makeOverlayTransparent() {
+    $('#overlay').css('opacity', 0);
+}
+
+function hideSlide(callback) {
+    isPlaying = true;
+    closeSlide(cur_slide, function () {
+        makeOverlayTransparent();
+        setTimeout(callback, 700); // don't immediately run the animation, wait for 500ms+ first
+    });
+}
+
+function showSlide() {
+    isPlaying = false;
+    openSlide(cur_slide);
+    showOverlay();
+}
+
+$(function () {
+    var slide = getUrlParameter('slide');
+
+    $.get('/hasvisited' + '/heap', function (data) {
+        var hasVisited = data['hasvisited'] == '1';
+        if (!hasVisited) {
+            var postData = {
+                '_token': 'DSA7WMvqTXpkOBLFrhsCYkKKzalpI6LnAjX3xzvB',
+                'page': '/heap'.substring(1),
+            };
+
+            $.post("/visitpage", postData, function (data) {
+                // non critical request...
+            });
+
+            if (typeof slide != undefined && slide != null) {
+                cur_slide = slide;
+            }
+
+            $("#mode-menu a").trigger("click");
+        }
+        else {
+            if (typeof slide != undefined && slide != null) {
+                cur_slide = slide;
+                $('#mode-menu a').click();
+            }
+        }
+    }).fail(function () {
+        if (typeof slide != undefined && slide != null) {
+            cur_slide = slide;
+            $('#mode-menu a').click();
+        }
+    });
+
+    $('.mcq-submit').click(function () {
+        var questionId = parseInt($(this).attr('id').split('-')[1]);
+        var answer = $('#mcq-answer-' + questionId).val();
+        var userAnswer = $('input[type=radio][name=mcq-' + questionId + '-choice]:checked').val();
+
+        if (answer === userAnswer) {
+            $('#answer-status-' + questionId).html('<font color="green"><b>Correct!</b></font>');
+        }
+        else {
+            $('#answer-status-' + questionId).html('<font color="red"><b>Wrong Answer! Try again...</b></font>');
+        }
+        $('#answer-status-' + questionId).show();
+        setTimeout(function () {
+            $('#answer-status-' + questionId).fadeOut(1000);
+        }, 1000);
+    });
+
+    $('.msq-submit').click(function () {
+        var questionId = parseInt($(this).attr('id').split('-')[1]);
+        var answer = $('#msq-answer-' + questionId).val();
+
+        var answers = [];
+        $('input[type=checkbox][class=msq-choice]:checked').each(function () {
+            answers.push($(this).attr('id').split('-')[3]);
+        });
+        answers.sort();
+        var userAnswer = answers.join(',');
+
+        if (answer === userAnswer) {
+            $('#answer-status-' + questionId).html('<font color="green">Correct!</font>');
+        }
+        else {
+            $('#answer-status-' + questionId).html('<font color="red">Wrong Answer! Try again...</font>');
+        }
+        $('#answer-status-' + questionId).show();
+        setTimeout(function () {
+            $('#answer-status-' + questionId).fadeOut(1000);
+        }, 1000);
+    });
+
+    $('select.lecture-dropdown').change(function () {
+        var nextSlide = $(this).val();
+        openSlide(nextSlide, function () {
+            runSlide(nextSlide);
+            pushState(nextSlide);
+        });
+    });
+
+    $('#hide-popup').click(function () {
+        hidePopup();
+    });
+
+    $('#popup').hover(function () {
+        $('#hide-popup').show();
+    }, function () {
+        $('#hide-popup').hide();
+    });
+
+    $('#electure-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-1');
+        pushState('1-1');
+    });
+
+    $('#electure-1-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-2');
+        pushState('1-2');
+    });
+    $('#electure-1-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1');
+        pushState('1');
+    });
+
+    $('#electure-1-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-3');
+        pushState('1-3');
+    });
+    $('#electure-1-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-1');
+        pushState('1-1');
+    });
+
+    $('#electure-1-3 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-4');
+        pushState('1-4');
+    });
+    $('#electure-1-3 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-2');
+        pushState('1-2');
+    });
+
+    $('#electure-1-4 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-5');
+        pushState('1-5');
+    });
+    $('#electure-1-4 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-3');
+        pushState('1-3');
+    });
+
+    $('#electure-1-5 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-6');
+        pushState('1-6');
+    });
+    $('#electure-1-5 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-4');
+        pushState('1-4');
+    });
+
+    $('#electure-1-6 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-7');
+        pushState('1-7');
+    });
+    $('#electure-1-6 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-5');
+        pushState('1-5');
+    });
+
+    $('#electure-1-7 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-8');
+        pushState('1-8');
+    });
+    $('#electure-1-7 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-6');
+        pushState('1-6');
+    });
+
+    $('#electure-1-8 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-9');
+        pushState('1-9');
+    });
+    $('#electure-1-8 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-7');
+        pushState('1-7');
+    });
+
+    $('#electure-1-9 .electure-next').click(function () {
+        hidePopup();
+        runSlide('1-10');
+        pushState('1-10');
+    });
+    $('#electure-1-9 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-8');
+        pushState('1-8');
+    });
+
+    $('#electure-1-10 .electure-next').click(function () {
+        hidePopup();
+        runSlide('2');
+        pushState('2');
+    });
+    $('#electure-1-10 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-9');
+        pushState('1-9');
+    });
+
+    $('#electure-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('2-1');
+        pushState('2-1');
+    });
+    $('#electure-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('1-10');
+        pushState('1-10');
+    });
+
+    $('#electure-2-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('2-2');
+        pushState('2-2');
+    });
+    $('#electure-2-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('2');
+        pushState('2');
+    });
+
+    $('#electure-2-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('3');
+        pushState('3');
+    });
+    $('#electure-2-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('2-1');
+        pushState('2-1');
+    });
+
+    $('#electure-3 .electure-next').click(function () {
+        hidePopup();
+        runSlide('3-1');
+        pushState('3-1');
+    });
+    $('#electure-3 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('2-2');
+        pushState('2-2');
+    });
+
+    $('#electure-3-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('4');
+        pushState('4');
+    });
+    $('#electure-3-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('3');
+        pushState('3');
+    });
+
+    $('#electure-4 .electure-next').click(function () {
+        hidePopup();
+        runSlide('4-1');
+        pushState('4-1');
+    });
+    $('#electure-4 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('3-1');
+        pushState('3-1');
+    });
+
+    $('#electure-4-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('4-2');
+        pushState('4-2');
+    });
+    $('#electure-4-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('4');
+        pushState('4');
+    });
+
+    $('#electure-4-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('5');
+        pushState('5');
+    });
+    $('#electure-4-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('4-1');
+        pushState('4-1');
+    });
+
+    $('#electure-5 .electure-next').click(function () {
+        hidePopup();
+        runSlide('5-1');
+        pushState('5-1');
+    });
+    $('#electure-5 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('4-2');
+        pushState('4-2');
+    });
+
+    $('#electure-5-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('5-2');
+        pushState('5-2');
+    });
+    $('#electure-5-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('5');
+        pushState('5');
+    });
+
+    $('#electure-5-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('6');
+        pushState('6');
+    });
+    $('#electure-5-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('5-1');
+        pushState('5-1');
+    });
+
+    $('#electure-6 .electure-next').click(function () {
+        hidePopup();
+        runSlide('7');
+        pushState('7');
+    });
+    $('#electure-6 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('5-2');
+        pushState('5-2');
+    });
+
+    $('#electure-7 .electure-next').click(function () {
+        hidePopup();
+        runSlide('7-1');
+        pushState('7-1');
+    });
+    $('#electure-7 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('6');
+        pushState('6');
+    });
+
+    $('#electure-7-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('7-2');
+        pushState('7-2');
+    });
+    $('#electure-7-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('7');
+        pushState('7');
+    });
+
+    $('#electure-7-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('7-3');
+        pushState('7-3');
+    });
+    $('#electure-7-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('7-1');
+        pushState('7-1');
+    });
+
+    $('#electure-7-3 .electure-next').click(function () {
+        hidePopup();
+        runSlide('7-4');
+        pushState('7-4');
+    });
+    $('#electure-7-3 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('7-2');
+        pushState('7-2');
+    });
+
+    $('#electure-7-4 .electure-next').click(function () {
+        hidePopup();
+        runSlide('7-5');
+        pushState('7-5');
+    });
+    $('#electure-7-4 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('7-3');
+        pushState('7-3');
+    });
+
+    $('#electure-7-5 .electure-next').click(function () {
+        hidePopup();
+        runSlide('8');
+        pushState('8');
+    });
+    $('#electure-7-5 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('7-4');
+        pushState('7-4');
+    });
+
+    $('#electure-8 .electure-next').click(function () {
+        hidePopup();
+        runSlide('8-1');
+        pushState('8-1');
+    });
+    $('#electure-8 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('7-5');
+        pushState('7-5');
+    });
+
+    $('#electure-8-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('8-2');
+        pushState('8-2');
+    });
+    $('#electure-8-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('8');
+        pushState('8');
+    });
+
+    $('#electure-8-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9');
+        pushState('9');
+    });
+    $('#electure-8-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('8-1');
+        pushState('8-1');
+    });
+
+    $('#electure-9 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-1');
+        pushState('9-1');
+    });
+    $('#electure-9 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('8-2');
+        pushState('8-2');
+    });
+
+    $('#electure-9-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-2');
+        pushState('9-2');
+    });
+    $('#electure-9-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9');
+        pushState('9');
+    });
+
+    $('#electure-9-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-3');
+        pushState('9-3');
+    });
+    $('#electure-9-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-1');
+        pushState('9-1');
+    });
+
+    $('#electure-9-3 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-4');
+        pushState('9-4');
+    });
+    $('#electure-9-3 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-2');
+        pushState('9-2');
+    });
+
+    $('#electure-9-4 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-5');
+        pushState('9-5');
+    });
+    $('#electure-9-4 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-3');
+        pushState('9-3');
+    });
+
+    $('#electure-9-5 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-6');
+        pushState('9-6');
+    });
+    $('#electure-9-5 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-4');
+        pushState('9-4');
+    });
+
+    $('#electure-9-6 .electure-next').click(function () {
+        hidePopup();
+        runSlide('9-7');
+        pushState('9-7');
+    });
+    $('#electure-9-6 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-5');
+        pushState('9-5');
+    });
+
+    $('#electure-9-7 .electure-next').click(function () {
+        hidePopup();
+        runSlide('99');
+        pushState('99');
+    });
+    $('#electure-9-7 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-6');
+        pushState('9-6');
+    });
+
+    $('#electure-99 .electure-next').click(function () {
+        hidePopup();
+        runSlide('99-1');
+        pushState('99-1');
+    });
+    $('#electure-99 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('9-7');
+        pushState('9-7');
+    });
+
+    $('#electure-99-1 .electure-next').click(function () {
+        hidePopup();
+        runSlide('99-2');
+        pushState('99-2');
+    });
+    $('#electure-99-1 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('99');
+        pushState('99');
+    });
+
+    $('#electure-99-2 .electure-next').click(function () {
+        hidePopup();
+        runSlide('99-3');
+        pushState('99-3');
+    });
+    $('#electure-99-2 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('99-1');
+        pushState('99-1');
+    });
+
+    $('#electure-99-3 .electure-prev').click(function () {
+        hidePopup();
+        runSlide('99-2');
+        pushState('99-2');
+    });
 
 
-
+    // temporary quick fix for Google Chrome Aug 2016 issue..., put at last part so that everything else has been loaded
+    setTimeout(function () {
+        document.body.style.zoom = "100.1%";
+    }, 500);
+    setTimeout(function () {
+        document.body.style.zoom = "100%";
+    }, 600);
+});
 
 function doButtonAction23() {
     CUSTOM_ACTION('createNlogN', "1,2,3,4,5,6,7");
@@ -40,6 +1019,22 @@ function doButtonAction34() {
     CUSTOM_ACTION('insert_top');
 }
 
+function adjustPopupToImageSize() {
+    var width = $('#popup-image').prop('width');
+    var height = $('#popup-image').prop('height');
+    $('#popup').width(width + 20);
+    $('#popup').height(height + 20);
+    if (width == 0 && height == 0) {
+        setTimeout(adjustPopupToImageSize, 200);
+    } else {
+        showPopup();
+    }
+}
+
+function POPUP_IMAGE(url) {
+    $('#popup-content').html('<img id="popup-image" src="' + url + '">');
+    adjustPopupToImageSize();
+}
 
 
 
@@ -528,7 +1523,7 @@ var Heap = function () {
                 $('#code2').html('i = A.length-1');
                 $('#code3').html('while (i > 1 &amp;&amp; A[parent(i)] &lt; A[i])');
                 $('#code4').html('&nbsp&nbspswap(A[i], A[parent(i)])');
-                $('#code5').html('');
+                $('#code5').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
                 $('#code6').html('');
                 $('#code7').html('');
                 break;
@@ -539,12 +1534,12 @@ var Heap = function () {
                 $('#code4').html('while (i &lt; A.length)');
                 $('#code5').html('&nbsp&nbspif A[i] < (L = the larger of i&#39;s children)');
                 $('#code6').html('&nbsp&nbsp&nbsp&nbspswap(A[i], L)');
-                $('#code7').html('');
+                $('#code7').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
                 break;
             case 2: // HeapSort
                 $('#code1').html('for (i = 0; i &lt; A.length; i++)');
                 $('#code2').html('&nbsp&nbspExtractMax()');
-                $('#code3').html('');
+                $('#code3').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
                 $('#code4').html('');
                 $('#code5').html('');
                 $('#code6').html('');
@@ -554,7 +1549,7 @@ var Heap = function () {
                 $('#code1').html('Start from an empty Binary Max Heap');
                 $('#code2').html('for (i = 0; i &lt; A.length; i++)');
                 $('#code3').html('&nbsp&nbspInsert(A[i])');
-                $('#code4').html('');
+                $('#code4').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
                 $('#code5').html('');
                 $('#code6').html('');
                 $('#code7').html('');
@@ -563,7 +1558,7 @@ var Heap = function () {
                 $('#code1').html('The input array A as it is');
                 $('#code2').html('for (i = A.length/2; i &gt;= 1; i--)');
                 $('#code3').html('&nbsp&nbspshiftDown(i)');
-                $('#code4').html('');
+                $('#code4').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
                 $('#code5').html('');
                 $('#code6').html('');
                 $('#code7').html('');
