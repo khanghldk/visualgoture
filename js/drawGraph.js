@@ -339,8 +339,8 @@ function restart() {
     // set the graph in motion
     force.start();
 
-    // getMatrix();
-    // showMatrix();
+    getMatrix();
+    showMatrix();
 
 }
 
