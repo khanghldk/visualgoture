@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <title>VisuAlgo - Binary Heap (Priority Queue)</title>
-
-    <!--<link rel="stylesheet" type="text/css" href="fonts/silkscreen/stylesheet.css">-->
-    <!--<link rel="stylesheet" type="text/css" href="css/common.css">-->
-    <!--<link rel="stylesheet" href="css/viz-1.0.1.css">-->
-    <!--<link rel="stylesheet" href="css/visual.css">-->
-    <!--<link rel="stylesheet" href="css/drawgraph.css">-->
-
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Visualizer Algorithms </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="css/sub-menu.css">
     <link rel="stylesheet" href="css/vendor.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/addition.css">
     <!-- Theme initialization -->
-
-
+    <link rel="stylesheet" href="css/drawGraph.css">
     <script>
         var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
             {};
@@ -34,155 +27,8 @@
         }
     </script>
 
-    <style>
-        .execAction {
-            padding: 5px 8px;
-        }
-
-        .err {
-            padding: 5px 0px;
-        }
-
-        #actions-extras input {
-            width: 35px;
-            padding: 5px 8px 7px;
-        }
-
-        #createNlogN-input input, #createN-input input {
-            width: 200px;
-        }
-
-        .createNlogN {
-            bottom: 173px;
-        }
-
-        .createN {
-            bottom: 146px;
-        }
-
-        .insert {
-            bottom: 119px;
-        }
-
-        .extractmax {
-            bottom: 92px;
-        }
-
-        .heapsort {
-            bottom: 65px;
-        }
-    </style>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '../../www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-1566631-4', 'auto');
-        ga('send', 'pageview');
-
-        function changeURL() {
-            var URL = window.location.href.split('https://visualgo.net/');
-            var val = document.getElementById("Language").value;
-            URL[3] = val;
-            window.location.assign(URL.join('https://visualgo.net/'));
-        }
-    </script>
 </head>
-<body>
-<!--<div id="top-bar">-->
-<!--<span id="title">-->
-<!--<a id='title-heap' class='selected-viz'>Binary Heap</a>-->
-<!--</span>-->
-<!--</div>-->
-<!--<div id="dark-overlay"></div>-->
-<!--<div id="status" class="panel"><p></p></div>-->
-<!--&lt;!&ndash;<div id="status-hide" class="panel-hide"><img src="../img/arrow_white_right.png" alt=">"&ndash;&gt;-->
-<!--&lt;!&ndash;title="show/hide status panel"/></div>&ndash;&gt;-->
-<!--<div id="codetrace" class="panel">-->
-<!--<p id="code1" style="padding-top: 10px;"></p>-->
-<!--<p id="code2"></p>-->
-<!--<p id="code3"></p>-->
-<!--<p id="code4"></p>-->
-<!--<p id="code5"></p>-->
-<!--<p id="code6"></p>-->
-<!--<p id="code7" style="padding-bottom: 10px;"></p>-->
-<!--</div>-->
-<!--&lt;!&ndash;<div id="codetrace-hide" class="panel-hide"><img src="../img/arrow_white_right.png" alt=">"&ndash;&gt;-->
-<!--&lt;!&ndash;title="show/hide codetrace panel"/></div>&ndash;&gt;-->
-<!--&lt;!&ndash;<div id="left-bar"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;<div id="right-bar"></div>&ndash;&gt;-->
-<!--<div id="media-controls">-->
-<!--<div id='speed-control'>slow-->
-<!--<div id='speed-input'></div>-->
-<!--fast-->
-<!--</div>-->
-<!--<span id="go-to-beginning" class="media-control-button" title="go to beginning" onclick=goToBeginning()><img-->
-<!--src="../img/goToBeginning.png" alt="go to beginning"></span>-->
-<!--<span id="previous" class="media-control-button" title="step backward" onclick=stepBackward()><img-->
-<!--src="../img/prevFrame.png" alt="previous frame"></span>-->
-<!--<span id="pause" class="media-control-button" title="pause" onclick=pause()><img src="../img/pause.png" alt="pause"></span>-->
-<!--<span id="play" class="media-control-button" title="play" onclick=play()><img src="../img/play.png"-->
-<!--alt="play"></span>-->
-<!--<span id="next" class="media-control-button" title="step forward" onclick=stepForward()><img-->
-<!--src="../img/nextFrame.png" alt="next frame"></span>-->
-<!--<span id="go-to-end" class="media-control-button" title="go to end" onclick=goToEnd()><img src="../img/goToEnd.png"-->
-<!--alt="go to end"></span>-->
-<!--<div id="progress-bar" class="media-control-button"></div>-->
-<!--</div>-->
-<!--<div id='viz'></div>-->
-<!--<div id='current-action' class='panel'></div>-->
-
-<!--<div id="actions" class="panel">-->
-<!--<p id="createNlogN">Create(A) - O(<b>N</b> log <b>N</b>)</p>-->
-<!--<p id="createN">Create(A) - O(<b>N</b>)</p>-->
-<!--<p id="insert">Insert(v)</p>-->
-<!--<p id="extractmax" class="execAction" onclick=extractmax()>ExtractMax()</p>-->
-<!--<p id="heapsort" class="execAction" onclick=heapsort()>HeapSort()</p>-->
-<!--</div>-->
-<!--&lt;!&ndash;<div id="actions-hide" class="panel-hide"><img src="../img/arrow_white_right.png" alt=">"&ndash;&gt;-->
-<!--&lt;!&ndash;title="show/hide actions panel"></div>&ndash;&gt;-->
-<!--<div id="actions-extras">-->
-<!--<div class="createNlogN action-menu-pullout">-->
-<!--<div id="createNlogN-input" class="new-menu-option">A = <input type="text" id="arrv1" autocomplete="off"-->
-<!--value="2,7,26,25,19,17,1,90,3,36"></div>-->
-<!--<div id="createNlogN-go" class="execAction coloured-menu-option" onclick="createNlogN()"><p>Go</p></div>-->
-<!--<div id="createNlogN-sample" class="execAction new-menu-option coloured-menu-option"-->
-<!--onclick="createNlogNSample()"><p>Sorted Example</p></div>-->
-<!--<div id="createNlogN-random" class="execAction new-menu-option coloured-menu-option"-->
-<!--onclick="createNlogNRandom()"><p>Random</p></div>-->
-<!--<div id="createNlogN-err" class="err"></div>-->
-<!--</div>-->
-<!--<div class="createN action-menu-pullout">-->
-<!--<div id="createN-input" class="new-menu-option">A = <input type="text" id="arrv2" autocomplete="off"-->
-<!--value="2,7,26,25,19,17,1,90,3,36"></div>-->
-<!--<div id="createN-go" class="execAction coloured-menu-option" onclick="createN()"><p>Go</p></div>-->
-<!--<div id="createN-sample" class="execAction new-menu-option coloured-menu-option" onclick="createNSample()"><p>-->
-<!--Sorted Example</p></div>-->
-<!--<div id="createN-random" class="execAction new-menu-option coloured-menu-option" onclick="createNRandom()"><p>-->
-<!--Random</p></div>-->
-<!--<div id="createN-err" class="err"></div>-->
-<!--</div>-->
-<!--<div class="insert action-menu-pullout">-->
-<!--<div id="insert-input" class="new-menu-option">v = <input type="number" id="v" autocomplete="off" min=0-->
-<!--value=26></div>-->
-<!--<div id="insert-go" class="execAction coloured-menu-option" onclick="insert()"><p>Go</p></div>-->
-<!--<div id="insert-err" class="err"></div>-->
-<!--</div>-->
-<!--<div class="extractmax action-menu-pullout">-->
-<!--<div id="extractmax-err" class="err"></div>-->
-<!--</div>-->
-<!--<div class="heapsort action-menu-pullout">-->
-<!--<div id="heapsort-err" class="err"></div>-->
-<!--</div>-->
-<!--</div>-->
+<body onload="showViz()">
 
 <div class="main-wrapper">
     <div class="app" id="app">
@@ -218,7 +64,7 @@
                             <a href="index.html">
                                 <i class="fa fa-home"></i> Home </a>
                         </li>
-                        <li class="active open">
+                        <li>
                             <a href="">
                                 <i class="fa fa-th-large"></i> Sorting
                                 <i class="fa arrow"></i>
@@ -276,7 +122,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="active open">
                             <a href="">
                                 <i class="fa fa-table"></i> Binary Search Tree
                                 <i class="fa arrow"></i>
@@ -287,17 +133,6 @@
                                 </li>
                                 <li>
                                     <a id="title-AVL"> AVL Tree </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="fa fa-file-text-o"></i> Bynary
-                                <i class="fa arrow"></i>
-                            </a>
-                            <ul class="sidebar-nav">
-                                <li>
-                                    <a id="title-Heap"> Bynary Heap </a>
                                 </li>
                             </ul>
                         </li>
@@ -327,7 +162,6 @@
                                 </li>
                             </ul>
                         </li>
-
                         <li>
                             <a href="">
                                 <i class="fa fa-desktop"></i> Graph Travelsal
@@ -353,7 +187,6 @@
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
                 </nav>
             </div>
@@ -465,23 +298,28 @@
             <div class="row sameheight-container">
                 <div class="col-md-8">
                     <div class="card">
-                        <svg id="viz" style="margin: 10px; height: 300px"></svg>
                         <div class="gridGraph" style="background-color: white">
+                            <svg id="viz" width="1000px" height="600px">
+                            </svg>
 
-                            <!--<div id="viz-radix-sort-canvas" style="display: none; margin: 10px;">-->
-                            <!--<span id="radix-sort-bucket-labels">-->
-                            <!--<span class="radix-sort-bucket-label">0</span>-->
-                            <!--<span class="radix-sort-bucket-label">1</span>-->
-                            <!--<span class="radix-sort-bucket-label">2</span>-->
-                            <!--<span class="radix-sort-bucket-label">3</span>-->
-                            <!--<span class="radix-sort-bucket-label">4</span>-->
-                            <!--<span class="radix-sort-bucket-label">5</span>-->
-                            <!--<span class="radix-sort-bucket-label">6</span>-->
-                            <!--<span class="radix-sort-bucket-label">7</span>-->
-                            <!--<span class="radix-sort-bucket-label">8</span>-->
-                            <!--<span class="radix-sort-bucket-label">9</span>-->
-                            <!--</span>-->
-                            <!--</div>-->
+                            <div id="graph-all" >
+                                <div id="graph" style="border-color: black">
+
+                                </div>
+                                <button onclick="showViz(); example(6)">Done</button>
+                            </div>
+                            <script type="text/javascript">
+                                var graph = document.getElementById('graph-all');
+                                var viz = document.getElementById('viz');
+                                function showViz() {
+                                    viz.style.display = 'block';
+                                    graph.style.display = 'none';
+                                }
+                                function showGraph() {
+                                    viz.style.display = 'none';
+                                    graph.style.display = 'block';
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -499,123 +337,134 @@
             </div>
             <div class="row">
                 <div class="col-md-8" style="text-align: center">
-                    <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">first_page</i>
-                    <i class="material-icons" id="previous" onclick="stepBackward()">skip_previous</i>
+                    <i class="material-icons" id="go-to-beginning" onclick="clearConsole(); goToBeginning()">first_page</i>
+                    <i class="material-icons" id="previous" onclick="stepBackward(); removeFirstLine();">skip_previous</i>
                     <i class="material-icons" id="pause" onclick="pause()">pause</i>
-                    <i class="material-icons" id="play" onclick="play()">play_arrow</i>
+                    <i class="material-icons" id="play" onclick="checkPlay(); play()">play_arrow</i>
                     <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
-                    <i class="material-icons" id="go-to-end" onclick="goToEnd()">last_page</i>
+                    <i class="material-icons" id="go-to-end" onclick="checkEnd()">last_page</i>
                 </div>
             </div>
             <div class="row sameheight-container">
+
                 <div class="col-md-3">
-                    <!--<button id="execute" class="btn btn-primary" style="width: 100%">Execute</button>-->
-                    <!--<div class="dropdown gridControl-item">-->
-                    <!--<button class="btn btn-primary" style="width: 100%">Create</button>-->
-                    <!--<div class="dropdown-content">-->
-                    <!--<button id="create-random" class="btn btn-success dropdown-content-item">-->
-                    <!--Random-->
-                    <!--</button>-->
-                    <!--<div class="dropdown-content-item">-->
-                    <!--<input type="text" id="custom-input" style="width: 100%;" autocomplete="none"/>-->
-                    <!--<button id="create-custom" class="btn btn-success dropdown-content-item">-->
-                    <!--Custom-->
-                    <!--</button>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
 
-                    <button id="createNlogN" class="btn btn-primary">Create(A) - O(<b>N</b> log <b>N</b>)</button>
-                    <div class="createNlogN action-menu-pullout">
-                        <div id="createNlogN-input" class="new-menu-option">A = <input type="text" id="arrv1"
-                                                                                       autocomplete="off"
-                                                                                       value="2,7,26,25,19,17,1,90,3,36">
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+
+                        <div id="create-go" class="execAction btn btn-primary" style="width: 100%;">
+                            Create
                         </div>
-                        <div id="createNlogN-go" class="execAction coloured-menu-option" onclick="createNlogN(); clearConsole()"><p>
-                            Go</p></div>
-                        <div id="createNlogN-sample" class="execAction new-menu-option coloured-menu-option"
-                             onclick="createNlogNSample(); clearConsole()"><p>Sorted Example</p></div>
-                        <div id="createNlogN-random" class="execAction new-menu-option coloured-menu-option"
-                             onclick="createNlogNRandom(); clearConsole()"><p>Random</p></div>
-                        <div id="createNlogN-err" class="err"></div>
-                    </div>
 
-                    <button id="createN" class="btn btn-primary">>Create(A) - O(<b>N</b>)</button>
+                        <div class="dropdown-content">
+                            <div id="create-empty" class="execAction btn btn-primary"
+                                 onClick="empty(); clearConsole() ">Empty
+                            </div>
 
-                    <div class="createN action-menu-pullout">
-                        <div id="createN-input" class="new-menu-option">A = <input type="text" id="arrv2"
-                                                                                   autocomplete="off"
-                                                                                   value="2,7,26,25,19,17,1,90,3,36">
+                            <div id="create-example1" class="execAction btn btn-primary"
+                                 onClick="example(1); clearConsole() ">
+                                Unbalanced Example
+                            </div>
+
+                            <div id="create-example2" class="execAction btn btn-primary"
+                                 onClick="example(2); clearConsole() ">
+                                Balanced Example
+                            </div>
+
+                            <div id="create-random" class="execAction btn btn-primary"
+                                 onClick="random(); clearConsole() ">Random
+                            </div>
+
+                            <div id="create-skewed-left" class="execAction btn btn-primary"
+                                 onClick="skewed('left'); clearConsole() ">
+                                Skewed Left
+                            </div>
+
+                            <div id="create-skewed-right" class="execAction btn btn-primary"
+                                 onClick="skewed('right'); clearConsole() ">
+                                Skewed Right
+                            </div>
+
+                            <div id="create-draw-tree" class="execAction btn btn-primary"
+                                 onClick="showGraph(); clearConsole(); clearDrawnTree(); ">
+                                draw tree
+                            </div>
+                            <div id="create-err" class="err"></div>
                         </div>
-                        <div id="createN-go" class="execAction coloured-menu-option" onclick="createN(); clearConsole()"><p>Go</p></div>
-                        <div id="createN-sample" class="execAction new-menu-option coloured-menu-option"
-                             onclick="createNSample();clearConsole() "><p>
-                            Sorted Example</p></div>
-                        <div id="createN-random" class="execAction new-menu-option coloured-menu-option"
-                             onclick="createNRandom(); clearConsole()"><p>
-                            Random</p></div>
-                        <div id="createN-err" class="err"></div>
+
                     </div>
 
-                    <button id="insert" class="btn btn-primary">>Insert(v)</button>
-                    <div class="insert action-menu-pullout">
-                        <div id="insert-input" class="new-menu-option">v = <input type="number" id="v"
-                                                                                  autocomplete="off" min=0
-                                                                                  value=26></div>
-                        <div id="insert-go" class="execAction coloured-menu-option" onclick="insert();clearConsole() "><p>Go</p></div>
-                        <div id="insert-err" class="err"></div>
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+
+                        <div id="search-go" class="execAction btn btn-primary" onclick="searchVertex(); clearConsole();"
+                             style="width:100%;">
+                            Search
+                        </div>
+
+                        <div class="dropdown-content">
+                            <input type="number" id="v-search" title="Enter an Integer" autocomplete="off" min=0 max=99
+                                   value=7 ; style=" width: 100%">
+                            <div id="find-min" class="execAction btn btn-primary"
+                                 onClick="findMinMax(true); clearConsole() ">Find
+                                Minimum
+                            </div>
+                            <div id="find-max" class="execAction btn btn-primary"
+                                 onClick="findMinMax(false); clearConsole() ">Find
+                                Maximum
+                            </div>
+
+                            <div id="search-err" class="err"></div>
+
+                        </div>
+
                     </div>
 
-                    <button id="extractmax" class="execAction btn btn-primary" onclick="extractmax(); clearConsole()">ExtractMax()</button>
-                    <div class="extractmax action-menu-pullout">
-                        <div id="extractmax-err" class="err"></div>
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+
+                        <div id="insert-go" class="execAction btn btn-primary" onclick="insertVertex(); clearConsole()"
+                             style="width:100%;">
+                            Insert
+                        </div>
+
+                        <div class="dropdown-content">
+
+                            <input type="text" id="v-insert"
+                                   title="Enter an Integer or comma-separated array of Integers" autocomplete="off"
+                                   value="1,77" ; style=" width: 100%">
+                        </div>
+
                     </div>
 
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
 
-                    <p id="heapsort" class="execAction" onclick="heapsort(); clearConsole()">HeapSort()</p>
-                    <div class="heapsort action-menu-pullout">
-                        <div id="heapsort-err" class="err"></div>
+                        <div id="remove-go" class="execAction btn btn-primary" onclick="removeVertex(); clearConsole()"
+                             style="width:100%;">
+                            Remove
+                        </div>
+
+                        <div class="dropdown-content">
+                            <input type="text" id="v-remove"
+                                   title="Enter an Integer or comma-separated array of Integers" autocomplete="off"
+                                   value="1,77" ; style=" width: 100%">
+                        </div>
+
                     </div>
-                    <!--<div id="actions-hide" class="panel-hide"><img src="../img/arrow_white_right.png" alt=">"-->
-                    <!--title="show/hide actions panel"></div>-->
-
-                    <!--<div class="createNlogN action-menu-pullout">-->
-                    <!--<div id="createNlogN-input" class="new-menu-option">A = <input type="text" id="arrv1" autocomplete="off"-->
-                    <!--value="2,7,26,25,19,17,1,90,3,36"></div>-->
-                    <!--<div id="createNlogN-go" class="execAction coloured-menu-option" onclick="createNlogN()"><p>Go</p></div>-->
-                    <!--<div id="createNlogN-sample" class="execAction new-menu-option coloured-menu-option"-->
-                    <!--onclick="createNlogNSample()"><p>Sorted Example</p></div>-->
-                    <!--<div id="createNlogN-random" class="execAction new-menu-option coloured-menu-option"-->
-                    <!--onclick="createNlogNRandom()"><p>Random</p></div>-->
-                    <!--<div id="createNlogN-err" class="err"></div>-->
-                    <!--</div>-->
-                    <!--<div class="createN action-menu-pullout">-->
-                    <!--<div id="createN-input" class="new-menu-option">A = <input type="text" id="arrv2" autocomplete="off"-->
-                    <!--value="2,7,26,25,19,17,1,90,3,36"></div>-->
-                    <!--<div id="createN-go" class="execAction coloured-menu-option" onclick="createN()"><p>Go</p></div>-->
-                    <!--<div id="createN-sample" class="execAction new-menu-option coloured-menu-option" onclick="createNSample()"><p>-->
-                    <!--Sorted Example</p></div>-->
-                    <!--<div id="createN-random" class="execAction new-menu-option coloured-menu-option" onclick="createNRandom()"><p>-->
-                    <!--Random</p></div>-->
-                    <!--<div id="createN-err" class="err"></div>-->
-                    <!--</div>-->
-
 
                 </div>
                 <div class="col-md-5">
                     <div class="card">
-                        <div id="console" class="panel1"><p style="font-size: 13px"></p></div>
+                        <div id="log" class="panel"><p style="font-size: 13px"></p></div>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="row card items">
                         <ul class="item-list striped" style="font-size: 13px">
                             <li class="item" style="height: 50px">
-                                <div id="status" style="background-color: white" class="panel1"><p></p></div>
+                                <div id="status" class="panel"><p></p></div>
                             </li>
                             <li class="item">
                                 <div class="gridPseudo" style="background-color: white">
-                                    <div id="codetrace" class="panel1">
+                                    <div id="codetrace" class="panel">
                                         <p id="code1" style="padding-top: 10px;"></p>
                                         <p id="code2"></p>
                                         <p id="code3"></p>
@@ -724,167 +573,32 @@
         <div class="color-secondary"></div>
     </div>
 </div>
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-80463319-4', 'auto');
-    ga('send', 'pageview');
-</script>
 
 
-<script src="js/vendor.js"></script>
-<script src="js/app.js"></script>
-<script src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript">
-    var PHP_DOMAIN = "";
 
-    // surprise colour!
-    // Referenced to in  home.js and viz.js also
-    var colourArray = ["#52bc69", "#d65775"/*"#ed5a7d"*/, "#2ebbd1", "#d9513c", "#fec515", "#4b65ba", "#ff8a27", "#a7d41e"]; // green, pink, blue, red, yellow, indigo, orange, lime
-
-    function disableScroll() {
-        $('html').css('overflow', 'hidden');
-    }
-
-    function enableScroll() {
-        $('html').css('overflow', 'visible');
-    }
-
-    function replaceAll(find, replace, str) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    }
-
-    function getColours() {
-        var generatedColours = new Array();
-        while (generatedColours.length < 4) {
-            var n = (Math.floor(Math.random() * colourArray.length));
-            if ($.inArray(n, generatedColours) == -1)
-                generatedColours.push(n);
-        }
-        return generatedColours;
-    }
-
-    function isOn(value, position) {
-        return (value >> position) & 1 === 1;
-    }
-
-    function customAlert(msg) {
-        $('#custom-alert p').html(msg);
-        var m = -1 * ($('#custom-alert').outerHeight() / 2);
-        $('#custom-alert').css('margin-top', m + 'px');
-        $('#dark-overlay').fadeIn(function () {
-            $('#custom-alert').fadeIn(function () {
-                setTimeout(function () {
-                    $('#custom-alert').fadeOut(function () {
-                        $('#dark-overlay').fadeOut();
-                    });
-                }, 1000);
-            });
-        });
-    }
-
-    function showLoadingScreen() {
-        $('#loading-overlay').show();
-        $('#loading-message').show();
-    }
-
-    function hideLoadingScreen() {
-        $('#loading-overlay').hide();
-    }
-
-    function commonAction(retval, msg) {
-        //setTimeout(function() {
-        if (retval) { // mode == "exploration" && // now not only for exploration mode, but check if this opens other problems
-            $('#current-action').show();
-            $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
-            $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
-            triggerRightPanels();
-            isPlaying = true;
-        }
-        //}, 500);
-    }
-
-    function getQueryVariable(variable) {
-        var query = window.location.search.substring(1);
-        var vars = query.split('&');
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
-            if (decodeURIComponent(pair[0]) == variable)
-                return decodeURIComponent(pair[1]);
-        }
-        return "";
-    }
-
-    var generatedColours = getColours();
-    var surpriseColour = colourArray[generatedColours[0]];
-    var colourTheSecond = colourArray[generatedColours[1]];
-    var colourTheThird = colourArray[generatedColours[2]];
-    var colourTheFourth = colourArray[generatedColours[3]];
-
-    $(function () {
-        $('.links').css('background', surpriseColour);
-        $('.right-links').css('background', surpriseColour);
-        $('#login-go').css('background', surpriseColour);
-
-        $('.colour').css("color", surpriseColour); // name
-        $('h4').css("background-color", surpriseColour); // about, contact us etc. button background
-
-        // title
-        $('#title a').click(function () {
-            $('#title a').removeClass('selected-viz');
-            $(this).addClass('selected-viz');
-            // temporary quick fix for Google Chrome Aug 2016 issue...
-            setTimeout(function () {
-                document.body.style.zoom = "100.1%";
-            }, 100); // force resize/redraw...
-            setTimeout(function () {
-                document.body.style.zoom = "100%";
-            }, 600);
-        });
-
-
-    });
-
-    // function verifyLogout() {
-    //     // Steven's remarks: use a better 'confirm' than the default :(
-    //     var doesLogout = confirm('Are you sure to logout?');
-    //     if (doesLogout == true) {
-    //         window.location = "https://visualgo.net/logout";
-    //     }
-    // }
-    //
-    // function checkLogin() {
-    //     $.get('/checklogin', function (data) {
-    //         var url = data['url'];
-    //         window.location.href = '/' + url;
-    //     });
-    // }
-    $('#status').bind("DOMSubtreeModified", function () {
-        $('#console').append($('#status').html());
-    });
-
-    function clearConsole(callback) {
-        $('#console').html('');
-
-    }
-
-
-</script>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="js/algo-initials.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/d3.min.js"></script>
-<script type="text/javascript" src="js/viz-1.0.3.js"></script>
+
+<script type="text/javascript" src="js/viz.js"></script>
 <script type="text/javascript" src="js/graph_library.js"></script>
-<script type="text/javascript" src="js/heap.js"></script>
+
+<script type="text/javascript" src="js/bst.js"></script>
+<script>
+    var svg = d3.select("#viz");
+    window.addEventListener('resize', responsivefy(svg));
+</script>
+<script src="js/app.js"></script>
+
 </body>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="js/drawGraph.js"></script>
+<script>
+    var svg2 = d3.select("#graph-viz");
+    window.addEventListener('resize', responsivefy(svg2));
+</script>
 </html>

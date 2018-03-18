@@ -1,119 +1,3 @@
-
-var PHP_DOMAIN = "";
-
-// surprise colour!
-// Referenced to in  home.js and viz.js also
-var colourArray = ["#52bc69", "#d65775"/*"#ed5a7d"*/, "#2ebbd1", "#d9513c", "#fec515", "#4b65ba", "#ff8a27", "#a7d41e"]; // green, pink, blue, red, yellow, indigo, orange, lime
-
-function disableScroll() {
-    $('html').css('overflow', 'hidden');
-}
-
-function enableScroll() {
-    $('html').css('overflow', 'visible');
-}
-
-function replaceAll(find, replace, str) {
-    return str.replace(new RegExp(find, 'g'), replace);
-}
-
-function getColours() {
-    var generatedColours = new Array();
-    while (generatedColours.length < 4) {
-        var n = (Math.floor(Math.random() * colourArray.length));
-        if ($.inArray(n, generatedColours) == -1)
-            generatedColours.push(n);
-    }
-    return generatedColours;
-}
-
-function isOn(value, position) {
-    return (value >> position) & 1 === 1;
-}
-
-function customAlert(msg) {
-    $('#custom-alert p').html(msg);
-    var m = -1 * ($('#custom-alert').outerHeight() / 2);
-    $('#custom-alert').css('margin-top', m + 'px');
-    $('#dark-overlay').fadeIn(function () {
-        $('#custom-alert').fadeIn(function () {
-            setTimeout(function () {
-                $('#custom-alert').fadeOut(function () {
-                    $('#dark-overlay').fadeOut();
-                });
-            }, 1000);
-        });
-    });
-}
-
-function showLoadingScreen() {
-    $('#loading-overlay').show();
-    $('#loading-message').show();
-}
-
-function hideLoadingScreen() {
-    $('#loading-overlay').hide();
-}
-
-function commonAction(retval, msg) {
-    //setTimeout(function() {
-    if (retval) { // mode == "exploration" && // now not only for exploration mode, but check if this opens other problems
-        $('#current-action').show();
-        $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
-        $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
-        triggerRightPanels();
-        isPlaying = true;
-    }
-    //}, 500);
-}
-
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable)
-            return decodeURIComponent(pair[1]);
-    }
-    return "";
-}
-
-var generatedColours = getColours();
-var surpriseColour = colourArray[generatedColours[0]];
-var colourTheSecond = colourArray[generatedColours[1]];
-var colourTheThird = colourArray[generatedColours[2]];
-var colourTheFourth = colourArray[generatedColours[3]];
-
-
-// title
-$('#title a').click(function () {
-    $('#title a').removeClass('selected-viz');
-    $(this).addClass('selected-viz');
-
-    // temporary quick fix for Google Chrome Aug 2016 issue...
-    document.getElementById("#title a");
-    setTimeout(function () {
-        document.body.style.zoom = "100.1%";
-    }, 100); // force resize/redraw...
-    setTimeout(function () {
-        document.body.style.zoom = "100%";
-    }, 600);
-
-
-});
-
-$('#status').bind("DOMSubtreeModified", function () {
-    $('#console').append($('#status').html());
-});
-
-function clearConsole(callback) {
-    $('#console').html('');
-
-}
-
-// overlays stuffs
-
-
 // BST Widget, also includes AVL tree
 // original author: Ivan Reinaldo, then maintained by Steven Halim
 
@@ -205,6 +89,13 @@ var BST = function () {
             "vertexClassNumber": 7
         };
 
+        $('#status').bind("DOMSubtreeModified", function () {
+            $('#console').append($('#status').html());
+        });
+
+
+
+
         var key;
         recalculatePosition();
 
@@ -242,7 +133,9 @@ var BST = function () {
         return true;
     };
 
+
     this.generateExample = function (id) {
+        var drawArray = getTreeArray();
         if (isAVL && (id == 1)) {
             $('#create-err').html("AVL trees are balanced. This example is not balanced.");
             return false;
@@ -264,6 +157,9 @@ var BST = function () {
         else if (id == 5) {
             vertexAmt = 20;
             initArr = [13, 8, 18, 5, 11, 16, 20, 3, 7, 10, 12, 15, 17, 19, 2, 4, 6, 9, 14, 1];
+        }else if(id == 6){
+            vertexAmt = drawArray.length;
+            initArr = drawArray;
         }
         init(initArr);
         return true;
@@ -2848,5 +2744,24 @@ function CUSTOM_ACTION(action, data, mode) {
             $('#v-remove').val(bw.findMax()); // force the max
             removeVertex(showSlide);
         });
+    }
+}
+
+function responsivefy(svg) {
+    var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")) + 30,
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .call(resize);
+
+    d3.select(window).on("resize." + container.attr("id"), resize);
+
+    function resize() {
+        var targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
     }
 }
