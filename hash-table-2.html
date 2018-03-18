@@ -299,8 +299,8 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="gridGraph" style="background-color: white">
-                                <div id="viz">
-                                </div>
+                                <svg id="viz" width="1000px" height="600px">
+                                </svg>
 
 
                             </div>
@@ -320,12 +320,12 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8" style="text-align: center">
-                        <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">first_page</i>
-                        <i class="material-icons" id="previous" onclick="stepBackward()">skip_previous</i>
+                        <i class="material-icons" id="go-to-beginning" onclick="clearConsole(); goToBeginning()">first_page</i>
+                        <i class="material-icons" id="previous" onclick="stepBackward(); removeFirstLine();">skip_previous</i>
                         <i class="material-icons" id="pause" onclick="pause()">pause</i>
-                        <i class="material-icons" id="play" onclick="play()">play_arrow</i>
+                        <i class="material-icons" id="play" onclick="checkPlay(); play()">play_arrow</i>
                         <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
-                        <i class="material-icons" id="go-to-end" onclick="goToEnd()">last_page</i>
+                        <i class="material-icons" id="go-to-end" onclick="checkEnd()">last_page</i>
                     </div>
                 </div>
                 <div class="row sameheight-container">
@@ -509,16 +509,19 @@
 
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 
-<script type="text/javascript" src="js/home.js"></script>
+<script type="text/javascript" src="js/algo-initials.js"></script>
 
 <script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/d3.min.js"></script>
-<script type="text/javascript" src="js/viz-1.0.3.js"></script>
 <script type="text/javascript" src="js/viz.js"></script>
 <script type="text/javascript" src="js/graph_library.js"></script>
 
 <script type="text/javascript" src="js/hash_table.js"></script>
-
+<script>
+    var svg = d3.select("#viz");
+    window.addEventListener('resize', responsivefy(svg));
+</script>
+<script src="js/app.js"></script>
 
 </body>
 </html>

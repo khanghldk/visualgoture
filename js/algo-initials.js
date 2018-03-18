@@ -8,9 +8,9 @@ var PHP_DOMAIN = "";
 function commonAction(retval, msg) {
     //setTimeout(function() {
     if (retval) { // mode == "exploration" && // now not only for exploration mode, but check if this opens other problems
-        $('#current-action').show();
-        $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
-        $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
+        // $('#current-action').show();
+        // $('#current-action').html(mode == "exploration" ? msg : ("e-Lecture Example (auto play until done)<br>" + msg));
+        // $('#progress-bar').slider("option", "max", gw.getTotalIteration() - 1);
         isPlaying = true;
     }
     //}, 500);
@@ -26,12 +26,6 @@ function getQueryVariable(variable) {
     }
     return "";
 }
-
-var generatedColours = getColours();
-var surpriseColour = colourArray[generatedColours[0]];
-var colourTheSecond = colourArray[generatedColours[1]];
-var colourTheThird = colourArray[generatedColours[2]];
-var colourTheFourth = colourArray[generatedColours[3]];
 
 
 
