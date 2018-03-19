@@ -65,11 +65,7 @@
     padding-right: 15px;
 }
 
-<<<<<<< HEAD
 #graph-all svg {
-=======
-svg {
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     background-color: #FFF;
     cursor: default;
     -webkit-user-select: none;
@@ -79,26 +75,17 @@ svg {
     user-select: none;
 }
 
-<<<<<<< HEAD
 #graph-all svg:not(.active):not(.ctrl) {
     cursor: crosshair;
 }
 
 #graph-all path.link {
-=======
-svg:not(.active):not(.ctrl) {
-    cursor: crosshair;
-}
-
-path.link {
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     fill: none;
     stroke: #000;
     stroke-width: 4px;
     cursor: default;
 }
 
-<<<<<<< HEAD
 #graph-all svg:not(.active):not(.ctrl) path.link {
     cursor: pointer;
 }
@@ -116,52 +103,21 @@ path.link {
 }
 
 #graph-all circle.node {
-=======
-svg:not(.active):not(.ctrl) path.link {
-    cursor: pointer;
-}
-
-path.link.selected {
-    stroke-dasharray: 10,2;
-}
-
-path.link.dragline {
-    pointer-events: none;
-}
-
-path.link.hidden {
-    stroke-width: 0;
-}
-
-circle.node {
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     stroke-width: 1.5px;
     cursor: pointer;
 }
 
-<<<<<<< HEAD
 #graph-all circle.node.reflexive {
-=======
-circle.node.reflexive {
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     stroke: #000 !important;
     stroke-width: 2.5px;
 }
 
-<<<<<<< HEAD
 #graph-all text {
-=======
-text {
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     font: 12px sans-serif;
     pointer-events: none;
 }
 
-<<<<<<< HEAD
 #graph-all text.id {
-=======
-text.id {
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     text-anchor: middle;
     font-weight: bold;
 }

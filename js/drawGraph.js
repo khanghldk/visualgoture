@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var currentFatherNode;
 
 
@@ -76,15 +75,13 @@ var bst = new BinarySearchTree();
 
 
 // set up SVG for d3
-=======
-// set up SVG for D3
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
-var width  = 960,
-    height = 500,
+var width  = 1000,
+    height = 600,
     colors = d3.scale.category10();
 
 var svg = d3.select('#graph')
     .append('svg')
+    .attr('id', 'graph-viz')
     .attr('oncontextmenu', 'return false;')
     .attr('width', width)
     .attr('height', height);
@@ -162,11 +159,7 @@ var links = new Array();
 
 var lastNodeId = -1;
 
-<<<<<<< HEAD
 // init d3 force layout
-=======
-// init D3 force layout
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 
 var force = d3.layout.force()
     .nodes(nodes)
@@ -376,7 +369,6 @@ function restart() {
                 link[direction] = true;
             } else {
                 link = {source: source, target: target, left: false, right: false};
-<<<<<<< HEAD
                 link[direction] = false;
                 if(nodes.length <= 2)
                     links.push(link);
@@ -385,10 +377,6 @@ function restart() {
                     links.push(link);
                 }
 
-=======
-                link[direction] = true;
-                links.push(link);
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
             }
 
             // select new link
@@ -397,12 +385,9 @@ function restart() {
             restart();
         });
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     // show node IDs
     g.append('svg:text')
         .attr('x', 0)
@@ -440,7 +425,6 @@ function restart() {
     // set the graph in motion
     force.start();
 
-<<<<<<< HEAD
     // getMatrix();
     // showMatrix();
 
@@ -460,26 +444,14 @@ function checkNodeNotHavingLink(source){
         return false;
 }
 
-=======
-    getMatrix();
-    showMatrix();
-
-}
-
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 function mousedown() {
     // prevent I-bar on drag
     //d3.event.preventDefault();
 
-<<<<<<< HEAD
-=======
-    // because :active only works in WebKit?
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     svg.classed('active', true);
 
     if(d3.event.ctrlKey || mousedown_node || mousedown_link) return;
 
-<<<<<<< HEAD
     if (nodes.length >=2){
         var lastNode = nodes[nodes.length - 1];
     }
@@ -493,7 +465,9 @@ function mousedown() {
 
         // insert new node at point
         var inputId =prompt("Please enter node value","1");
-        if(inputId != null){
+        if(checkDuplicate(Number(inputId)))
+            alert('Please enter different number because of duplicate!');
+        else if(inputId != null){
             var point = d3.mouse(this),
                 node = {id: inputId, reflexive: false, color: colors(3)};
             node.x = point[0];
@@ -502,20 +476,20 @@ function mousedown() {
             bst.add(Number(inputId));
             restart();
         }
+
     }
 
 
 
-=======
-    // insert new node at point
-    var point = d3.mouse(this),
-        node = {id: ++lastNodeId, reflexive: false, color: colors(3)};
-    node.x = point[0];
-    node.y = point[1];
-    nodes.push(node);
+}
 
-    restart();
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
+
+function checkDuplicate(id){
+    for(i = 0; i < nodes.length; i++ ){
+        if(nodes[i].id == id)
+            return true;
+    }
+    return false;
 }
 
 function mousemove() {
@@ -555,11 +529,7 @@ function spliceLinksForNode(node) {
 var lastKeyDown = -1;
 
 function keydown() {
-<<<<<<< HEAD
     // d3.event.preventDefault();
-=======
-    d3.event.preventDefault();
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 
     if(lastKeyDown !== -1) return;
     lastKeyDown = d3.event.keyCode;
@@ -690,7 +660,7 @@ var Travelsal = function () {
 
     stateList.push(createNewState());
     var state = StateHelper.copyState(statelist[0]);
-    
+
     this.dfs = function (sourceVertex ,callback) {
         if (nodes.length === 0) { // no graph
             console.log("no graph");
@@ -811,7 +781,6 @@ svg.on('mousedown', mousedown)
 d3.select(window)
     .on('keydown', keydown)
     .on('keyup', keyup);
-<<<<<<< HEAD
 restart();
 
 function getTreeArray(){
@@ -822,6 +791,8 @@ function getTreeArray(){
     return array;
 }
 
-=======
-restart();
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
+function clearDrawnTree(){
+    nodes.splice(0,nodes.length);
+    links.splice(0,links.length);
+    restart();
+}

@@ -364,22 +364,14 @@ function stop() {
     $('#play').hide();
 }
 
-<<<<<<< HEAD
 //Log Write
 $('#status').bind("DOMSubtreeModified",function(){
 
     $('#log').prepend($('#status').html());
-=======
-
-$('#status').bind("DOMSubtreeModified",function(){
-
-    $('#console').prepend($('#status').html());
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 
 });
 
 function clearConsole(callback) {
-<<<<<<< HEAD
     $('#log').html('');
 }
 
@@ -388,16 +380,6 @@ function removeFirstLine(){
     $('#log').find('p').first().remove();
     $('#log').find('p').first().remove();
     $('#log').find('p').first().remove();
-=======
-    $('#console').html('');
-}
-
-function removeFirstLine(){
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
->>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 }
 
 
