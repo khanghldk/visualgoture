@@ -529,9 +529,9 @@ var Travelsal = function () {
 
     var stateList = new Array();
 
-    stateList.push(createNewState());
-    var state = StateHelper.copyState(statelist[0]);
-    
+    stateList.push(StateHelper.createNewState());
+    var state = StateHelper.copyState(stateList[0]);
+
     this.dfs = function (sourceVertex ,callback) {
         if (nodes.length === 0) { // no graph
             console.log("no graph");
@@ -571,10 +571,14 @@ var Travelsal = function () {
             num[u] = EXPLORED; // low[u] = ++Count;
 
             var neighbors = [];
-            for (var j = 0; j < amountEdge; j++) if (iEL[j]["u"] == u) neighbors.push(j);
-            neighbors.sort(function (a, b) {
-                return iEL[a]["v"] - iEL[b]["v"]
-            });
+
+            for (var i = 0; i < nodes.length; i++) {
+                if (matrix[u][i] == 1) {
+                    neighbors.push(i);
+                }
+            }
+
+            // neighbors.sort
 
             while (neighbors.length > 0) {
                 var j = neighbors.shift();
