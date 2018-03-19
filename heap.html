@@ -10,9 +10,10 @@
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="css/sub-menu.css">
     <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/addition.css">
     <!-- Theme initialization -->
-
 
     <script>
         var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
@@ -28,6 +29,7 @@
 
 </head>
 <body>
+
 <div class="main-wrapper">
     <div class="app" id="app">
         <header class="header">
@@ -36,7 +38,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
             </div>
-            <div class="header-block header-block-search">
+            <div class="header-block header-block-search col-md-3">
                 <form role="search">
                     <div class="input-container">
                         <i class="fa fa-search"></i>
@@ -45,21 +47,8 @@
                     </div>
                 </form>
             </div>
-            <div class="header-block header-block-nav">
-                <ul class="nav-profile">
-                    <button disabled class="btn btn-primary" id="sign-in">Sign in with Google</button>
-
-                    <li class="profile dropdown" id="profile" style="display: none">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <div id="profile-img" class="img"> </div>
-                            <span class="name" id="profile-name"></span>
-                        </a>
-                        <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <a class="dropdown-item" onclick="firebase.auth().signOut()">
-                                <i class="fa fa-power-off icon"></i> Logout </a>
-                        </div>
-                    </li>
-                </ul>
+            <div class="header-block header-block-buttons col-md-9">
+                <div id="title" style="font-size: 20px; color: black"></div>
             </div>
         </header>
         <aside class="sidebar">
@@ -71,7 +60,7 @@
                 </div>
                 <nav class="menu">
                     <ul class="sidebar-menu metismenu" id="sidebar-menu">
-                        <li class="active">
+                        <li>
                             <a href="index.html">
                                 <i class="fa fa-home"></i> Home </a>
                         </li>
@@ -81,32 +70,32 @@
                                 <i class="fa arrow"></i>
                             </a>
                             <ul class="sidebar-nav">
-                                <li>
-                                    <a href="sort.html?type=bubbleSort"> Bubble Sort </a>
+                                <li class="active">
+                                    <a id="bubbleSort"> Bubble Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=selectionSort"> Selection Sort </a>
+                                    <a id="selectionSort"> Selection Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=quickSort"> Quick Sort </a>
+                                    <a id="quickSort"> Quick Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=insertionSort"> Insertion Sort </a>
+                                    <a id="insertionSort"> Insertion Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=cocktailSort"> Cocktail Shaker Sort </a>
+                                    <a id="cocktailSort"> Cocktail Shaker Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=combSort"> Comb Sort </a>
+                                    <a id="combSort"> Comb Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=shellSort"> Shell Sort </a>
+                                    <a id="shellSort"> Shell Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=mergeSort"> Merge Sort </a>
+                                    <a id="mergeSort"> Merge Sort </a>
                                 </li>
                                 <li>
-                                    <a href="sort.html?type=radixSort"> Radix Sort </a>
+                                    <a id="radixSort"> Radix Sort </a>
                                 </li>
                             </ul>
                         </li>
@@ -133,17 +122,17 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li >
                             <a href="">
                                 <i class="fa fa-table"></i> Binary Search Tree
                                 <i class="fa arrow"></i>
                             </a>
                             <ul class="sidebar-nav">
                                 <li>
-                                    <a href="bst.html" id="title-BST"> Binary Search Tree </a>
+                                    <a id="title-BST"> Binary Search Tree </a>
                                 </li>
                                 <li>
-                                    <a href="bst.html" id="title-AVL"> AVL Tree </a>
+                                    <a id="title-AVL"> AVL Tree </a>
                                 </li>
                             </ul>
                         </li>
@@ -310,124 +299,148 @@
         <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
         <div class="mobile-menu-handle"></div>
         <article class="content dashboard-page">
-            <section class="section">
-                <div class="row sameheight-container">
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s1" style="background-color: #233D4D">
-                                    <img src="icons/sorting.png" alt="Sorting" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="red">
-                                                <a href="sort.html">Sorting</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s2" style="background-color: #E3BAC6">
 
-                                    <img src="icons/linked-list.png" alt="List" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="blue">
-                                                <a href="https://huydang61318.github.io/BinarySearchTree/list.html">
-                                                    Linked List
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s3" style="background-color: #BDD4E7">
+            <div class="row sameheight-container">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="gridGraph" style="background-color: white">
+                            <svg id="viz" width="1000px" height="600px">
+                            </svg>
 
-                                    <img src="icons/binary-search-tree.png" alt="Binary Search Tree"
-                                         height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="yellow">
-                                                <a href="https://huydang61318.github.io/BinarySearchTree/bst.html">
-                                                    Binary Search Tree
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section class="section">
-                <div class="row sameheight-container">
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s4" style="background-color: #1985A1">
-                                    <a href="hash-table-2.html">
-                                        <img src="icons/hashing.png" alt="Hashing" height="100%" width="100%">
-                                        <nav class="colorNav">
-                                            <ul>
-                                                <li class="purple">
-                                                    <a href="hash-table-2.html">Hashing</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div id="s5" style="background-color: #DD9AC2">
+                <div class="col-md-4">
+                    <div class="card-block">
+                        <div class="title-block">
+                            <h4 class="title" id="noteTitle"></h4>
 
-                                    <img src="icons/graph.png" alt="Graph" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="green">
-                                                <a href="graphTravelsal.html">Graph</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card sameheight-item stats" data-exclude="xs">
-                            <div class="card-block">
-                                <div class="square" id="s6" style="background-color: #C2E812">
-                                    <img src="icons/recursion.png" alt="Array" height="100%" width="100%">
-                                    <nav class="colorNav">
-                                        <ul>
-                                            <li class="blue">
-                                                <a href="#">Recursion</a>
-                                                <ul>
-                                                    <li><a href="eight-queens.html">BackTracking</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                        <div id="noteContent" style="text-align: justify">
+
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+            <div class="row">
+                <div class="col-md-8" style="text-align: center">
+                    <i class="material-icons" id="go-to-beginning"
+                       onclick="clearConsole(); goToBeginning()">first_page</i>
+                    <i class="material-icons" id="previous"
+                       onclick="stepBackward(); removeFirstLine();">skip_previous</i>
+                    <i class="material-icons" id="pause" onclick="pause()">pause</i>
+                    <i class="material-icons" id="play" onclick="checkPlay(); play()">play_arrow</i>
+                    <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
+                    <i class="material-icons" id="go-to-end" onclick="checkEnd()">last_page</i>
+                </div>
+            </div>
+
+            <div class="row sameheight-container">
+                <div class="col-md-3">
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+                        <div id="createNlogN" class="execAction btn btn-primary" style="width: 100%;">
+                            Create(A) - O(<b>N</b> log <b>N</b>)
+                        </div>
+                        <div class="dropdown-content">
+                            <div id="createNlogN-input" id="createNlogN-go" class="execAction btn btn-primary"
+                                 onclick="createNlogN(); clearConsole()">A = <input type="text" id="arrv1"
+                                                                                    autocomplete="off"
+                                                                                    value="2,7,26,25,19,17,1,90,3,36">
+                            </div>
+
+                            <div id="createNlogN-sample" class="execAction btn btn-primary"
+                                 onclick="createNlogNSample(); clearConsole()"><p>Sorted Example</p></div>
+                            <div id="createNlogN-random" class="execAction btn btn-primary"
+                                 onclick="createNlogNRandom(); clearConsole()"><p>Random</p></div>
+                            <div id="createNlogN-err" class="err"></div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+                        <div id="createN" class="execAction btn btn-primary" style="width: 100%;">
+                            Create(A) - O(<b>N</b>)
+                        </div>
+                        <div class="dropdown-content">
+                            <div id="createN-input" id="createN-go" class="execAction btn btn-primary"
+                                 onclick="createN(); clearConsole()">
+                                A = <input type="text" id="arrv2"
+                                           autocomplete="off"
+                                           value="2,7,26,25,19,17,1,90,3,36">
+                            </div>
+                            <div id="createN-sample" class="execAction btn btn-primary"
+                                 onclick="createNSample();clearConsole() "><p>
+                                Sorted Example</p></div>
+                            <div id="createN-random" class="execAction btn btn-primary"
+                                 onclick="createNRandom(); clearConsole()"><p>
+                                Random</p></div>
+                            <div id="createN-err" class="err"></div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+                        <div id="insert" class="execAction btn btn-primary" style="width: 100%;">
+                            Insert(v)
+                        </div>
+                        <div class="dropdown-content">
+                            <div id="insert-input" id="insert-go" class="execAction btn btn-primary"
+                                 onclick="insert();clearConsole() ">
+                                v = <input type="number" id="v" autocomplete="off" min=0 value=26></div>
+                            <div id="insert-err" class="err"></div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+                        <div id="extractmax" class="execAction btn btn-primary" style="width: 100%;"
+                             onclick="extractmax(); clearConsole()">
+                            ExtractMax()
+                        </div>
+                        <div id="extractmax-err" class="err"></div>
+                    </div>
+
+
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+                        <div id="heapsort" class="execAction btn btn-primary" style="width: 100%;"
+                             onclick="heapsort(); clearConsole()">
+                            HeapSort()
+                        </div>
+                        <div id="heapsort-err" class="err"></div>
+                    </div>
+
+                </div>
+                <div class="col-md-5">
+                    <div class="card">
+                        <div id="log" class="panel1"><p style="font-size: 13px"></p></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row card items">
+                        <ul class="item-list striped" style="font-size: 13px">
+                            <li class="item" style="height: 50px">
+                                <div id="status" style="background-color: white" class="panel1"><p></p></div>
+                            </li>
+                            <li class="item">
+                                <div class="gridPseudo" style="background-color: white">
+                                    <div id="codetrace" class="panel1">
+                                        <p id="code1" style="padding-top: 10px;"></p>
+                                        <p id="code2"></p>
+                                        <p id="code3"></p>
+                                        <p id="code4"></p>
+                                        <p id="code5"></p>
+                                        <p id="code6"></p>
+                                        <p id="code7"></p>
+                                        <p id="code8"></p>
+                                        <p id="code9"></p>
+                                        <p id="code10"></p>
+                                        <p id="code11"></p>
+                                        <p id="code12" style="padding-bottom: 10px;"></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
         </article>
         <footer class="footer">
 
@@ -516,110 +529,22 @@
         <div class="color-secondary"></div>
     </div>
 </div>
-<script src="js/vendor.js"></script>
-<script src="js/app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-auth.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-<script src="js/initFireBase.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+<script type="text/javascript" src="js/algo-initials.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 
-<script type="text/javascript">
+<script type="text/javascript" src="js/viz.js"></script>
+<script type="text/javascript" src="js/graph_library.js"></script>
 
-    /**
-     * Function called when clicking the Login/Logout button.
-     */
-    // [START buttoncallback]
-    function toggleSignIn() {
-        if (!firebase.auth().currentUser) {
-            // [START createprovider]
-            var provider = new firebase.auth.GoogleAuthProvider();
-            // [END createprovider]
-            // [START addscopes]
-            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-            // [END addscopes]
-            // [START signin]
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                // [START_EXCLUDE]
-                // [END_EXCLUDE]
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // [START_EXCLUDE]
-                if (errorCode === 'auth/account-exists-with-different-credential') {
-                    alert('You have already signed up with a different auth provider for that email.');
-                    // If you are using multiple auth providers on your app you should handle linking
-                    // the user's accounts here.
-                } else {
-                    console.error(error);
-                }
-                // [END_EXCLUDE]
-            });
-            // [END signin]
-        } else {
-            // [START signout]
-            firebase.auth().signOut();
-            // [END signout]
-        }
-        // [START_EXCLUDE]
-        document.getElementById('sign-in').disabled = true;
-        // [END_EXCLUDE]
-    }
-    // [END buttoncallback]
-
-    /**
-     * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-     *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-     *    out, and that is where we update the UI.
-     */
-    function initApp() {
-        // Listening for auth state changes.
-        // [START authstatelistener]
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in.
-                var displayName = user.displayName;
-                var email = user.email;
-                var emailVerified = user.emailVerified;
-                var photoURL = user.photoURL;
-                var isAnonymous = user.isAnonymous;
-                var uid = user.uid;
-                var providerData = user.providerData;
-                // [START_EXCLUDE]
-                // document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-                // document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                // document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-                document.getElementById('profile-name').textContent = user.displayName;
-                document.getElementById('profile-img').style.backgroundImage = 'url(' + user.photoURL + ')';
-                document.getElementById('sign-in').style.display = 'none';
-                document.getElementById('profile').style.display = 'block';
-                // [END_EXCLUDE]
-            } else {
-                document.getElementById('sign-in').textContent = 'Sign in with Google';
-                document.getElementById('sign-in').style.display = 'block';
-                document.getElementById('profile').style.display = 'none';
-            }
-            // [START_EXCLUDE]
-            document.getElementById('sign-in').disabled = false;
-            // [END_EXCLUDE]
-        });
-        // [END authstatelistener]
-
-        document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
-    }
-
-    window.onload = function() {
-        initApp();
-    };
+<script type="text/javascript" src="js/heap.js"></script>
+<script>
+    var svg = d3.select("#viz");
+    window.addEventListener('resize', responsivefy(svg));
 </script>
+<script src="js/app.js"></script>
+
 </body>
 </html>

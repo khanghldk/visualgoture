@@ -1,10 +1,87 @@
-// set up SVG for D3
-var width  = 960,
-    height = 500,
+var currentFatherNode;
+
+
+var node = {
+    value: 125,
+    left: null,
+    right: null
+};
+function BinarySearchTree() {
+    this._root = null;
+}
+
+BinarySearchTree.prototype = {
+
+    //restore constructor
+    constructor: BinarySearchTree,
+
+    add: function(value){
+        //create a new item object, place data in
+        var node = {
+                value: value,
+                left: null,
+                right: null
+            },
+
+            //used to traverse the structure
+            current;
+
+        //special case: no items in the tree yet
+        if (this._root === null){
+            this._root = node;
+        } else {
+            current = this._root;
+
+            while(true){
+
+                //if the new value is less than this node's value, go left
+                if (value < current.value){
+
+                    //if there's no left, then the new node belongs there
+                    if (current.left === null){
+                        current.left = node;
+                        currentFatherNode = current.value;
+                        break;
+                    } else {
+                        current = current.left;
+                    }
+
+                    //if the new value is greater than this node's value, go right
+                } else if (value > current.value){
+
+                    //if there's no right, then the new node belongs there
+                    if (current.right === null){
+                        current.right = node;
+                        currentFatherNode = current.value;
+                        break;
+                    } else {
+                        current = current.right;
+                    }
+
+                    //if the new value is equal to the current one, just ignore
+                } else {
+                    break;
+                }
+            }
+        }
+    },
+
+};
+
+
+var bst = new BinarySearchTree();
+
+
+
+
+// set up SVG for d3
+var width  = 1000,
+    height = 600,
     colors = d3.scale.category10();
 
 var svg = d3.select('#graph')
     .append('svg')
+    .attr('id', 'graph-viz')
     .attr('oncontextmenu', 'return false;')
     .attr('width', width)
     .attr('height', height);
@@ -82,7 +159,7 @@ var links = new Array();
 
 var lastNodeId = -1;
 
-// init D3 force layout
+// init d3 force layout
 
 var force = d3.layout.force()
     .nodes(nodes)
@@ -292,8 +369,14 @@ function restart() {
                 link[direction] = true;
             } else {
                 link = {source: source, target: target, left: false, right: false};
-                link[direction] = true;
-                links.push(link);
+                link[direction] = false;
+                if(nodes.length <= 2)
+                    links.push(link);
+                else if((link.source.id == currentFatherNode && link.target.id == nodes[nodes.length - 1].id)
+                    || (link.source.id == nodes[nodes.length - 1].id && link.target.id == currentFatherNode)){
+                    links.push(link);
+                }
+
             }
 
             // select new link
@@ -301,6 +384,9 @@ function restart() {
             selected_node = null;
             restart();
         });
+
+
+
 
     // show node IDs
     g.append('svg:text')
@@ -339,28 +425,71 @@ function restart() {
     // set the graph in motion
     force.start();
 
-    getMatrix();
-    showMatrix();
+    // getMatrix();
+    // showMatrix();
 
+}
+
+
+function checkNodeNotHavingLink(source){
+    var linkNum = 0;
+
+    for (i = 0; i < links.length; i++) {
+        if(links[i].source.id == source|| links[i].target.id == source)
+            linkNum++;
+    }
+    if(linkNum == 0)
+        return true;
+    else
+        return false;
 }
 
 function mousedown() {
     // prevent I-bar on drag
     //d3.event.preventDefault();
 
-    // because :active only works in WebKit?
     svg.classed('active', true);
 
     if(d3.event.ctrlKey || mousedown_node || mousedown_link) return;
 
-    // insert new node at point
-    var point = d3.mouse(this),
-        node = {id: ++lastNodeId, reflexive: false, color: colors(3)};
-    node.x = point[0];
-    node.y = point[1];
-    nodes.push(node);
+    if (nodes.length >=2){
+        var lastNode = nodes[nodes.length - 1];
+    }
 
-    restart();
+
+    if (nodes.length >= 2 && checkNodeNotHavingLink(lastNode.id)){
+        alert("Please draw link for the lastest node");
+    }else{
+        // because :active only works in WebKit?
+
+
+        // insert new node at point
+        var inputId =prompt("Please enter node value","1");
+        if(checkDuplicate(Number(inputId)))
+            alert('Please enter different number because of duplicate!');
+        else if(inputId != null){
+            var point = d3.mouse(this),
+                node = {id: inputId, reflexive: false, color: colors(3)};
+            node.x = point[0];
+            node.y = point[1];
+            nodes.push(node);
+            bst.add(Number(inputId));
+            restart();
+        }
+
+    }
+
+
+
+}
+
+
+function checkDuplicate(id){
+    for(i = 0; i < nodes.length; i++ ){
+        if(nodes[i].id == id)
+            return true;
+    }
+    return false;
 }
 
 function mousemove() {
@@ -400,7 +529,7 @@ function spliceLinksForNode(node) {
 var lastKeyDown = -1;
 
 function keydown() {
-    d3.event.preventDefault();
+    // d3.event.preventDefault();
 
     if(lastKeyDown !== -1) return;
     lastKeyDown = d3.event.keyCode;
@@ -657,3 +786,17 @@ d3.select(window)
     .on('keydown', keydown)
     .on('keyup', keyup);
 restart();
+
+function getTreeArray(){
+    var array = [];
+    for(i = 0; i< nodes.length; i++)
+        array[i] = nodes[i].id;
+
+    return array;
+}
+
+function clearDrawnTree(){
+    nodes.splice(0,nodes.length);
+    links.splice(0,links.length);
+    restart();
+}

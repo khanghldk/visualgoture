@@ -364,22 +364,22 @@ function stop() {
     $('#play').hide();
 }
 
-
+//Log Write
 $('#status').bind("DOMSubtreeModified",function(){
 
-    $('#console').prepend($('#status').html());
+    $('#log').prepend($('#status').html());
 
 });
 
 function clearConsole(callback) {
-    $('#console').html('');
+    $('#log').html('');
 }
 
 function removeFirstLine(){
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
-    $('#console').find('p').first().remove();
+    $('#log').find('p').first().remove();
+    $('#log').find('p').first().remove();
+    $('#log').find('p').first().remove();
+    $('#log').find('p').first().remove();
 }
 
 

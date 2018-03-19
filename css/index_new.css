@@ -78,7 +78,7 @@ div ul {
 
 .gridGraph {
     grid-area: g;
-    max-height: 500px;
+    max-height: max-content;
 }
 
 .gridNote {
@@ -94,11 +94,13 @@ div ul {
 .gridAction {
     grid-area: a;
     border: 1px solid black;
+    max-height: 250px;
 }
 
 .gridPseudo {
     grid-area: p;
     border: 1px solid black;
+    max-height: 250px;
 }
 
 .gridFooter {
@@ -111,7 +113,14 @@ div ul {
 .gridLog {
     grid-area: l;
     border: 1px solid black;
+<<<<<<< HEAD
+    color: white;
     overflow: scroll;
+    background-color: #2A2E45;
+    max-height: 250px;
+=======
+    overflow: scroll;
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 }
 
 .gridControl{
