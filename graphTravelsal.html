@@ -1,0 +1,124 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/index_new.css">
+    <link rel="stylesheet" href="css/viz.css">
+    <link rel="stylesheet" href="css/commonMaster.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/navbar.css">
+    <title>Graph Travelsal</title>
+
+</head>
+<body>
+
+<nav class="main-menu">
+    <ul>
+        <li>
+            <a href="home.html">
+                <i class="fa fa-2x fa-home"></i>
+                <span class="nav-text">
+                    HOME
+                </span>
+            </a>
+        </li>
+        <li>
+            <a id="dfs" onclick="dfs()">
+                <h1 class="fa">DFS</h1>
+                <span class="nav-text">
+                    Depth-First Search
+                </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a id="bfs" onclick="bfs()">
+                <h1 class="fa">BFS</h1>
+                <span class="nav-text">
+                    Breadth-First search
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="drawGraph.html">
+                <h1 class="fa">DG</h1>
+                <span class="nav-text">
+                    Draw Graph
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="area">
+    <div class="container">
+        <div class="gridHeader">
+            <div id="title" style="font-size: 20px; color: white"></div>
+        </div>
+        <div class="gridGraph" style="background-color: white">
+            <div id="viz" style="margin: 10px;"></div>
+        </div>
+        <div class="gridNote">
+            <div id="noteContent" style="text-align: justify">
+
+            </div>
+        </div>
+        <div class="gridTimeline" style="background-color: white; text-align: center">
+            <i class="material-icons" id="go-to-beginning" onclick="goToBeginning()">first_page</i>
+            <i class="material-icons" id="previous" onclick="stepBackward()">skip_previous</i>
+            <i class="material-icons" id="pause" onclick="pause()">pause</i>
+            <i class="material-icons" id="play" onclick="play()">play_arrow</i>
+            <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
+            <i class="material-icons" id="go-to-end" onclick="goToEnd()">last_page</i>
+        </div>
+        <div class="gridAction" style="background-color: white">
+            <div id="status" class="panel"><p style="font-size: 15px"></p></div>
+        </div>
+        <div class="gridLog" style="margin: auto;">
+            <div id="log" class="panel"><p style="font-size: 15px"></p></div>
+        </div>
+        <div class="gridPseudo" style="background-color: white">
+            <div id="codetrace" class="panel">
+                <p id="code1" style="padding-top: 10px;"></p>
+                <p id="code2"></p>
+                <p id="code3"></p>
+                <p id="code4"></p>
+                <p id="code5"></p>
+                <p id="code6"></p>
+                <p id="code7"></p>
+                <p id="code8"></p>
+                <p id="code9"></p>
+                <p id="code10"></p>
+                <p id="code11"></p>
+                <p id="code12" style="padding-bottom: 10px;"></p>
+            </div>
+        </div>
+        <div class="gridFooter" style="background-color: #212121; height: 50px">
+            FOOTER
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+<script src="js/viz.js"></script>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/graph_library.js"></script>
+<script src="js/home.js"></script>
+<script>
+    var gtw = new GraphTraversal();
+    var options = [CP3_4_1, CP3_4_3, CP3_4_4, CP3_4_9, CP3_4_17, CP3_4_18, CP3_4_19];
+
+    var gw = gtw.getGraphWidget();
+
+    gtw.examples(options[Math.floor(Math.random()*7)]);
+
+    var graphJSON = getQueryVariable("create");
+    if (graphJSON.length > 0) {
+        importjson(graphJSON);
+        window.history.pushState("object or string", "Title", window.location.href.split('?')[0]);
+    }
+
+</script>
+</body>
+</html>
