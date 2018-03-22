@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/addition.css">
     <!-- Theme initialization -->
-    <link rel="stylesheet" href="css/drawGraph.css">
+
     <script>
         var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
             {};
@@ -28,7 +28,7 @@
     </script>
 
 </head>
-<body onload="showViz()">
+<body>
 
 <div class="main-wrapper">
     <div class="app" id="app">
@@ -122,7 +122,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="active open">
+                        <li >
                             <a href="">
                                 <i class="fa fa-table"></i> Binary Search Tree
                                 <i class="fa arrow"></i>
@@ -135,6 +135,11 @@
                                     <a id="title-AVL"> AVL Tree </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="heap.html">
+                                <i class="fa fa-angellist"></i> Binary Heap
+                            </a>
                         </li>
                         <li>
                             <a href="">
@@ -302,27 +307,6 @@
                             <svg id="viz" width="1000px" height="600px">
                             </svg>
 
-                            <div id="graph-all" >
-                                <div id="graph" style="border-color: black">
-
-                                </div>
-                                <button onclick="showViz(); example(6)">Done</button>
-                            </div>
-                            <script type="text/javascript">
-                                var graph = document.getElementById('graph-all');
-                                var viz = document.getElementById('viz');
-
-                                function showViz() {
-                                    viz.style.display = 'block';
-                                    graph.style.display = 'none';
-                                }
-
-                                function showGraph() {
-                                    viz.style.display = 'none';
-                                    graph.style.display = 'block';
-                                }
-
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -340,134 +324,103 @@
             </div>
             <div class="row">
                 <div class="col-md-8" style="text-align: center">
-                    <i class="material-icons" id="go-to-beginning" onclick="clearConsole(); goToBeginning()">first_page</i>
-                    <i class="material-icons" id="previous" onclick="stepBackward(); removeFirstLine();">skip_previous</i>
+                    <i class="material-icons" id="go-to-beginning"
+                       onclick="clearConsole(); goToBeginning()">first_page</i>
+                    <i class="material-icons" id="previous"
+                       onclick="stepBackward(); removeFirstLine();">skip_previous</i>
                     <i class="material-icons" id="pause" onclick="pause()">pause</i>
                     <i class="material-icons" id="play" onclick="checkPlay(); play()">play_arrow</i>
                     <i class="material-icons" id="next" onclick="stepForward()">skip_next</i>
                     <i class="material-icons" id="go-to-end" onclick="checkEnd()">last_page</i>
                 </div>
             </div>
+
             <div class="row sameheight-container">
-
                 <div class="col-md-3">
-
                     <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                        <div id="create-go" class="execAction btn btn-primary" style="width: 100%;">
-                            Create
+                        <div id="createNlogN" class="execAction btn btn-primary" style="width: 100%;">
+                            Create(A) - O(<b>N</b> log <b>N</b>)
                         </div>
-
                         <div class="dropdown-content">
-                            <div id="create-empty" class="execAction btn btn-primary"
-                                 onClick="empty(); clearConsole() ">Empty
+                            <div id="createNlogN-input" id="createNlogN-go" class="execAction btn btn-primary"
+                                 onclick="createNlogN(); clearConsole()">A = <input type="text" id="arrv1"
+                                                                                    autocomplete="off"
+                                                                                    value="2,7,26,25,19,17,1,90,3,36">
                             </div>
 
-                            <div id="create-example1" class="execAction btn btn-primary"
-                                 onClick="example(1); clearConsole() ">
-                                Unbalanced Example
-                            </div>
-
-                            <div id="create-example2" class="execAction btn btn-primary"
-                                 onClick="example(2); clearConsole() ">
-                                Balanced Example
-                            </div>
-
-                            <div id="create-random" class="execAction btn btn-primary"
-                                 onClick="random(); clearConsole() ">Random
-                            </div>
-
-                            <div id="create-skewed-left" class="execAction btn btn-primary"
-                                 onClick="skewed('left'); clearConsole() ">
-                                Skewed Left
-                            </div>
-
-                            <div id="create-skewed-right" class="execAction btn btn-primary"
-                                 onClick="skewed('right'); clearConsole() ">
-                                Skewed Right
-                            </div>
-
-                            <div id="create-draw-tree" class="execAction btn btn-primary"
-                                 onClick="showGraph(); clearConsole(); clearDrawnTree(); ">
-                                draw tree
-                            </div>
-                            <div id="create-err" class="err"></div>
+                            <div id="createNlogN-sample" class="execAction btn btn-primary"
+                                 onclick="createNlogNSample(); clearConsole()"><p>Sorted Example</p></div>
+                            <div id="createNlogN-random" class="execAction btn btn-primary"
+                                 onclick="createNlogNRandom(); clearConsole()"><p>Random</p></div>
+                            <div id="createNlogN-err" class="err"></div>
                         </div>
-
                     </div>
 
                     <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                        <div id="search-go" class="execAction btn btn-primary" onclick="searchVertex(); clearConsole();"
-                             style="width:100%;">
-                            Search
+                        <div id="createN" class="execAction btn btn-primary" style="width: 100%;">
+                            Create(A) - O(<b>N</b>)
                         </div>
-
                         <div class="dropdown-content">
-                            <input type="number" id="v-search" title="Enter an Integer" autocomplete="off" min=0 max=99
-                                   value=7 ; style=" width: 100%">
-                            <div id="find-min" class="execAction btn btn-primary"
-                                 onClick="findMinMax(true); clearConsole() ">Find
-                                Minimum
+                            <div id="createN-input" id="createN-go" class="execAction btn btn-primary"
+                                 onclick="createN(); clearConsole()">
+                                A = <input type="text" id="arrv2"
+                                           autocomplete="off"
+                                           value="2,7,26,25,19,17,1,90,3,36">
                             </div>
-                            <div id="find-max" class="execAction btn btn-primary"
-                                 onClick="findMinMax(false); clearConsole() ">Find
-                                Maximum
-                            </div>
-
-                            <div id="search-err" class="err"></div>
-
+                            <div id="createN-sample" class="execAction btn btn-primary"
+                                 onclick="createNSample();clearConsole() "><p>
+                                Sorted Example</p></div>
+                            <div id="createN-random" class="execAction btn btn-primary"
+                                 onclick="createNRandom(); clearConsole()"><p>
+                                Random</p></div>
+                            <div id="createN-err" class="err"></div>
                         </div>
-
                     </div>
 
                     <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                        <div id="insert-go" class="execAction btn btn-primary" onclick="insertVertex(); clearConsole()"
-                             style="width:100%;">
-                            Insert
+                        <div id="insert" class="execAction btn btn-primary" style="width: 100%;">
+                            Insert(v)
                         </div>
-
                         <div class="dropdown-content">
-
-                            <input type="text" id="v-insert"
-                                   title="Enter an Integer or comma-separated array of Integers" autocomplete="off"
-                                   value="1,77" ; style=" width: 100%">
+                            <div id="insert-input" id="insert-go" class="execAction btn btn-primary"
+                                 onclick="insert();clearConsole() ">
+                                v = <input type="number" id="v" autocomplete="off" min=0 value=26></div>
+                            <div id="insert-err" class="err"></div>
                         </div>
-
                     </div>
 
                     <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-
-                        <div id="remove-go" class="execAction btn btn-primary" onclick="removeVertex(); clearConsole()"
-                             style="width:100%;">
-                            Remove
+                        <div id="extractmax" class="execAction btn btn-primary" style="width: 100%;"
+                             onclick="extractmax(); clearConsole()">
+                            ExtractMax()
                         </div>
+                        <div id="extractmax-err" class="err"></div>
+                    </div>
 
-                        <div class="dropdown-content">
-                            <input type="text" id="v-remove"
-                                   title="Enter an Integer or comma-separated array of Integers" autocomplete="off"
-                                   value="1,77" ; style=" width: 100%">
+
+                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
+                        <div id="heapsort" class="execAction btn btn-primary" style="width: 100%;"
+                             onclick="heapsort(); clearConsole()">
+                            HeapSort()
                         </div>
-
+                        <div id="heapsort-err" class="err"></div>
                     </div>
 
                 </div>
                 <div class="col-md-5">
                     <div class="card">
-                        <div id="log" class="panel"><p style="font-size: 13px"></p></div>
+                        <div id="log" class="panel1"><p style="font-size: 13px"></p></div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="row card items">
                         <ul class="item-list striped" style="font-size: 13px">
                             <li class="item" style="height: 50px">
-                                <div id="status" class="panel"><p></p></div>
+                                <div id="status" style="background-color: white" class="panel1"><p></p></div>
                             </li>
                             <li class="item">
                                 <div class="gridPseudo" style="background-color: white">
-                                    <div id="codetrace" class="panel">
+                                    <div id="codetrace" class="panel1">
                                         <p id="code1" style="padding-top: 10px;"></p>
                                         <p id="code2"></p>
                                         <p id="code3"></p>
@@ -577,19 +530,16 @@
     </div>
 </div>
 
-
-
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
 <script type="text/javascript" src="js/algo-initials.js"></script>
-
-<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/d3.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 
 <script type="text/javascript" src="js/viz.js"></script>
 <script type="text/javascript" src="js/graph_library.js"></script>
 
-<script type="text/javascript" src="js/bst.js"></script>
+<script type="text/javascript" src="js/heap.js"></script>
 <script>
     var svg = d3.select("#viz");
     window.addEventListener('resize', responsivefy(svg));
@@ -597,11 +547,4 @@
 <script src="js/app.js"></script>
 
 </body>
-
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="js/drawGraph.js"></script>
-<script>
-    var svg2 = d3.select("#graph-viz");
-    window.addEventListener('resize', responsivefy(svg2));
-</script>
 </html>

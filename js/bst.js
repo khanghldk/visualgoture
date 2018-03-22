@@ -89,6 +89,13 @@ var BST = function () {
             "vertexClassNumber": 7
         };
 
+        $('#status').bind("DOMSubtreeModified", function () {
+            $('#console').append($('#status').html());
+        });
+
+
+
+
         var key;
         recalculatePosition();
 
@@ -2758,4 +2765,3 @@ function responsivefy(svg) {
         svg.attr("height", Math.round(targetWidth / aspect));
     }
 }
-

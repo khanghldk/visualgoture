@@ -1234,7 +1234,7 @@ const OBJ_HIDDEN = -1, VERTEX_SHAPE_CIRCLE = "circle", VERTEX_SHAPE_RECT = "rect
     MODE_GET_SUBMITTED_GRAPH_BY_ID = 23, MODE_GET_ALL_GRAPH_TOPICS = 24, MODE_DELETE_SUBMITTED_GRAPH = 25,
     MODE_COMMIT_SUBMITTED_GRAPH = 26, MODE_ADD_SUBMITTED_GRAPH_RATING = 27, MODE_GET_RANDOM_SUBMITTED_GRAPH = 28,
     MODE_GET_ALL_COMMITTED_GRAPHS_SUMMARY = 29, MODE_DELETE_COMMITTED_GRAPH = 30, MAIN_SVG_WIDTH = 1e3,
-    MAIN_SVG_HEIGHT = 600, PSEUDOCODE_SVG_WIDTH = 300, PSEUDOCODE_SVG_HEIGHT = 400, graphVertexProperties = {
+    MAIN_SVG_HEIGHT = 1600, PSEUDOCODE_SVG_WIDTH = 300, PSEUDOCODE_SVG_HEIGHT = 400, graphVertexProperties = {
         innerVertex: {
             r: 14,
             width: 30,
@@ -1637,7 +1637,7 @@ var UfdsHelper = function () {
     DINIC_SHOWCASE = 21, MVC_U_TWO_APPROX_KILLER = 22, EXAMPLE_VERTEX_WEIGHTED_TREE = 23, MVC_W_TWO_APPROX_KILLER = 24,
     INTERESTING_BIPARTITE = 25, LINEAR_CHAIN = 26, CS4234_SAMPLE = 27, K4 = 28, K8 = 29, CS4234_TUTORIAL_THREE = 30,
     WHEEL = 31, HOUSE_OF_CARDS = 32, FMOD = 33, GREEDY_AUGMENTING_PATH_KILLER = 34, K55 = 35, K55_ALMOST = 36,
-    mainSvg = d3.select("#viz").append("svg").attr("width", 1e3).attr("height", 600),
+    mainSvg = d3.select("#viz").append("svg").attr("width", 1e3).attr("height", 600).attr("id", "viz-canvas"),
     pseudocodeSvg = d3.select("#pseudocode").append("svg").attr("width", 300).attr("height", 400),
     GraphWidget = function () {
         function t(t, e) {
@@ -1680,7 +1680,6 @@ var UfdsHelper = function () {
             var a = Object.keys(d).length - 1;
             try {
                 if ($("#progress-bar").slider("value", x), $("#status p").html(d[x].status), highlightLine(d[x].lineNo), x == a) {
-                    // $( "#console" ).append( "<div>"+ d[x].status +"</div>" );
                     pause();
                     var l = $("#play img").attr("src");
                     l && $("#play img").attr("src", l.replace("/play.png", "/replay.png").replace("/pause.png", "/replay.png")), $("#play img").attr("alt", "replay").attr("title", "replay")
@@ -1744,9 +1743,9 @@ var UfdsHelper = function () {
         }, this.updateGraph = function (t, e) {
             (null == e || isNaN(e)) && (e = w), i(t, e), setTimeout(function () {
                 document.body.style.zoom = "100.1%"
-            }, 1000), setTimeout(function () {
+            }, 500), setTimeout(function () {
                 document.body.style.zoom = "100%"
-            }, 1000)
+            }, 600)
         }, this.startAnimation = function (t, e) {
             null != t && (d = t), x = 0, n.play(e)
         }, this.animate = function (t) {

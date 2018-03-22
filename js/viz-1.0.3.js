@@ -3,7 +3,11 @@ var codetraceColor = 'white';
 actionsWidth = 0;
 
 function highlightLine(lineNumbers) {
+<<<<<<< HEAD
+    $('#codetrace p').css('background-color', 'white').css('color', 'black');
+=======
     $('#codetrace p').css('background-color', colourTheThird).css('color', codetraceColor);
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     if (lineNumbers instanceof Array) {
         for (var i = 0; i < lineNumbers.length; i++)
             if (lineNumbers[i] != 0)
@@ -55,7 +59,11 @@ function hideStatusPanel() {
     if (isStatusOpen()) {
         $('#status-hide img').removeClass('rotateRight').addClass('rotateLeft');
         $('#current-action').hide();
+<<<<<<< HEAD
+        $('#status').animate({width: "--=" + statusCodetraceWidth,});
+=======
         $('#status').animate({width: "-=" + statusCodetraceWidth,});
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     }
 }
 
@@ -153,6 +161,14 @@ function initUI() {
     $('#actions-hide').css('padding-bottom', actionsHideBottom);
     $('#current-action').hide();
     $('#actions-hide img').addClass('rotateRight');
+<<<<<<< HEAD
+    $('.electure-end').css("background-color", surpriseColour);
+    $('.electure-prev').css("background-color", surpriseColour);
+    $('.electure-next').css("background-color", surpriseColour);
+    $('#hide-popup').css('background-color', surpriseColour);
+    $('#progress-bar .ui-slider-range').css("background-color", surpriseColour);
+=======
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
     $('#actions').css("background-color", colourTheSecond);
     $('#actions-hide').css("background-color", colourTheSecond);
     $('.action-menu-pullout').css('left', actionsWidth + 43 + 'px');
@@ -179,6 +195,9 @@ function initUI() {
     }
 }
 
+<<<<<<< HEAD
+
+=======
 function end_eLecture() {
     $("#mode-menu a").trigger("click");
     hideOverlay();
@@ -326,12 +345,17 @@ $(function () {
         }
     });
 });
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 var isPaused = false;
 
 function isAtEnd() {
     return (gw.getCurrentIteration() == (gw.getTotalIteration() - 1));
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
 function pause() {
     if (isPlaying) {
         isPaused = true;
@@ -390,4 +414,40 @@ function stop() {
     isPlaying = false;
     $('#pause').show();
     $('#play').hide();
+<<<<<<< HEAD
 }
+
+
+
+$('#status').bind("DOMSubtreeModified",function(){
+
+    $('#log').prepend($('#status').html());
+
+});
+
+function clearConsole(callback) {
+    $('#log').html('');
+}
+
+function removeFirstLine(){
+    $('#console').find('p').first().remove();
+    $('#console').find('p').first().remove();
+    $('#console').find('p').first().remove();
+    $('#console').find('p').first().remove();
+}
+
+
+function checkPlay(){
+    if (isAtEnd()){
+        clearConsole();
+    }
+}
+
+function checkEnd(){
+    if (!isAtEnd()){
+        goToEnd();
+    }
+}
+=======
+}
+>>>>>>> 8e7b0c6286e852743306af6c5de79f1f1d47316d
