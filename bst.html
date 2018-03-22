@@ -290,8 +290,8 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="gridGraph" style="background-color: white">
-                            <svg id="viz" width="1000px" height="600px">
-                            </svg>
+                            <div id="viz">
+                            </div>
 
                             <div id="graph-all">
                                 <div id="graph" style="border-color: black">
@@ -590,7 +590,7 @@
 
 <script type="text/javascript" src="js/bst.js"></script>
 <script>
-    var svg = d3.select("#viz");
+    var svg = d3.select("#viz-canvas");
     window.addEventListener('resize', responsivefy(svg));
 </script>
 <script src="js/app.js"></script>

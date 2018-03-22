@@ -1637,7 +1637,7 @@ var UfdsHelper = function () {
     DINIC_SHOWCASE = 21, MVC_U_TWO_APPROX_KILLER = 22, EXAMPLE_VERTEX_WEIGHTED_TREE = 23, MVC_W_TWO_APPROX_KILLER = 24,
     INTERESTING_BIPARTITE = 25, LINEAR_CHAIN = 26, CS4234_SAMPLE = 27, K4 = 28, K8 = 29, CS4234_TUTORIAL_THREE = 30,
     WHEEL = 31, HOUSE_OF_CARDS = 32, FMOD = 33, GREEDY_AUGMENTING_PATH_KILLER = 34, K55 = 35, K55_ALMOST = 36,
-    mainSvg = d3.select("#viz").append("svg").attr("width", 1e3).attr("height", 600),
+    mainSvg = d3.select("#viz").append("svg").attr("width", 1e3).attr("height", 600).attr("id", "viz-canvas"),
     pseudocodeSvg = d3.select("#pseudocode").append("svg").attr("width", 300).attr("height", 400),
     GraphWidget = function () {
         function t(t, e) {
