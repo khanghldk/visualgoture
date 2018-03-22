@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -360,6 +361,8 @@ function runSlide(slide) {
     }
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 window.onpopstate = function (event) {
     var slide = event.state['slide'];
     openSlide(slide, function () {

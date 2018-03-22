@@ -76,7 +76,11 @@ var bst = new BinarySearchTree();
 
 // set up SVG for d3
 var width  = 1000,
+<<<<<<< HEAD
     height = 500,
+=======
+    height = 600,
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     colors = d3.scale.category10();
 
 var svg = d3.select('#graph')
@@ -375,8 +379,11 @@ function restart() {
                 else if((link.source.id == currentFatherNode && link.target.id == nodes[nodes.length - 1].id)
                     || (link.source.id == nodes[nodes.length - 1].id && link.target.id == currentFatherNode)){
                     links.push(link);
+<<<<<<< HEAD
                 }else{
                     alert("Please connect new node to node ["+ currentFatherNode + "] to make a Binary Search Tree!");
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
                 }
 
             }

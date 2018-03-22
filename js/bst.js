@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // BST Widget, also includes AVL tree
 // original author: Ivan Reinaldo, then maintained by Steven Halim
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 var BST = function () {
     var self = this;
@@ -473,6 +477,7 @@ var BST = function () {
         return true;
     }
 
+<<<<<<< HEAD
     this.findPredSucc = function (val, isPred, callback) {
         var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key, currentVertexClass;
         cur = val = parseInt(val);
@@ -853,6 +858,9 @@ var BST = function () {
         populatePseudocode(3);
         return true;
     }
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
     this.insertArr = function (vertexTextArr, callback) {
         var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key, currentVertexClass, i;
@@ -2374,6 +2382,7 @@ var BST = function () {
 
 
 // BSTaction.js
+<<<<<<< HEAD
 var actionsWidth;
 var statusCodetraceWidth;
 
@@ -2479,6 +2488,8 @@ function hideEntireActionsPanel() {
     hideActionsPanel();
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 // local
 var bw, gw;
@@ -2504,48 +2515,72 @@ $(function () {
         closeSearch();
         closeInsert();
         closeRemove();
+<<<<<<< HEAD
         closePredSucc();
         closeInorder();
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     });
     $('#search').click(function () {
         closeCreate();
         openSearch();
         closeInsert();
         closeRemove();
+<<<<<<< HEAD
         closePredSucc();
         closeInorder();
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     });
     $('#insert').click(function () {
         closeCreate();
         closeSearch();
         openInsert();
         closeRemove();
+<<<<<<< HEAD
         closePredSucc();
         closeInorder();
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     });
     $('#remove').click(function () {
         closeCreate();
         closeSearch();
         closeInsert();
         openRemove();
+<<<<<<< HEAD
         closePredSucc();
         closeInorder();
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     });
     $('#predsucc').click(function () {
         closeCreate();
         closeSearch();
         closeInsert();
         closeRemove();
+<<<<<<< HEAD
         openPredSucc();
         closeInorder();
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     });
     $('#inorder').click(function () {
         closeCreate();
         closeSearch();
         closeInsert();
         closeRemove();
+<<<<<<< HEAD
         closePredSucc();
         openInorder();
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     });
 });
 
@@ -2649,6 +2684,7 @@ function removeVertex(callback) {
     }, 500); // randomized for next click, an existing value in BST
 }
 
+<<<<<<< HEAD
 function predsucc(isPred, callback) {
     if (isPlaying) stop();
     var input = $('#v-predsucc').val();
@@ -2747,6 +2783,8 @@ function CUSTOM_ACTION(action, data, mode) {
     }
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 function responsivefy(svg) {
     var container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")) + 30,

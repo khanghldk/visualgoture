@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 var PHP_DOMAIN = "";
 
 // surprise colour!
@@ -42,6 +43,8 @@ var colourArray = ["#52bc69", "#d65775"/*"#ed5a7d"*/, "#2ebbd1", "#d9513c", "#fe
 //     $('#loading-overlay').hide();
 // }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 function commonAction(retval, msg) {
     setTimeout(function () {
         if (retval) { // mode == "exploration" && // now not only for exploration mode, but check if this opens other problems
@@ -65,6 +68,7 @@ function getQueryVariable(variable) {
     return "";
 }
 
+<<<<<<< HEAD
 // var generatedColours = getColours();
 // var surpriseColour = colourArray[generatedColours[0]];
 // //var colourTheSecond = colourArray[generatedColours[1]];
@@ -119,6 +123,8 @@ function getQueryVariable(variable) {
 //     }
 // }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 $('#status').bind("DOMSubtreeModified", function () {
     $('#console').append($('#status').html());
@@ -129,6 +135,7 @@ function clearConsole(callback) {
 
 }
 
+<<<<<<< HEAD
 // Implement these functions in each visualisation
 // This function will be called before entering e-Lecture Mode
 function ENTER_LECTURE_MODE() {
@@ -142,6 +149,8 @@ function ENTER_EXPLORE_MODE() {
 function CUSTOM_ACTION(action, data, mode) {
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 // List Widget
 // original author: Steven Kester Yuwono, then cleaned and maintained by Steven Halim
 
@@ -1855,6 +1864,7 @@ function closeRemove() {
     }
 }
 
+<<<<<<< HEAD
 function hideEntireActionsPanel() {
     closeCreate();
     closeSearch();
@@ -1862,10 +1872,13 @@ function hideEntireActionsPanel() {
     closeRemove();
     hideActionsPanel();
 }
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 
 // local
 // title changing
+<<<<<<< HEAD
 function SOP() {
     if (isPlaying) stop();
     showActionsPanel();
@@ -1874,11 +1887,17 @@ function SOP() {
 //         $("#title-LL").text("Linked List");
 //         $("#title-DLL").text("Doubly Linked List");
 }
+=======
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 var note = document.getElementById('noteContent');
 
 $('#title-LL').click(function () {
+<<<<<<< HEAD
     SOP();
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     displayList();
     changeTextList();
     lw.setActiveStatus("list");
@@ -1891,6 +1910,7 @@ $('#title-LL').click(function () {
     clearConsole();
 
 });
+<<<<<<< HEAD
 
 $('#title-Stack').click(function () {
     SOP();
@@ -1923,12 +1943,20 @@ $('#title-Queue').click(function () {
 
 $('#title-DLL').click(function () {
     SOP();
+=======
+$('#title-DLL').click(function () {
+
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     displayList();
     changeTextDoublyList();
     lw.setActiveStatus("doublylist");
     // $("#title-DLL").text('Doubly Linked List');
     title.innerHTML = "Doubly Linked List";
+<<<<<<< HEAD
     note.innerHTML = '<h1>Doubly Linked Listt</h1><br/>';
+=======
+    note.innerHTML = '<h1>Doubly Linked List</h1><br/>';
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     note.innerHTML += "<div>Doubly Linked List is a variation of Linked list in which navigation is possible in both ways,\n" +
         "either forward and backward easily as compared to Single Linked List\n" +
         "As per the above illustration, following are the important points to be considered.\n" +
@@ -1945,6 +1973,7 @@ $('#title-DLL').click(function () {
     clearConsole();
 });
 
+<<<<<<< HEAD
 $('#title-Deque').click(function () {
     SOP();
     displayDeque();
@@ -1958,13 +1987,20 @@ $('#title-Deque').click(function () {
     clearConsole();
 });
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 var lw = new List(), gw;
 
 $(function () {
     $('#play').hide();
     gw = lw.getGraphWidget();
+<<<<<<< HEAD
     var five_modes = ["LL", "Stack", "Queue", "DLL", "Deque"];
     $('#title-' + five_modes[Math.floor(Math.random() * 5)]).click(); // randomly open one of the five default example every time
+=======
+    var five_modes = ["LL", "DLL"];
+    $('#title-' + five_modes[Math.floor(Math.random() * 2)]).click(); // randomly open one of the five default example every time
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
     var llMode = getQueryVariable("mode");
     if (llMode.length > 0) {
@@ -2055,6 +2091,7 @@ function displayList() {
     $("#remove-kth").css("display", "");
 }
 
+<<<<<<< HEAD
 function displayStack() {
     allOff();
 
@@ -2082,6 +2119,8 @@ function displayDeque() {
     $("#remove-deque-front").css("display", "");
     $("#remove-deque-back").css("display", "");
 }
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 function changeTextList() {
     $("#create").text('Create');
@@ -2090,6 +2129,7 @@ function changeTextList() {
     $("#remove").text('Remove');
 }
 
+<<<<<<< HEAD
 function changeTextStack() {
     $("#create").text('Create');
     $("#search").text('Peek');
@@ -2103,6 +2143,8 @@ function changeTextQueue() {
     $("#insert").text('Enqueue');
     $("#remove").text('Dequeue');
 }
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 function changeTextDoublyList() {
     $("#create").text('Create');
@@ -2111,6 +2153,7 @@ function changeTextDoublyList() {
     $("#remove").text('Remove');
 }
 
+<<<<<<< HEAD
 function changeTextDeque() {
     $("#create").text('Create');
     $("#search").text('Peek');
@@ -2118,6 +2161,8 @@ function changeTextDeque() {
     $("#remove").text('Dequeue');
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 function empty() {
     if (isPlaying) stop();
     if (lw.generateRandomFixedSize(0)) {
@@ -2208,6 +2253,7 @@ function searchGeneric(callback) {
         peekQueue(callback);
 }
 
+<<<<<<< HEAD
 function peekDeque(location, callback) {
     if (isPlaying) stop();
     if (location == "front")
@@ -2216,6 +2262,8 @@ function peekDeque(location, callback) {
         commonAction(lw.peek(false, callback), 'Peek back (tail)');
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 function insertHead(callback) {
     if (isPlaying) stop();
     var input = parseInt($('#v-insert-head-value').val());
@@ -2263,6 +2311,7 @@ function enqueueBack(callback) {
     }, 500);
 }
 
+<<<<<<< HEAD
 function insertDeque(location) {
     if (isPlaying) stop();
     var input = $('#v-insert-deque-value').val();
@@ -2275,6 +2324,8 @@ function insertDeque(location) {
     }, 500);
 }
 
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 function removeHead(callback) { // PS both pop/stack and dequeue/queue also calls the same thing: remove head
     if (isPlaying) stop();
     commonAction(lw.removeHead(callback), 'Remove i = 0 (Head)');
@@ -2297,6 +2348,7 @@ function removeKth(callback) {
     }, 500); // [1..N-2]
 }
 
+<<<<<<< HEAD
 function removeGeneric(callback) {
     if ((lw.getActiveStatus() == "stack") || (lw.getActiveStatus() == "queue"))
         removeHead(callback);
@@ -2318,6 +2370,8 @@ function createModelingOpen(modelingType) {
         $('#createuserdefined-input').fadeOut('fast');
     $('#' + modelingType + '-input').fadeIn('fast');
 }
+=======
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
 
 function insertModelingOpen(modelingType) {
     $(".insert").css("bottom", "65px");
@@ -2330,6 +2384,7 @@ function insertModelingOpen(modelingType) {
     $('#' + modelingType + '-input').fadeIn('fast');
 }
 
+<<<<<<< HEAD
 function removeModelingOpen(modelingType) {
     $(".remove").css("bottom", "38px");
     $('#' + modelingType + '-input').fadeIn('fast');
@@ -2428,5 +2483,24 @@ function CUSTOM_ACTION(action, data, mode) {
         }
         else
             alert('The Linked List is already too long for this visualization'); // put in variable?
+=======
+
+function responsivefy(svg) {
+    var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")) + 30,
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .call(resize);
+
+    d3.select(window).on("resize." + container.attr("id"), resize);
+
+    function resize() {
+        var targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
+>>>>>>> 97d96a17e6d874043d881242691b5b386a5752dc
     }
 }
