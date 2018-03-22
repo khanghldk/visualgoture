@@ -136,10 +136,16 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="active open">
                             <a href="heap.html">
                                 <i class="fa fa-angellist"></i> Binary Heap
+                                <i class="fa arrow"></i>
                             </a>
+                            <ul class="sidebar-nav">
+                                <li>
+                                    <a id="title-Heap">Binary Heap </a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="">
@@ -337,24 +343,24 @@
 
             <div class="row sameheight-container">
                 <div class="col-md-3">
-                    <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
-                        <div id="createNlogN" class="execAction btn btn-primary" style="width: 100%;">
-                            Create(A) - O(<b>N</b> log <b>N</b>)
-                        </div>
-                        <div class="dropdown-content">
-                            <div id="createNlogN-input" id="createNlogN-go" class="execAction btn btn-primary"
-                                 onclick="createNlogN(); clearConsole()">A = <input type="text" id="arrv1"
-                                                                                    autocomplete="off"
-                                                                                    value="2,7,26,25,19,17,1,90,3,36">
-                            </div>
+                    <!--<div class="dropdown gridControl-item" style="margin-bottom: 35px;">-->
+                        <!--<div id="createNlogN" class="execAction btn btn-primary" style="width: 100%;">-->
+                            <!--Create(A) - O(<b>N</b> log <b>N</b>)-->
+                        <!--</div>-->
+                        <!--<div class="dropdown-content">-->
+                            <!--<div id="createNlogN-input" id="createNlogN-go" class="execAction btn btn-primary"-->
+                                 <!--onclick="createNlogN(); clearConsole()">A = <input type="text" id="arrv1"-->
+                                                                                    <!--autocomplete="off"-->
+                                                                                    <!--value="2,7,26,25,19,17,1,90,3,36">-->
+                            <!--</div>-->
 
-                            <div id="createNlogN-sample" class="execAction btn btn-primary"
-                                 onclick="createNlogNSample(); clearConsole()"><p>Sorted Example</p></div>
-                            <div id="createNlogN-random" class="execAction btn btn-primary"
-                                 onclick="createNlogNRandom(); clearConsole()"><p>Random</p></div>
-                            <div id="createNlogN-err" class="err"></div>
-                        </div>
-                    </div>
+                            <!--<div id="createNlogN-sample" class="execAction btn btn-primary"-->
+                                 <!--onclick="createNlogNSample(); clearConsole()"><p>Sorted Example</p></div>-->
+                            <!--<div id="createNlogN-random" class="execAction btn btn-primary"-->
+                                 <!--onclick="createNlogNRandom(); clearConsole()"><p>Random</p></div>-->
+                            <!--<div id="createNlogN-err" class="err"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
                     <div class="dropdown gridControl-item" style="margin-bottom: 35px;">
                         <div id="createN" class="execAction btn btn-primary" style="width: 100%;">
@@ -529,9 +535,10 @@
         <div class="color-secondary"></div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+<!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/home.js"></script>
 <script type="text/javascript" src="js/algo-initials.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>

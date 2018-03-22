@@ -1,5 +1,4 @@
-// BST Widget, also includes AVL tree
-// original author: Ivan Reinaldo, then maintained by Steven Halim
+
 
 var BST = function () {
     var self = this;
@@ -473,386 +472,7 @@ var BST = function () {
         return true;
     }
 
-    this.findPredSucc = function (val, isPred, callback) {
-        var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key, currentVertexClass;
-        cur = val = parseInt(val);
 
-        if (val == null || val == undefined || isNaN(val)) {
-            $('#predsucc-err').html('Please fill in a valid value!');
-            return false;
-            invalidval
-        }
-
-        if (iBST[val] == null) {
-            $('#predsucc-err').html('Please fill in a value that is present inside the BST!');
-            return false;
-        }
-
-        key = iBST[val]["vertexClassNumber"];
-        cs = createState(iBST);
-        //cs["status"] = "The current BST.";  //status_predsucc_0
-        cs["status"] = 'The current BST.';
-        cs["lineNo"] = 0;
-        sl.push(cs);
-
-        if ((isPred && (iBST[val]["leftChild"] != null)) ||
-            (!isPred && (iBST[val]["rightChild"] != null))) {
-            var subTreeRoot = (isPred ? iBST[val]["leftChild"] : iBST[val]["rightChild"]);
-            var subTreeRootKey = iBST[subTreeRoot]["vertexClassNumber"];
-
-            edgeTraversed[subTreeRootKey] = true;
-
-            cs = createState(iBST, vertexTraversed, edgeTraversed);
-            cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-            cs["el"][subTreeRootKey]["animateHighlighted"] = true;
-            if (isPred) {
-                //cs["status"] = "This vertex has a left child, so go left.";  //status_predsucc_1
-                cs["status"] = 'This vertex has a left child, so go left.';
-            } else {
-                //cs["status"] = "This vertex has a right child, so go right.";  //status_predsucc_2
-                cs["status"] = 'This vertex has a right child, so go right.';
-            }
-
-            cs["lineNo"] = 1;
-            sl.push(cs);
-
-            cs = createState(iBST, vertexTraversed, edgeTraversed);
-            cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-            cs["vl"][subTreeRootKey]["state"] = VERTEX_HIGHLIGHTED;
-            if (isPred) {
-                //cs["status"] = "Check whether the left child has a right child."; //status_predsucc_3
-                cs["status"] = 'Check whether the left child has a right child.';
-            } else {
-                //cs["status"] = "Check whether the right child has a left child."; //status_predsucc_4
-                cs["status"] = 'Check whether the right child has a left child.';
-            }
-            cs["lineNo"] = 1;
-            sl.push(cs);
-
-            if ((isPred && (iBST[subTreeRoot]["rightChild"] != null)) ||
-                (!isPred && (iBST[subTreeRoot]["leftChild"] != null))) {
-                cur = subTreeRoot;
-                currentVertexClass = iBST[cur]["vertexClassNumber"];
-
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                cs["vl"][subTreeRootKey]["state"] = VERTEX_HIGHLIGHTED;
-                if (isPred) {
-                    //cs["status"] = "Right child found! Go to the right."; //status_predsucc_5
-                    cs["status"] = 'Right child found! Go to the right.';
-                } else {
-                    //cs["status"] = "Left child found! Go to the left."; //status_predsucc_6
-                    cs["status"] = 'Left child found! Go to the left.';
-                }
-                cs["lineNo"] = 1;
-                sl.push(cs);
-
-                while ((isPred && (iBST[cur]["rightChild"] != null)) ||
-                (!isPred && (iBST[cur]["leftChild"] != null))) {
-                    cs = createState(iBST, vertexTraversed, edgeTraversed);
-                    cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                    cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-                    vertexTraversed[cur] = true;
-                    if (isPred) {
-                        //cs["status"] = cur + " is not the predecessor vertex as it has a right child."; //status_predsucc_7
-                        cs["status"] = '{cur} is not the predecessor vertex as it has a right child.'.replace("{cur}", cur);
-                    } else {
-                        //cs["status"] = cur + " is not the successor vertex as it has a left child.";  //status_predsucc_8
-                        cs["status"] = '{cur} is not the successor vertex as it has a left child.'.replace("{cur}", cur);
-                    }
-                    cs["lineNo"] = 1;
-                    sl.push(cs);
-
-                    cur = (isPred ? iBST[cur]["rightChild"] : iBST[cur]["leftChild"]);
-                    currentVertexClass = iBST[cur]["vertexClassNumber"];
-
-                    cs = createState(iBST, vertexTraversed, edgeTraversed);
-                    var edgeHighlighted = currentVertexClass;
-                    edgeTraversed[edgeHighlighted] = true;
-                    cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                    cs["el"][edgeHighlighted]["animateHighlighted"] = true;
-                    cs["el"][edgeHighlighted]["state"] = EDGE_TRAVERSED;
-                    if (isPred) {
-                        //cs["status"] = "Go right to check for larger value."; //status_predsucc_9
-                        cs["status"] = 'Go right to check for larger value.';
-                    } else {
-                        //cs["status"] = "Go left to check for smaller value."; //status_predsucc_10
-                        cs["status"] = 'Go left to check for smaller value.';
-                    }
-                    cs["lineNo"] = 1;
-                    sl.push(cs);
-                }
-
-                ans = cur;
-
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-                if (isPred) {
-                    //cs["status"] = "Predecessor found!<br>The predecessor of " + val + " is " + ans + ".";  //status_predsucc_11
-                    cs["status"] = 'Predecessor found!<br>The predecessor of {val} is {ans}.'.replace("{ans}", ans).replace("{val}", val);
-                } else {
-                    //cs["status"] = "Successor found!<br>The successor of " + val + " is " + ans + ".";  //status_predsucc_12
-                    cs["status"] = 'Successor found!<br>The successor of {val} is {ans}.'.replace("{ans}", ans).replace("{val}", val);
-                }
-                cs["vl"][key]["extratext"] = "value";
-                cs["vl"][currentVertexClass]["extratext"] = "its " + (isPred ? "predecessor" : "successor");
-                cs["lineNo"] = 1;
-                sl.push(cs);
-            }
-            else {
-                ans = subTreeRoot;
-
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                cs["vl"][subTreeRootKey]["state"] = VERTEX_HIGHLIGHTED;
-                if (isPred) {
-                    //cs["status"] = "No right child found, so this vertex is the predecessor.<br>The predecessor of " + val + " is " + ans + ".";  //status_predsucc_13
-                    cs["status"] = 'No right child found, so this vertex is the predecessor.<br>The predecessor of {val} is {ans}.'.replace("{ans}", ans).replace("{val}", val);
-                } else {
-                    //cs["status"] = "No left child found, so this vertex is the successor.<br>The successor of " + val + " is " + ans + "."; //status_predsucc_14
-                    cs["status"] = 'No left child found, so this vertex is the successor.<br>The successor of {val} is {ans}.'.replace("{ans}", ans).replace("{val}", val);
-                }
-                cs["vl"][key]["extratext"] = "value";
-                cs["vl"][subTreeRootKey]["extratext"] = "its " + (isPred ? "predecessor" : "successor");
-                cs["lineNo"] = 1;
-                sl.push(cs);
-            }
-        }
-        else {
-            currentVertexClass = iBST[cur]["vertexClassNumber"];
-
-            edgeTraversed[currentVertexClass] = true;
-
-            cs = createState(iBST, vertexTraversed, edgeTraversed);
-            cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-            cs["el"][currentVertexClass]["state"] = EDGE_HIGHLIGHTED;
-            if (isPred) {
-                //cs["status"] = "No left child found, so check the parent..";  //status_predsucc_15
-                cs["status"] = 'No left child found, so check the parent..';
-            } else {
-                //cs["status"] = "No right child found, so check the parent.."; //status_predsucc_16
-                cs["status"] = 'No right child found, so check the parent..';
-            }
-            cs["lineNo"] = [2, 3];
-            sl.push(cs);
-
-            cur = iBST[cur]["parent"];
-            currentVertexClass = iBST[cur]["vertexClassNumber"];
-
-            while (true) {
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                cs["vl"][currentVertexClass]["state"] = VERTEX_HIGHLIGHTED;
-                vertexTraversed[cur] = true;
-                if ((isPred && (cur > val)) ||
-                    (!isPred && (cur < val))) {
-                    if (isPred) {
-                        //cs["status"] = cur + " is not the predecessor vertex as " + val + " is part of the left sub-tree";  //status_predsucc_17
-                        cs["status"] = '{cur} is not the predecessor vertex as {val} is part of the left sub-tree'.replace("{cur}", cur).replace("{val}", val);
-                    } else {
-                        //cs["status"] = cur + " is not the successor vertex as " + val + " is part of the right sub-tree"; //status_predsucc_18
-                        cs["status"] = '{cur} is not the successor vertex as {val} is part of the right sub-tree'.replace("{cur}", cur).replace("{val}", val);
-                    }
-                    cs["lineNo"] = 4;
-                    sl.push(cs);
-                }
-                else {
-                    ans = cur;
-                    if (isPred) {
-                        //cs["status"] = "Predecessor found!<br>The predecessor of " + val + " is " + ans + ".";  //status_predsucc_19
-                        cs["status"] = 'Predecessor found!<br>The predecessor of {val} is {ans}.'.replace("{ans}", ans).replace("{val}", val);
-                    } else {
-                        //cs["status"] = "Successor found!<br>The successor of " + val + " is " + ans + ".";  //status_predsucc_20
-                        cs["status"] = 'Successor found!<br>The successor of {val} is {ans}.'.replace("{ans}", ans).replace("{val}", val);
-                    }
-                    cs["vl"][key]["extratext"] = "value";
-                    cs["vl"][currentVertexClass]["extratext"] = "its " + (isPred ? "predecessor" : "successor");
-                    cs["lineNo"] = 7;
-                    sl.push(cs);
-                    break;
-                }
-
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                var edgeHighlighted = currentVertexClass;
-                if (cur != iBST["root"])
-                    edgeTraversed[edgeHighlighted] = true;
-                cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                if (cur != iBST["root"])
-                    cs["el"][edgeHighlighted]["state"] = EDGE_HIGHLIGHTED;
-                //cs["status"] = "Go up to check for smaller value."; //status_predsucc_21
-                cs["status"] = 'Go up to check for smaller value.';
-                cs["lineNo"] = 5;
-                sl.push(cs);
-
-                cur = iBST[cur]["parent"];
-                if (cur == null) break;
-
-                currentVertexClass = iBST[cur]["vertexClassNumber"];
-            }
-
-            if (cur == null) {
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-                if (isPred) {
-                    //cs["status"] = "Parent is null, so " + val + " has no predecessor.";  //status_predsucc_22
-                    cs["status"] = 'Parent is null, so {val} has no predecessor.'.replace("{val}", val);
-                } else {
-                    //cs["status"] = "Parent is null, so " + val + " has no successor.";  //status_predsucc_23
-                    cs["status"] = 'Parent is null, so {val} has no successor.'.replace("{val}", val);
-                }
-                cs["lineNo"] = 6;
-                sl.push(cs);
-
-                ans = null;
-            }
-        }
-
-        gw.startAnimation(sl, callback);
-        populatePseudocode(isPred ? 9 : 8);
-        return true;
-    }
-
-    this.inorderTraversal = function (callback) {
-        var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key;
-        var vertexHighlighted = {};
-
-        cs = createState(iBST);
-        //cs["status"] = "The current BST.";  //status_inorder_0
-        cs["status"] = 'The current BST.';
-        cs["lineNo"] = 0;
-        sl.push(cs);
-
-        if (iBST["root"] == null) {
-            cs = createState(iBST);
-            //cs["status"] = "The Binary Search Tree is empty.<br>Return empty result.";  //status_inorder_1
-            cs["status"] = 'The Binary Search Tree is empty.<br>Return empty result.';
-            cs["lineNo"] = [1, 2];
-            sl.push(cs);
-            return true;
-        }
-        else {
-            key = iBST[iBST["root"]]["vertexClassNumber"];
-
-            cs = createState(iBST);
-            cs["vl"][key]["state"] = VERTEX_TRAVERSED;
-            cs["vl"][key]["extratext"] = "root";
-            //cs["status"] = "The root " + iBST["root"] + " is not null.";  //status_inorder_2
-            cs["status"] = 'The root {root} is not null.'.replace("{root}", iBST["root"]);
-            cs["lineNo"] = 1;
-            sl.push(cs);
-
-            cs = createState(iBST);
-            cs["vl"][key]["state"] = VERTEX_TRAVERSED;
-            cs["vl"][key]["extratext"] = "root";
-            //cs["status"] = "So recurse and check left child of " + iBST["root"] + ".";  //status_inorder_3
-            cs["status"] = 'So recurse and check left child of {root}.'.replace("{root}", iBST["root"]);
-            cs["lineNo"] = 3;
-            sl.push(cs);
-
-            inorderTraversalRecursion(iBST["root"]);
-        }
-
-        cs = createState(iBST, vertexTraversed, edgeTraversed);
-        inorderHighlightVertex(key);
-        //cs["status"] = "In-order traversal of the whole BST is complete.";  //status_inorder_4
-        cs["status"] = 'In-order traversal of the whole BST is complete.';
-        cs["vl"][key]["extratext"] = "root";
-        cs["lineNo"] = 0;
-        sl.push(cs);
-
-        gw.startAnimation(sl, callback);
-
-        function inorderTraversalRecursion(cur) {
-            var curLeft = iBST[cur]["leftChild"], curRight = iBST[cur]["rightChild"];
-            var key = iBST[cur]["vertexClassNumber"];
-
-            if (curLeft == null) {
-                vertexTraversed[cur] = true;
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                inorderHighlightVertex(key);
-                //cs["status"] = "The left child of vertex with value " + cur + " is empty.<br>Return empty.";  //status_inorder_5
-                cs["status"] = 'The left child of vertex with value {cur} is empty.<br>Return empty.'.replace("{cur}", cur);
-                cs["lineNo"] = [1, 2];
-                sl.push(cs);
-            }
-            else {
-                var curLeftClass = iBST[curLeft]["vertexClassNumber"];
-
-                vertexTraversed[cur] = true;
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                inorderHighlightVertex(key);
-                //cs["status"] = "The left child of vertex with value " + cur + " is " + curLeft + " (not null).";  //status_inorder_6
-                cs["status"] = 'The left child of vertex with value {cur} is {curLeft} (not null).'.replace("{cur}", cur).replace("{curLeft}", curLeft);
-                cs["lineNo"] = 1;
-                sl.push(cs);
-                edgeTraversed[curLeftClass] = true;
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["el"][curLeftClass]["animateHighlighted"] = true;
-                inorderHighlightVertex(key);
-                //cs["status"] = "So recurse and check left child of vertex with value " + curLeft + ".";//status_inorder_7
-                cs["status"] = 'So recurse and check left child of vertex with value {curLeft}.'.replace("{curLeft}", curLeft);
-                cs["lineNo"] = 3;
-                sl.push(cs);
-                inorderTraversalRecursion(curLeft);
-            }
-
-            cs = createState(iBST, vertexTraversed, edgeTraversed);
-            vertexHighlighted[key] = true;
-            inorderHighlightVertex(key);
-            //cs["status"] = "Visit vertex with value " + cur + ".<br>And preparing to visit the right child of this vertex.";  //status_inorder_8
-            cs["status"] = 'Visit vertex with value {cur}.<br>And preparing to visit the right child of this vertex.'.replace("{cur}", cur);
-            cs["lineNo"] = 4;
-            sl.push(cs);
-
-            if (curRight == null) {
-                vertexTraversed[cur] = true;
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                inorderHighlightVertex(key);
-                //cs["status"] = "The right child of vertex with value " + cur + " is empty.<br>Return empty.<br>"; //status_inorder_9
-                cs["status"] = 'The right child of vertex with value {cur} is empty.<br>Return empty.<br>'.replace("{cur}", cur);
-                cs["lineNo"] = [1, 2];
-                sl.push(cs);
-            }
-            else {
-                var curRightClass = iBST[curRight]["vertexClassNumber"];
-
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                inorderHighlightVertex(key);
-                //cs["status"] = "The right child of vertex with value " + cur + " is " + curRight + " (not null).";  //status_inorder_10
-                cs["status"] = 'The right child of vertex with value {cur} is {curRight} (not null).'.replace("{cur}", cur).replace("{curRight}", curRight);
-                cs["lineNo"] = 1;
-                sl.push(cs);
-                edgeTraversed[curRightClass] = true;
-                cs = createState(iBST, vertexTraversed, edgeTraversed);
-                cs["el"][curRightClass]["animateHighlighted"] = true;
-                inorderHighlightVertex(key);
-                cs["status"] = 'So recurse and check the right child of vertex with value {curRight}.'.replace("{curRight}", curRight);
-                cs["lineNo"] = 3;
-                sl.push(cs);
-                inorderTraversalRecursion(curRight);
-            }
-
-            cs = createState(iBST, vertexTraversed, edgeTraversed);
-            if (cur != iBST["root"])
-                cs["el"][key]["state"] = EDGE_HIGHLIGHTED;
-            inorderHighlightVertex(key);
-
-            //cs["status"] = "In-order traversal of " + cur + " is complete.";  //status_inorder_12
-            cs["status"] = 'In-order traversal of {cur} is complete.'.replace("{cur}", cur);
-            cs["lineNo"] = 0;
-            sl.push(cs);
-        }
-
-        function inorderHighlightVertex(curkey) {
-            for (var key in vertexHighlighted) cs["vl"][key]["state"] = VERTEX_HIGHLIGHTED;
-            for (var key in vertexHighlighted) cs["vl"][key]["extratext"] = "";
-            cs["vl"][curkey]["extratext"] = "^";
-        }
-
-        populatePseudocode(3);
-        return true;
-    }
 
     this.insertArr = function (vertexTextArr, callback) {
         var sl = [], vertexTraversed = {}, edgeTraversed = {}, cur = iBST["root"], cs, key, currentVertexClass, i;
@@ -2374,111 +1994,6 @@ var BST = function () {
 
 
 // BSTaction.js
-var actionsWidth;
-var statusCodetraceWidth;
-
-var isCreateOpen = false, isSearchOpen = false, isInsertOpen = false, isRemoveOpen = false, isPredSuccOpen = false,
-    isInorderOpen = false;
-
-function openCreate() {
-    if (!isCreateOpen) {
-        $('.create').fadeIn('fast');
-        isCreateOpen = true;
-    }
-}
-
-function closeCreate() {
-    if (isCreateOpen) {
-        $('.create').fadeOut('fast');
-        $('#create-err').html("");
-        isCreateOpen = false;
-    }
-}
-
-function openSearch() {
-    if (!isSearchOpen) {
-        $('.search').fadeIn('fast');
-        isSearchOpen = true;
-    }
-}
-
-function closeSearch() {
-    if (isSearchOpen) {
-        $('.search').fadeOut('fast');
-        $('#search-err').html("");
-        isSearchOpen = false;
-    }
-}
-
-function openInsert() {
-    if (!isInsertOpen) {
-        $('.insert').fadeIn('fast');
-        isInsertOpen = true;
-    }
-}
-
-function closeInsert() {
-    if (isInsertOpen) {
-        $('.insert').fadeOut('fast');
-        $('#insert-err').html("");
-        isInsertOpen = false;
-    }
-}
-
-function openRemove() {
-    if (!isRemoveOpen) {
-        $('.remove').fadeIn('fast');
-        isRemoveOpen = true;
-    }
-}
-
-function closeRemove() {
-    if (isRemoveOpen) {
-        $('.remove').fadeOut('fast');
-        $('#remove-err').html("");
-        isRemoveOpen = false;
-    }
-}
-
-function openPredSucc() {
-    if (!isPredSuccOpen) {
-        $('.predsucc').fadeIn('fast');
-        isPredSuccOpen = true;
-    }
-}
-
-function closePredSucc() {
-    if (isPredSuccOpen) {
-        $('.predsucc').fadeOut('fast');
-        $('#predsucc-err').html("");
-        isPredSuccOpen = false;
-    }
-}
-
-function openInorder() {
-    if (!isInorderOpen) {
-        $('.inorder').fadeIn('fast');
-        isInorderOpen = true;
-    }
-}
-
-function closeInorder() {
-    if (isInorderOpen) {
-        $('.inorder').fadeOut('fast');
-        isInorderOpen = false;
-    }
-}
-
-function hideEntireActionsPanel() {
-    closeCreate();
-    closeSearch();
-    closeInsert();
-    closeRemove();
-    closePredSucc();
-    closeInorder();
-    hideActionsPanel();
-}
-
 
 // local
 var bw, gw;
@@ -2504,48 +2019,42 @@ $(function () {
         closeSearch();
         closeInsert();
         closeRemove();
-        closePredSucc();
-        closeInorder();
+
     });
     $('#search').click(function () {
         closeCreate();
         openSearch();
         closeInsert();
         closeRemove();
-        closePredSucc();
-        closeInorder();
+
     });
     $('#insert').click(function () {
         closeCreate();
         closeSearch();
         openInsert();
         closeRemove();
-        closePredSucc();
-        closeInorder();
+
     });
     $('#remove').click(function () {
         closeCreate();
         closeSearch();
         closeInsert();
         openRemove();
-        closePredSucc();
-        closeInorder();
+
     });
     $('#predsucc').click(function () {
         closeCreate();
         closeSearch();
         closeInsert();
         closeRemove();
-        openPredSucc();
-        closeInorder();
+
     });
     $('#inorder').click(function () {
         closeCreate();
         closeSearch();
         closeInsert();
         closeRemove();
-        closePredSucc();
-        openInorder();
+
     });
 });
 
@@ -2647,104 +2156,6 @@ function removeVertex(callback) {
     setTimeout(function () {
         $("#v-remove").val(bw.getRandomInBST());
     }, 500); // randomized for next click, an existing value in BST
-}
-
-function predsucc(isPred, callback) {
-    if (isPlaying) stop();
-    var input = $('#v-predsucc').val();
-    commonAction(bw.findPredSucc(input.split(","), isPred, callback), (isPred ? "Predecessor(" : "Successor(") + input + ")");
-    setTimeout(function () {
-        $("#v-predsucc").val(bw.getRandomInBST());
-    }, 500);
-}
-
-function inorderTraversal(callback) {
-    // if (mode != "exploration") return;
-    if (isPlaying) stop();
-    commonAction(bw.inorderTraversal(callback), "Inorder Traversal");
-}
-
-// Implement these functions in each visualisation
-var userGraph = {
-    'vl': {},
-    'el': {},
-};
-
-// This function will be called before entering E-Lecture Mode
-function ENTER_LECTURE_MODE() {
-    //if (bw) userGraph = bw.getGraph();
-}
-
-// This function will be called before returning to Explore Mode
-function ENTER_EXPLORE_MODE() {
-    //loadGraph(userGraph);
-}
-
-// Lecture action functions
-function CUSTOM_ACTION(action, data, mode) {
-    if (action == 'search') {
-        hideSlide(function () {
-            $('#v-search').val(data); // force
-            searchVertex(showSlide);
-        });
-    }
-    else if (action == 'findmin') {
-        hideSlide(function () {
-            findMinMax(true, showSlide);
-        });
-    }
-    else if (action == 'findmax') {
-        hideSlide(function () {
-            findMinMax(false, showSlide);
-        });
-    }
-    else if (action == 'successor') {
-        hideSlide(function () {
-            $('#v-predsucc').val(data); // force
-            predsucc(false, showSlide);
-        });
-    }
-    else if (action == 'successor_max') {
-        hideSlide(function () {
-            $('#v-predsucc').val(bw.findMax()); // force the max
-            predsucc(false, showSlide);
-        });
-    }
-    else if (action == 'predecessor') {
-        hideSlide(function () {
-            $('#v-predsucc').val(data); // force
-            predsucc(true, showSlide);
-        });
-    }
-    else if (action == 'inorder') {
-        hideSlide(function () {
-            inorderTraversal(showSlide);
-        });
-    }
-    else if (action == 'insert') {
-        hideSlide(function () {
-            $('#v-insert').val(data); // force
-            insertVertex(showSlide);
-        });
-    }
-    else if (action == 'insert_max_plus_1') {
-        hideSlide(function () {
-            $('#v-insert').val(bw.findMax() + 1); // force the max plus 1
-            insertVertex(showSlide);
-        });
-    }
-    else if (action == 'remove') {
-        hideSlide(function () {
-            $('#v-remove').val(data); // force
-            removeVertex(showSlide);
-        });
-    }
-    else if (action == 'remove_max') {
-        hideSlide(function () {
-            $('#v-remove').val(bw.findMax()); // force the max
-            removeVertex(showSlide);
-        });
-    }
 }
 
 function responsivefy(svg) {

@@ -1,47 +1,4 @@
 
-var PHP_DOMAIN = "";
-
-// surprise colour!
-// Referenced to in  home.js and viz.js also
-//var colourArray = ["#000000", "#FFFFFF"];
-var colourArray = ["#52bc69", "#d65775"/*"#ed5a7d"*/, "#2ebbd1", "#d9513c", "#fec515", "#4b65ba", "#ff8a27", "#a7d41e"]; // green, pink, blue, red, yellow, indigo, orange, lime
-
-// function disableScroll() {
-//     $('html').css('overflow', 'hidden');
-// }
-//
-// function enableScroll() {
-//     $('html').css('overflow', 'visible');
-// }
-//
-// function replaceAll(find, replace, str) {
-//     return str.replace(new RegExp(find, 'g'), replace);
-// }
-
-// function getColours() {
-//     var generatedColours = new Array();
-//     while (generatedColours.length < 4) {
-//         var n = (Math.floor(Math.random() * colourArray.length));
-//         if ($.inArray(n, generatedColours) == -1)
-//             generatedColours.push(n);
-//     }
-//     return generatedColours;
-// }
-
-// function isOn(value, position) {
-//     return (value >> position) & 1 === 1;
-// }
-//
-//
-// function showLoadingScreen() {
-//     $('#loading-overlay').show();
-//     $('#loading-message').show();
-// }
-//
-// function hideLoadingScreen() {
-//     $('#loading-overlay').hide();
-// }
-
 function commonAction(retval, msg) {
     setTimeout(function () {
         if (retval) { // mode == "exploration" && // now not only for exploration mode, but check if this opens other problems
@@ -65,60 +22,6 @@ function getQueryVariable(variable) {
     return "";
 }
 
-// var generatedColours = getColours();
-// var surpriseColour = colourArray[generatedColours[0]];
-// //var colourTheSecond = colourArray[generatedColours[1]];
-// var colourTheThird = colourArray[generatedColours[2]];
-// var colourTheFourth = colourArray[generatedColours[3]];
-//
-// $(function () {
-//
-//     $('.colour').css("color", surpriseColour); // name
-//     $('h4').css("background-color", surpriseColour); // about, contact us etc. button background
-//
-//     // title
-//     $('#title a').click(function () {
-//         $('#title a').removeClass('selected-viz');
-//         $(this).addClass('selected-viz');
-//         // temporary quick fix for Google Chrome Aug 2016 issue...
-//         setTimeout(function () {
-//             document.body.style.zoom = "100.1%";
-//         }, 100); // force resize/redraw...
-//         setTimeout(function () {
-//             document.body.style.zoom = "100%";
-//         }, 600);
-//     });
-//
-// });
-
-//console log
-// var consoleWidth = 500;
-
-// $('#console-hide').click(function () {
-//     if (isConsoleOpen())
-//         hideConsolePanel();
-//     else
-//         showConsolePanel();
-// });
-//
-// function isConsoleOpen() {
-//     return $('#console-hide img').hasClass('rotateRight');
-// }
-//
-// function showConsolePanel() {
-//     if (!isConsoleOpen()) {
-//         $('#console-hide img').removeClass('rotateLeft').addClass('rotateRight');
-//         $('#console').animate({width: "+=" + consoleWidth,});
-//     }
-// }
-//
-// function hideConsolePanel() {
-//     if (isConsoleOpen()) {
-//         $('#console-hide img').removeClass('rotateRight').addClass('rotateLeft');
-//         $('#console').animate({width: "-=" + consoleWidth,});
-//     }
-// }
-
 
 $('#status').bind("DOMSubtreeModified", function () {
     $('#console').append($('#status').html());
@@ -127,19 +30,6 @@ $('#status').bind("DOMSubtreeModified", function () {
 function clearConsole(callback) {
     $('#console').html('');
 
-}
-
-// Implement these functions in each visualisation
-// This function will be called before entering e-Lecture Mode
-function ENTER_LECTURE_MODE() {
-}
-
-// This function will be called before returning to Explore Mode
-function ENTER_EXPLORE_MODE() {
-}
-
-// Lecture action functions
-function CUSTOM_ACTION(action, data, mode) {
 }
 
 // List Widget
@@ -1855,30 +1745,15 @@ function closeRemove() {
     }
 }
 
-function hideEntireActionsPanel() {
-    closeCreate();
-    closeSearch();
-    closeInsert();
-    closeRemove();
-    hideActionsPanel();
-}
 
 
 // local
 // title changing
-function SOP() {
-    if (isPlaying) stop();
-    showActionsPanel();
-    hideStatusPanel();
-//  hideCodetracePanel();
-//         $("#title-LL").text("Linked List");
-//         $("#title-DLL").text("Doubly Linked List");
-}
+
 
 var note = document.getElementById('noteContent');
 
 $('#title-LL').click(function () {
-    SOP();
     displayList();
     changeTextList();
     lw.setActiveStatus("list");
@@ -1891,44 +1766,14 @@ $('#title-LL').click(function () {
     clearConsole();
 
 });
-
-$('#title-Stack').click(function () {
-    SOP();
-    displayStack();
-    changeTextStack();
-    lw.setActiveStatus("stack");
-    title.innerHTML = "Stack";
-    note.innerHTML = '<h1>Stack</h1><br/>';
-    note.innerHTML += "<div>A real-world stack allows operations at one end only. For example, we can place or remove a card or plate from the top of the stack only. \n" +
-        "Likewise, Stack ADT allows all data operations at one end only. At any given time, we can only access the top element of a stack. \n" +
-        "This feature makes it LIFO data structure. LIFO stands for Last-in-first-out.\n" +
-        "Here, the element which is placed (inserted or added) last, is accessed first.\n" +
-        "In stack terminology, insertion operation is called PUSH operation and removal operation is called POP operation.</div>"
-    clearConsole();
-});
-
-$('#title-Queue').click(function () {
-    SOP();
-    displayQueue();
-    changeTextQueue();
-    lw.setActiveStatus("queue");
-    title.innerHTML = "Queue";
-    note.innerHTML = '<h1>Queue</h1><br/>';
-    note.innerHTML += "<div>A queue is open at both its ends. One end is always used to insert data (enqueue) and the other is used to remove data (dequeue).\n" +
-        "Queue follows First-In-First-Out methodology, i.e., the data item stored first will be accessed first.\n" +
-        "Queue Example. A real-world example of queue can be a single-lane one-way road, where the vehicle enters first, exits first.\n" +
-        "More real-world examples can be seen as queues at the ticket windows and bus-stops.</div>"
-    clearConsole();
-});
-
 $('#title-DLL').click(function () {
-    SOP();
+
     displayList();
     changeTextDoublyList();
     lw.setActiveStatus("doublylist");
     // $("#title-DLL").text('Doubly Linked List');
     title.innerHTML = "Doubly Linked List";
-    note.innerHTML = '<h1>Doubly Linked Listt</h1><br/>';
+    note.innerHTML = '<h1>Doubly Linked List</h1><br/>';
     note.innerHTML += "<div>Doubly Linked List is a variation of Linked list in which navigation is possible in both ways,\n" +
         "either forward and backward easily as compared to Single Linked List\n" +
         "As per the above illustration, following are the important points to be considered.\n" +
@@ -1945,26 +1790,13 @@ $('#title-DLL').click(function () {
     clearConsole();
 });
 
-$('#title-Deque').click(function () {
-    SOP();
-    displayDeque();
-    changeTextDeque();
-    lw.setActiveStatus("deque");
-    title.innerHTML = "Dequeue";
-    note.innerHTML = '<h1>Dequeue (Double Ended Queue)</h1><br/>';
-    note.innerHTML += "<div>Double Ended Queue is also a Queue data structure in which the insertion and deletion\n"+
-        "operations are performed at both the ends (front and rear).\n" +
-        "That means, we can insert at both front and rear positions and can delete from both front and rear positions.</div>"
-    clearConsole();
-});
-
 var lw = new List(), gw;
 
 $(function () {
     $('#play').hide();
     gw = lw.getGraphWidget();
-    var five_modes = ["LL", "Stack", "Queue", "DLL", "Deque"];
-    $('#title-' + five_modes[Math.floor(Math.random() * 5)]).click(); // randomly open one of the five default example every time
+    var five_modes = ["LL", "DLL"];
+    $('#title-' + five_modes[Math.floor(Math.random() * 2)]).click(); // randomly open one of the five default example every time
 
     var llMode = getQueryVariable("mode");
     if (llMode.length > 0) {
@@ -2055,33 +1887,6 @@ function displayList() {
     $("#remove-kth").css("display", "");
 }
 
-function displayStack() {
-    allOff();
-
-    $("#pushtop-input").css("display", "");
-    $("#pushtop-go").css("display", "");
-}
-
-function displayQueue() {
-    allOff();
-
-    $("#enqueueback-input").css("display", "");
-    $("#enqueueback-go").css("display", "");
-}
-
-function displayDeque() {
-    allOff();
-
-    $("#search-peek-front").css("display", "");
-    $("#search-peek-back").css("display", "");
-
-    $("#insert-deque-input").css("display", "");
-    $("#insert-deque-front").css("display", "");
-    $("#insert-deque-back").css("display", "");
-
-    $("#remove-deque-front").css("display", "");
-    $("#remove-deque-back").css("display", "");
-}
 
 function changeTextList() {
     $("#create").text('Create');
@@ -2090,32 +1895,12 @@ function changeTextList() {
     $("#remove").text('Remove');
 }
 
-function changeTextStack() {
-    $("#create").text('Create');
-    $("#search").text('Peek');
-    $("#insert").text('Push');
-    $("#remove").text('Pop');
-}
-
-function changeTextQueue() {
-    $("#create").text('Create');
-    $("#search").text('Peek');
-    $("#insert").text('Enqueue');
-    $("#remove").text('Dequeue');
-}
 
 function changeTextDoublyList() {
     $("#create").text('Create');
     $("#search").text('Search');
     $("#insert").text('Insert');
     $("#remove").text('Remove');
-}
-
-function changeTextDeque() {
-    $("#create").text('Create');
-    $("#search").text('Peek');
-    $("#insert").text('Enqueue');
-    $("#remove").text('Dequeue');
 }
 
 function empty() {
@@ -2208,14 +1993,6 @@ function searchGeneric(callback) {
         peekQueue(callback);
 }
 
-function peekDeque(location, callback) {
-    if (isPlaying) stop();
-    if (location == "front")
-        commonAction(lw.peek(true, callback), 'Peek front (head)');
-    else
-        commonAction(lw.peek(false, callback), 'Peek back (tail)');
-}
-
 function insertHead(callback) {
     if (isPlaying) stop();
     var input = parseInt($('#v-insert-head-value').val());
@@ -2263,18 +2040,6 @@ function enqueueBack(callback) {
     }, 500);
 }
 
-function insertDeque(location) {
-    if (isPlaying) stop();
-    var input = $('#v-insert-deque-value').val();
-    if (location == "front")
-        commonAction(lw.insertHead(input), 'Enqueue {input} to front (head)'.replace("{input}", input));
-    else
-        commonAction(lw.insertTail(input), 'Enqueue {input} to back (tail)'.replace("{input}", input));
-    setTimeout(function () {
-        $('#v-insert-deque-value').val(1 + Math.floor(Math.random() * 99));
-    }, 500);
-}
-
 function removeHead(callback) { // PS both pop/stack and dequeue/queue also calls the same thing: remove head
     if (isPlaying) stop();
     commonAction(lw.removeHead(callback), 'Remove i = 0 (Head)');
@@ -2297,27 +2062,6 @@ function removeKth(callback) {
     }, 500); // [1..N-2]
 }
 
-function removeGeneric(callback) {
-    if ((lw.getActiveStatus() == "stack") || (lw.getActiveStatus() == "queue"))
-        removeHead(callback);
-}
-
-function removeDeque(location) {
-    if (isPlaying) stop();
-    if (location == "front")
-        commonAction(lw.removeHead(), 'Remove front (head)');
-    else
-        commonAction(lw.removeTailDLL(), 'Remove back (tail)');
-}
-
-function createModelingOpen(modelingType) {
-    $(".create").css("bottom", "119px");
-    if (modelingType != "createfixedsize")
-        $('#createfixedsize-input').fadeOut('fast');
-    if (modelingType != "createuserdefined")
-        $('#createuserdefined-input').fadeOut('fast');
-    $('#' + modelingType + '-input').fadeIn('fast');
-}
 
 function insertModelingOpen(modelingType) {
     $(".insert").css("bottom", "65px");
@@ -2330,103 +2074,22 @@ function insertModelingOpen(modelingType) {
     $('#' + modelingType + '-input').fadeIn('fast');
 }
 
-function removeModelingOpen(modelingType) {
-    $(".remove").css("bottom", "38px");
-    $('#' + modelingType + '-input').fadeIn('fast');
-}
 
-// Implement these functions in each visualisation
-// var userGraph = {
-//   'vl': {},
-//   'el': {},
-// };
+function responsivefy(svg) {
+    var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")) + 30,
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
 
-// This function will be called before entering E-Lecture Mode
-function ENTER_LECTURE_MODE() {
-    //if (lw) userGraph = lw.getGraph();
-}
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .call(resize);
 
-// This function will be called before returning to Explore Mode
-function ENTER_EXPLORE_MODE() {
-    //loadGraph(userGraph);
-}
+    d3.select(window).on("resize." + container.attr("id"), resize);
 
-// Lecture action functions
-function CUSTOM_ACTION(action, data, mode) {
-    if (action == 'search') {
-        hideSlide(function () {
-            $('#v-search').val(data); // force
-            searchVertex(showSlide);
-        });
-    }
-    else if (action == 'peek') {
-        hideSlide(function () {
-            searchGeneric(showSlide);
-        });
-    }
-    else if (action == 'insert_head') {
-        hideSlide(function () {
-            $('#v-insert-head-value').val(data); // force
-            insertHead(showSlide);
-        });
-    }
-    else if (action == 'insert_tail') {
-        hideSlide(function () {
-            $('#v-insert-tail-value').val(data); // force
-            insertTail(showSlide);
-        });
-    }
-    else if (action == 'insert_kth') {
-        hideSlide(function () {
-            $('#v-insert-kth').val(data.split(",")[0]); // force
-            $('#v-insert-kth-value').val(data.split(",")[1]); // force
-            insertKth(showSlide);
-        });
-    }
-    else if (action == 'remove_head') {
-        var a = lw.getA();
-        if (a.length > 0) {
-            hideSlide(function () {
-                removeHead(showSlide);
-            });
-        }
-        else
-            alert('The Linked List is already empty'); // put in variable?
-    }
-    else if (action == 'remove_tail') {
-        var a = lw.getA();
-        if (a.length > 0) {
-            hideSlide(function () {
-                removeTail(showSlide);
-            });
-        }
-        else
-            alert('The Linked List is already empty'); // put in variable?
-    }
-    else if (action == 'remove_kth') {
-        hideSlide(function () {
-            $('#v-remove-kth').val(data); // force
-            removeKth(showSlide);
-        });
-    }
-    else if (action == 'push') {
-        hideSlide(function () {
-            $('#v-push-top-value').val(data); // force
-            pushTop(showSlide);
-        });
-    }
-    else if (action == 'enqueue') {
-        var a = lw.getA();
-        if (a.length < 10) {
-            var randval = 1 + Math.floor(Math.random() * 99);
-            while (a.includes(randval))
-                randval = 1 + Math.floor(Math.random() * 99);
-            hideSlide(function () {
-                $('#v-enqueue-back-value').val(randval); // force random
-                enqueueBack(showSlide);
-            });
-        }
-        else
-            alert('The Linked List is already too long for this visualization'); // put in variable?
+    function resize() {
+        var targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
     }
 }
