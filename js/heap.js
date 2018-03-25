@@ -1,173 +1,5 @@
-window.onpopstate = function (event) {
-    var slide = event.state['slide'];
-    openSlide(slide, function () {
-        runSlide(slide);
-    });
-};
-
-function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'), sParameterName, i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] === sParam) return sParameterName[1] === undefined ? true : sParameterName[1];
-    }
-};
-
-function pushState(slideValue) {
-    var url = '/en/heap';
-    if (typeof slideValue != 'undefined' && slideValue != null) url += '?slide=' + slideValue;
-    window.history.pushState({slide: slideValue}, "slide " + slideValue, url);
-}
-
-function showPopup(callback) {
-    $('#popup').fadeIn(100, callback);
-}
-
-function hidePopup(callback) {
-    $('#popup').fadeOut(100, callback);
-}
-
-function showOverlay() {
-    $('#overlay').css('opacity', 0.5);
-    $('#overlay').show();
-}
-
-function hideOverlay() {
-    $('#overlay').hide();
-    $("#e-lecture").html("");
-}
-
-function makeOverlayTransparent() {
-    $('#overlay').css('opacity', 0);
-}
-
-function hideSlide(callback) {
-    isPlaying = true;
-    closeSlide(cur_slide, function () {
-        makeOverlayTransparent();
-        setTimeout(callback, 700); // don't immediately run the animation, wait for 500ms+ first
-    });
-}
-
-function showSlide() {
-    isPlaying = false;
-    openSlide(cur_slide);
-    showOverlay();
-}
-
-$(function () {
-    var slide = getUrlParameter('slide');
-
-    $('.mcq-submit').click(function () {
-        var questionId = parseInt($(this).attr('id').split('-')[1]);
-        var answer = $('#mcq-answer-' + questionId).val();
-        var userAnswer = $('input[type=radio][name=mcq-' + questionId + '-choice]:checked').val();
-
-        if (answer === userAnswer) {
-            $('#answer-status-' + questionId).html('<font color="green"><b>Correct!</b></font>');
-        }
-        else {
-            $('#answer-status-' + questionId).html('<font color="red"><b>Wrong Answer! Try again...</b></font>');
-        }
-        $('#answer-status-' + questionId).show();
-        setTimeout(function () {
-            $('#answer-status-' + questionId).fadeOut(1000);
-        }, 1000);
-    });
-
-    $('.msq-submit').click(function () {
-        var questionId = parseInt($(this).attr('id').split('-')[1]);
-        var answer = $('#msq-answer-' + questionId).val();
-
-        var answers = [];
-        $('input[type=checkbox][class=msq-choice]:checked').each(function () {
-            answers.push($(this).attr('id').split('-')[3]);
-        });
-        answers.sort();
-        var userAnswer = answers.join(',');
-
-        if (answer === userAnswer) {
-            $('#answer-status-' + questionId).html('<font color="green">Correct!</font>');
-        }
-        else {
-            $('#answer-status-' + questionId).html('<font color="red">Wrong Answer! Try again...</font>');
-        }
-        $('#answer-status-' + questionId).show();
-        setTimeout(function () {
-            $('#answer-status-' + questionId).fadeOut(1000);
-        }, 1000);
-    });
-
-    // temporary quick fix for Google Chrome Aug 2016 issue..., put at last part so that everything else has been loaded
-    setTimeout(function () {
-        document.body.style.zoom = "100.1%";
-    }, 500);
-    setTimeout(function () {
-        document.body.style.zoom = "100%";
-    }, 600);
-});
-
-function doButtonAction23() {
-    CUSTOM_ACTION('createNlogN', "1,2,3,4,5,6,7");
-}
-
-function doButtonAction24() {
-    CUSTOM_ACTION('createN', "1,2,3,4,5,6,7");
-}
-
-function doButtonAction25() {
-    CUSTOM_ACTION('heapsort');
-}
-
-function doButtonAction26() {
-    CUSTOM_ACTION('extractmax');
-}
-
-function doButtonAction27() {
-    CUSTOM_ACTION('random_insert');
-}
-
-function doButtonAction34() {
-    CUSTOM_ACTION('insert_top');
-}
-
-function adjustPopupToImageSize() {
-    var width = $('#popup-image').prop('width');
-    var height = $('#popup-image').prop('height');
-    $('#popup').width(width + 20);
-    $('#popup').height(height + 20);
-    if (width == 0 && height == 0) {
-        setTimeout(adjustPopupToImageSize, 200);
-    } else {
-        showPopup();
-    }
-}
-
-function POPUP_IMAGE(url) {
-    $('#popup-content').html('<img id="popup-image" src="' + url + '">');
-    adjustPopupToImageSize();
-}
 
 
-
-
-// Implement these functions in each visualisation
-// This function will be called before entering e-Lecture Mode
-function ENTER_LECTURE_MODE() {
-}
-
-// This function will be called before returning to Explore Mode
-function ENTER_EXPLORE_MODE() {
-}
-
-// Lecture action functions
-function CUSTOM_ACTION(action, data, mode) {
-}
-
-// Heap Widget
-// original author: Steven Halim
 
 var Heap = function () {
     var gw = new GraphWidget();
@@ -637,7 +469,7 @@ var Heap = function () {
                 $('#code2').html('i = A.length-1');
                 $('#code3').html('while (i > 1 &amp;&amp; A[parent(i)] &lt; A[i])');
                 $('#code4').html('&nbsp&nbspswap(A[i], A[parent(i)])');
-                $('#code5').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
+                $('#code5').html('');
                 $('#code6').html('');
                 $('#code7').html('');
                 break;
@@ -648,12 +480,12 @@ var Heap = function () {
                 $('#code4').html('while (i &lt; A.length)');
                 $('#code5').html('&nbsp&nbspif A[i] < (L = the larger of i&#39;s children)');
                 $('#code6').html('&nbsp&nbsp&nbsp&nbspswap(A[i], L)');
-                $('#code7').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
+                $('#code7').html('');
                 break;
             case 2: // HeapSort
                 $('#code1').html('for (i = 0; i &lt; A.length; i++)');
                 $('#code2').html('&nbsp&nbspExtractMax()');
-                $('#code3').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
+                $('#code3').html('');
                 $('#code4').html('');
                 $('#code5').html('');
                 $('#code6').html('');
@@ -663,7 +495,7 @@ var Heap = function () {
                 $('#code1').html('Start from an empty Binary Max Heap');
                 $('#code2').html('for (i = 0; i &lt; A.length; i++)');
                 $('#code3').html('&nbsp&nbspInsert(A[i])');
-                $('#code4').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
+                $('#code4').html('');
                 $('#code5').html('');
                 $('#code6').html('');
                 $('#code7').html('');
@@ -672,7 +504,7 @@ var Heap = function () {
                 $('#code1').html('The input array A as it is');
                 $('#code2').html('for (i = A.length/2; i &gt;= 1; i--)');
                 $('#code3').html('&nbsp&nbspshiftDown(i)');
-                $('#code4').html('// <b><a href="http://cpbook.net/#downloads" target="_blank">ch2_06_priority_queue.cpp/java</a></b>');
+                $('#code4').html('>');
                 $('#code5').html('');
                 $('#code6').html('');
                 $('#code7').html('');
@@ -892,6 +724,14 @@ function createNSample(callback) {
     if (isPlaying) stop();
     var input = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31";
     createNWithInput(input, callback);
+}
+
+// var drawArray = getTreeArray();
+function createDraw(callback) {
+    if (isPlaying) stop();
+    var input = getTreeArray().toString();
+    createNWithInput(input, callback);
+    // alert(getTreeArray().toString());
 }
 
 function createNRandom(callback) {
