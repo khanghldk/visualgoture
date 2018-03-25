@@ -74,7 +74,7 @@ function hideCodetracePanel() {
 }
 
 function triggerRightPanels() {
-    hideEntireActionsPanel();
+    // hideEntireActionsPanel();
     showStatusPanel();
     showCodetracePanel();
 }
