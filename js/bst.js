@@ -1,4 +1,4 @@
-
+var currentInitialArray = null;
 
 var BST = function () {
     var self = this;
@@ -30,12 +30,16 @@ var BST = function () {
     var amountVertex = 0;
     iBST["root"] = null;
 
+
+
     if (isAVL) init(initialAvlArray);
     else init(initialArray);
 
     this.getGraphWidget = function () {
         return gw;
     };
+
+
 
     function dummyInit() {
         iBST["root"] = 15;
@@ -160,6 +164,7 @@ var BST = function () {
             vertexAmt = drawArray.length;
             initArr = drawArray;
         }
+
         init(initArr);
         return true;
     }
@@ -933,7 +938,7 @@ var BST = function () {
         else populatePseudocode(0);
         return true;
     }
-
+//////////////////////////////// Insert ends
     this.removeArr = function (vertexTextArr, callback) {
         var sl = [];
         var vertexTraversed = {};
@@ -1613,12 +1618,16 @@ var BST = function () {
                     "parent": null,
                     "leftChild": null,
                     "rightChild": null,
+                    "amount": 1,
                     "vertexClassNumber": amountVertex
                 };
             }
             else {
                 while (true) {
-                    if (parentVertex < newVertex) {
+                    if(parentVertex == newVertex){
+                        break;
+                    }
+                    else if (parentVertex < newVertex) {
                         if (iBST[parentVertex]["rightChild"] == null) break;
                         parentVertex = iBST[parentVertex]["rightChild"];
                     }
@@ -1628,17 +1637,23 @@ var BST = function () {
                     }
                 }
 
-                if (parentVertex < newVertex)
-                    iBST[parentVertex]["rightChild"] = newVertex;
-                else
-                    iBST[parentVertex]["leftChild"] = newVertex;
+                if(parentVertex == newVertex){
+                    iBST[parentVertex]["amount"] += 1;
+                }else{
+                    if (parentVertex < newVertex)
+                        iBST[parentVertex]["rightChild"] = newVertex;
+                    else
+                        iBST[parentVertex]["leftChild"] = newVertex;
 
-                iBST[newVertex] = {
-                    "parent": parentVertex,
-                    "leftChild": null,
-                    "rightChild": null,
-                    "vertexClassNumber": amountVertex
+                    iBST[newVertex] = {
+                        "parent": parentVertex,
+                        "leftChild": null,
+                        "rightChild": null,
+                        "amount": 1,
+                        "vertexClassNumber": amountVertex
+                    }
                 }
+
             }
 
             amountVertex++;
@@ -1651,13 +1666,20 @@ var BST = function () {
             gw.addVertex(iBST[key]["cx"], iBST[key]["cy"], key, iBST[key]["vertexClassNumber"], true);
         }
 
+
         for (key in iBST) {
             if (key == "root") continue;
             if (key == iBST["root"]) continue;
             var parentVertex = iBST[key]["parent"];
             gw.addEdge(iBST[parentVertex]["vertexClassNumber"], iBST[key]["vertexClassNumber"], iBST[key]["vertexClassNumber"], EDGE_TYPE_UDE, 1, true);
         }
+        var newArray = initArr;
+        addCount(newArray);
     }
+
+
+
+
 
     function clearScreen() {
         var key;
@@ -1992,7 +2014,7 @@ var BST = function () {
     }
 }
 
-
+//////////////////BST ends
 // BSTaction.js
 
 // local
@@ -2013,49 +2035,7 @@ $(function () {
         var newBST = createBST.split(",");
         bw.generate(newBST);
     }
-
-    $('#create').click(function () {
-        openCreate();
-        closeSearch();
-        closeInsert();
-        closeRemove();
-
-    });
-    $('#search').click(function () {
-        closeCreate();
-        openSearch();
-        closeInsert();
-        closeRemove();
-
-    });
-    $('#insert').click(function () {
-        closeCreate();
-        closeSearch();
-        openInsert();
-        closeRemove();
-
-    });
-    $('#remove').click(function () {
-        closeCreate();
-        closeSearch();
-        closeInsert();
-        openRemove();
-
-    });
-    $('#predsucc').click(function () {
-        closeCreate();
-        closeSearch();
-        closeInsert();
-        closeRemove();
-
-    });
-    $('#inorder').click(function () {
-        closeCreate();
-        closeSearch();
-        closeInsert();
-        closeRemove();
-
-    });
+addCount();
 });
 
 // title changing
@@ -2086,7 +2066,7 @@ function empty() {
     setTimeout(function () {
         if (bw.generateEmpty()) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-
+            
             isPlaying = false;
         }
     }, 500);
@@ -2097,7 +2077,7 @@ function example(id) {
     setTimeout(function () {
         if (bw.generateExample(id)) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-
+            
             isPlaying = false;
         }
     }, 500);
@@ -2108,7 +2088,7 @@ function random() {
     setTimeout(function () {
         if (bw.generateRandom()) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-
+            
             isPlaying = false;
         }
     }, 500);
@@ -2119,7 +2099,7 @@ function skewed(side) {
     setTimeout(function () {
         if (bw.generateSkewed(side)) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-
+            
             isPlaying = false;
         }
     }, 500);
@@ -2174,5 +2154,56 @@ function responsivefy(svg) {
         var targetWidth = parseInt(container.style("width"));
         svg.attr("width", targetWidth);
         svg.attr("height", Math.round(targetWidth / aspect));
+    }
+}
+
+function addCount (initArr) {
+    if(typeof initArr != 'undefined')
+    {
+
+    var minimizeArr = [];
+    var j = 0;
+    console.log("initArr: " + initArr);
+    for(i= 0 ; i< initArr.length; i++){
+        if (j == 0) {
+            minimizeArr[j] = {
+                "value": initArr[i],
+                "count": 1
+            }
+            j++;
+        }
+        else{
+            if(minimizeArr[j - 1]["value"] == initArr[i]){
+                minimizeArr[j - 1]["count"] += 1;
+            }else{
+                minimizeArr[j] = {
+                    "value": initArr[i],
+                    "count": 1
+                }
+                j++;
+            }
+
+        }
+    }
+
+    // console.log("minimizeArr: " + minimizeArr);
+    for(i2= 0; i2 < minimizeArr.length; i2++){
+        console.log("number: " + i2 + " value: " + minimizeArr[i2]["value"] + " count: " + minimizeArr[i2]["count"]);
+        console.log("index: " + initArr.indexOf(minimizeArr[i2]["value"]).toString());
+
+        var displayText = minimizeArr[i2]["value"] + "(" + minimizeArr[i2]["count"] + ")";
+
+        console.log(d3.selectAll("svg text.v"+ initArr.indexOf(minimizeArr[i2]["value"]).toString()).node());
+
+        d3.select("svg text.v"+ initArr.indexOf(minimizeArr[i2]["value"]).toString()).each(function(d, i) {
+            d3.select(this).text("A");
+        });
+
+        console.log(d3.selectAll("svg text.v"+ initArr.indexOf(minimizeArr[i2]["value"]).toString()).node());
+
+
+
+
+    }
     }
 }

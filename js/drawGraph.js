@@ -6,6 +6,7 @@ var node = {
     left: null,
     right: null
 };
+
 function BinarySearchTree() {
     this._root = null;
 }
@@ -15,7 +16,7 @@ BinarySearchTree.prototype = {
     //restore constructor
     constructor: BinarySearchTree,
 
-    add: function(value){
+    add: function (value) {
         //create a new item object, place data in
         var node = {
                 value: value,
@@ -27,18 +28,18 @@ BinarySearchTree.prototype = {
             current;
 
         //special case: no items in the tree yet
-        if (this._root === null){
+        if (this._root === null) {
             this._root = node;
         } else {
             current = this._root;
 
-            while(true){
+            while (true) {
 
                 //if the new value is less than this node's value, go left
-                if (value < current.value){
+                if (value < current.value) {
 
                     //if there's no left, then the new node belongs there
-                    if (current.left === null){
+                    if (current.left === null) {
                         current.left = node;
                         currentFatherNode = current.value;
                         break;
@@ -47,10 +48,10 @@ BinarySearchTree.prototype = {
                     }
 
                     //if the new value is greater than this node's value, go right
-                } else if (value > current.value){
+                } else if (value > current.value) {
 
                     //if there's no right, then the new node belongs there
-                    if (current.right === null){
+                    if (current.right === null) {
                         current.right = node;
                         currentFatherNode = current.value;
                         break;
@@ -72,10 +73,8 @@ BinarySearchTree.prototype = {
 var bst = new BinarySearchTree();
 
 
-
-
 // set up SVG for d3
-var width  = 1000,
+var width = 1000,
     height = 500,
     colors = d3.scale.category10();
 
@@ -91,10 +90,11 @@ var svg = d3.select('#graph')
 //  - reflexive edges are indicated on the node (as a bold black circle).
 //  - links are always source < target; edge directions are set by 'left' and 'right'.
 
-var Node = function (id, reflexive, color) {
+var Node = function (id, reflexive, color, duplicateCount) {
     this.id = id;
     this.reflexive = reflexive;
     this.color = color;
+    this.duplicateCount = duplicateCount;
 }
 
 var Link = function (source, target, left, right, color) {
@@ -123,7 +123,7 @@ StateHelper.copyState = function (oldState) {
     var newNodes = new Array();
     var newLinks = new Array();
     for (var i = 0; i < oldState.nodes.length; i++) {
-        newNodes.push(new Node(oldState.nodes[i].id, oldState.nodes[i].reflexive, oldState.nodes[i].color));
+        newNodes.push(new Node(oldState.nodes[i].id, oldState.nodes[i].reflexive, oldState.nodes[i].color, oldState.nodes[i].duplicateCount));
     }
 
     for (var i = 0; i < oldState.links.length; i++) {
@@ -148,7 +148,6 @@ var nodes = new Array();
 // nodes.push(new Node(1, true));
 // nodes.push(new Node(2, false));
 // nodes.push(new Node(3, true));
-
 
 
 var links = new Array();
@@ -219,7 +218,7 @@ function resetMouseVars() {
 // update force layout (called automatically each iteration)
 function tick() {
     // draw directed edges with proper padding from node centers
-    path.attr('d', function(d) {
+    path.attr('d', function (d) {
         var deltaX = d.target.x - d.source.x,
             deltaY = d.target.y - d.source.y,
             dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY),
@@ -234,16 +233,16 @@ function tick() {
         return 'M' + sourceX + ',' + sourceY + 'L' + targetX + ',' + targetY;
     });
 
-    circle.attr('transform', function(d) {
+    circle.attr('transform', function (d) {
         return 'translate(' + d.x + ',' + d.y + ')';
     });
 
-    edgelabels.attr('transform',function(d,i){
-        if (d.target.x < d.source.x){
+    edgelabels.attr('transform', function (d, i) {
+        if (d.target.x < d.source.x) {
             var bbox = this.getBBox();
-            var rx = bbox.x+bbox.width/2;
-            var ry = bbox.y+bbox.height/2;
-            return 'rotate(180 '+rx+' '+ry+')';
+            var rx = bbox.x + bbox.width / 2;
+            var ry = bbox.y + bbox.height / 2;
+            return 'rotate(180 ' + rx + ' ' + ry + ')';
         }
         else {
             return 'rotate(0)';
@@ -259,28 +258,39 @@ function restart() {
     path = path.data(links);
 
     // update existing links
-    path.classed('selected', function(d) { return d === selected_link; })
-        .style('marker-start', function(d) { return d.left ? 'url(#start-arrow)' : ''; })
-        .style('marker-end', function(d) { return d.right ? 'url(#end-arrow)' : ''; });
+    path.classed('selected', function (d) {
+        return d === selected_link;
+    })
+        .style('marker-start', function (d) {
+            return d.left ? 'url(#start-arrow)' : '';
+        })
+        .style('marker-end', function (d) {
+            return d.right ? 'url(#end-arrow)' : '';
+        });
 
 
     // add new links
     path.enter().append('svg:path')
         .attr('class', 'link')
-        .classed('selected', function(d) { return d === selected_link; })
-        .style('marker-start', function(d) { return d.left ? 'url(#start-arrow)' : ''; })
-        .style('marker-end', function(d) { return d.right ? 'url(#end-arrow)' : ''; })
-        .on('mousedown', function(d) {
-            if(d3.event.ctrlKey) return;
+        .classed('selected', function (d) {
+            return d === selected_link;
+        })
+        .style('marker-start', function (d) {
+            return d.left ? 'url(#start-arrow)' : '';
+        })
+        .style('marker-end', function (d) {
+            return d.right ? 'url(#end-arrow)' : '';
+        })
+        .on('mousedown', function (d) {
+            if (d3.event.ctrlKey) return;
 
             // select link
             mousedown_link = d;
-            if(mousedown_link === selected_link) selected_link = null;
+            if (mousedown_link === selected_link) selected_link = null;
             else selected_link = mousedown_link;
             selected_node = null;
             restart();
         });
-
 
 
     // remove old links
@@ -289,12 +299,20 @@ function restart() {
 
     // circle (node) group
     // NB: the function arg is crucial here! nodes are known by id, not by index!
-    circle = circle.data(nodes, function(d) { return d.id; });
+    circle = circle.data(nodes, function (d) {
+        return d.id;
+    });
 
     // update existing nodes (reflexive & selected visual states)
     circle.selectAll('circle')
-        .style('fill', function(d) { return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id); })
-        .classed('reflexive', function(d) { return d.reflexive; });
+        .style('fill', function (d) {
+            return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id);
+        })
+        .classed('reflexive', function (d) {
+            return d.reflexive;
+        });
+
+
 
     // add new nodes
     var g = circle.enter().append('svg:g');
@@ -302,25 +320,31 @@ function restart() {
     g.append('svg:circle')
         .attr('class', 'node')
         .attr('r', 12)
-        .style('fill', function(d) { return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id); })
-        .style('stroke', function(d) { return d3.rgb(colors(d.id)).darker().toString(); })
-        .classed('reflexive', function(d) { return d.reflexive; })
-        .on('mouseover', function(d) {
-            if(!mousedown_node || d === mousedown_node) return;
+        .style('fill', function (d) {
+            return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id);
+        })
+        .style('stroke', function (d) {
+            return d3.rgb(colors(d.id)).darker().toString();
+        })
+        .classed('reflexive', function (d) {
+            return d.reflexive;
+        })
+        .on('mouseover', function (d) {
+            if (!mousedown_node || d === mousedown_node) return;
             // enlarge target node
             d3.select(this).attr('transform', 'scale(1.1)');
         })
-        .on('mouseout', function(d) {
-            if(!mousedown_node || d === mousedown_node) return;
+        .on('mouseout', function (d) {
+            if (!mousedown_node || d === mousedown_node) return;
             // unenlarge target node
             d3.select(this).attr('transform', '');
         })
-        .on('mousedown', function(d) {
-            if(d3.event.ctrlKey) return;
+        .on('mousedown', function (d) {
+            if (d3.event.ctrlKey) return;
 
             // select node
             mousedown_node = d;
-            if(mousedown_node === selected_node) selected_node = null;
+            if (mousedown_node === selected_node) selected_node = null;
             else selected_node = mousedown_node;
             selected_link = null;
 
@@ -332,8 +356,8 @@ function restart() {
 
             restart();
         })
-        .on('mouseup', function(d) {
-            if(!mousedown_node) return;
+        .on('mouseup', function (d) {
+            if (!mousedown_node) return;
 
             // needed by FF
             drag_line
@@ -342,7 +366,10 @@ function restart() {
 
             // check for drag-to-self
             mouseup_node = d;
-            if(mouseup_node === mousedown_node) { resetMouseVars(); return; }
+            if (mouseup_node === mousedown_node) {
+                resetMouseVars();
+                return;
+            }
 
             // unenlarge target node
             d3.select(this).attr('transform', '');
@@ -350,7 +377,7 @@ function restart() {
             // add link to graph (update if exists)
             // NB: links are strictly source < target; arrows separately specified by booleans
             var source, target, direction;
-            if(mousedown_node.id < mouseup_node.id) {
+            if (mousedown_node.id < mouseup_node.id) {
                 source = mousedown_node;
                 target = mouseup_node;
                 direction = 'right';
@@ -361,22 +388,22 @@ function restart() {
             }
 
             var link;
-            link = links.filter(function(l) {
+            link = links.filter(function (l) {
                 return (l.source === source && l.target === target);
             })[0];
 
-            if(link) {
+            if (link) {
                 link[direction] = true;
             } else {
                 link = {source: source, target: target, left: false, right: false};
                 link[direction] = false;
-                if(nodes.length <= 2)
+                if (nodes.length <= 2)
                     links.push(link);
-                else if((link.source.id == currentFatherNode && link.target.id == nodes[nodes.length - 1].id)
-                    || (link.source.id == nodes[nodes.length - 1].id && link.target.id == currentFatherNode)){
+                else if ((link.source.id == currentFatherNode && link.target.id == nodes[nodes.length - 1].id)
+                    || (link.source.id == nodes[nodes.length - 1].id && link.target.id == currentFatherNode)) {
                     links.push(link);
-                }else{
-                    alert("Please connect new node to node ["+ currentFatherNode + "] to make a Binary Search Tree!");
+                } else {
+                    alert("Please connect new node to node [" + currentFatherNode + "] to make a Binary Search Tree!");
                 }
 
             }
@@ -389,14 +416,32 @@ function restart() {
 
 
 
-
     // show node IDs
     g.append('svg:text')
         .attr('x', 0)
         .attr('y', 4)
         .attr('class', 'id')
-        .text(function(d) { return d.id; });
+        .text(
+            function (d) {
+                if (d.duplicateCount > 1)
+                    return d.id + "(" + d.duplicateCount + ")";
+                else
+                    return d.id;
+            }
+        );
 
+
+    d3.selectAll("svg .id")
+        .each(function(d, i) {
+            d3.select(this).text(
+                function (d) {
+                    if (d.duplicateCount > 1)
+                        return d.id + "(" + d.duplicateCount + ")";
+                    else
+                        return d.id ;
+                }
+            );
+        });
     // remove old nodes
     circle.exit().remove();
 
@@ -407,18 +452,26 @@ function restart() {
         .enter()
         .append('text')
         .style("pointer-events", "none")
-        .attr({'class':'edgelabel',
-            'id':function(d,i){return 'edgelabel'+i},
-            'dx':80,
-            'dy':0,
-            'font-size':10,
-            'fill':'#aaa'});
+        .attr({
+            'class': 'edgelabel',
+            'id': function (d, i) {
+                return 'edgelabel' + i
+            },
+            'dx': 80,
+            'dy': 0,
+            'font-size': 10,
+            'fill': '#aaa'
+        });
 
     edgelabels
         .append('textPath')
-        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
+        .attr('xlink:href', function (d, i) {
+            return '#edgepath' + i
+        })
         .style("pointer-events", "none")
-        .text(function(d,i){return 'label '+i});
+        .text(function (d, i) {
+            return 'label ' + i
+        });
 
     edgelabels.exit().remove();
 
@@ -432,15 +485,16 @@ function restart() {
 
 }
 
+////////////////////////////////////////////////////////////////////////
 
-function checkNodeNotHavingLink(source){
+function checkNodeNotHavingLink(source) {
     var linkNum = 0;
 
     for (i = 0; i < links.length; i++) {
-        if(links[i].source.id == source|| links[i].target.id == source)
+        if (links[i].source.id == source || links[i].target.id == source)
             linkNum++;
     }
-    if(linkNum == 0)
+    if (linkNum == 0)
         return true;
     else
         return false;
@@ -452,26 +506,26 @@ function mousedown() {
 
     svg.classed('active', true);
 
-    if(d3.event.ctrlKey || mousedown_node || mousedown_link) return;
+    if (d3.event.ctrlKey || mousedown_node || mousedown_link) return;
 
-    if (nodes.length >=2){
+    if (nodes.length >= 2) {
         var lastNode = nodes[nodes.length - 1];
     }
 
 
-    if (nodes.length >= 2 && checkNodeNotHavingLink(lastNode.id)){
-        alert("Please draw link for the lastest node");
-    }else{
+    if (nodes.length >= 2 && checkNodeNotHavingLink(lastNode.id)) {
+        alert('Please connect link for new node!');
+    } else {
         // because :active only works in WebKit?
 
 
         // insert new node at point
-        var inputId =prompt("Please enter node value","1");
-        if(checkDuplicate(Number(inputId)))
-            alert('Please enter different number because of duplicate!');
-        else if(inputId != null){
+        var inputId = prompt("Please enter node value", "1");
+        if (checkDuplicate(Number(inputId)))
+            restart();
+        else if (inputId != null) {
             var point = d3.mouse(this),
-                node = {id: inputId, reflexive: false, color: colors(3)};
+                node = {id: inputId, reflexive: false, color: colors(3), duplicateCount: 1};
             node.x = point[0];
             node.y = point[1];
             nodes.push(node);
@@ -482,20 +536,22 @@ function mousedown() {
     }
 
 
-
 }
 
 
-function checkDuplicate(id){
-    for(i = 0; i < nodes.length; i++ ){
-        if(nodes[i].id == id)
+function checkDuplicate(id) {
+    for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].id == id) {
+            nodes[i].duplicateCount += 1;
             return true;
+        }
+
     }
     return false;
 }
 
 function mousemove() {
-    if(!mousedown_node) return;
+    if (!mousedown_node) return;
 
     // update drag line
     drag_line.attr('d', 'M' + mousedown_node.x + ',' + mousedown_node.y + 'L' + d3.mouse(this)[0] + ',' + d3.mouse(this)[1]);
@@ -504,7 +560,7 @@ function mousemove() {
 }
 
 function mouseup() {
-    if(mousedown_node) {
+    if (mousedown_node) {
         // hide drag line
         drag_line
             .classed('hidden', true)
@@ -519,10 +575,10 @@ function mouseup() {
 }
 
 function spliceLinksForNode(node) {
-    var toSplice = links.filter(function(l) {
+    var toSplice = links.filter(function (l) {
         return (l.source === node || l.target === node);
     });
-    toSplice.map(function(l) {
+    toSplice.map(function (l) {
         links.splice(links.indexOf(l), 1);
     });
 }
@@ -533,23 +589,23 @@ var lastKeyDown = -1;
 function keydown() {
     // d3.event.preventDefault();
 
-    if(lastKeyDown !== -1) return;
+    if (lastKeyDown !== -1) return;
     lastKeyDown = d3.event.keyCode;
 
     // ctrl
-    if(d3.event.keyCode === 17) {
+    if (d3.event.keyCode === 17) {
         circle.call(force.drag);
         svg.classed('ctrl', true);
     }
 
-    if(!selected_node && !selected_link) return;
-    switch(d3.event.keyCode) {
+    if (!selected_node && !selected_link) return;
+    switch (d3.event.keyCode) {
         case 8: // backspace
         case 46: // delete
-            if(selected_node) {
+            if (selected_node) {
                 nodes.splice(nodes.indexOf(selected_node), 1);
                 spliceLinksForNode(selected_node);
-            } else if(selected_link) {
+            } else if (selected_link) {
                 links.splice(links.indexOf(selected_link), 1);
             }
             selected_link = null;
@@ -557,7 +613,7 @@ function keydown() {
             restart();
             break;
         case 66: // B
-            if(selected_link) {
+            if (selected_link) {
                 // set link direction to both left and right
                 selected_link.left = true;
                 selected_link.right = true;
@@ -565,7 +621,7 @@ function keydown() {
             restart();
             break;
         case 76: // L
-            if(selected_link) {
+            if (selected_link) {
                 // set link direction to left only
                 selected_link.left = true;
                 selected_link.right = false;
@@ -573,10 +629,10 @@ function keydown() {
             restart();
             break;
         case 82: // R
-            if(selected_node) {
+            if (selected_node) {
                 // toggle node reflexivity
                 selected_node.reflexive = !selected_node.reflexive;
-            } else if(selected_link) {
+            } else if (selected_link) {
                 // set link direction to right only
                 selected_link.left = false;
                 selected_link.right = true;
@@ -590,7 +646,7 @@ function keyup() {
     lastKeyDown = -1;
 
     // ctrl
-    if(d3.event.keyCode === 17) {
+    if (d3.event.keyCode === 17) {
         circle
             .on('mousedown.drag', null)
             .on('touchstart.drag', null);
@@ -599,20 +655,20 @@ function keyup() {
 }
 
 
-function newMatrix( rows, cols, defaultValue){
+function newMatrix(rows, cols, defaultValue) {
 
     var arr = [];
 
     // Creates all lines:
-    for(var i=0; i < rows; i++){
+    for (var i = 0; i < rows; i++) {
 
         // Creates an empty line
         arr.push([]);
 
         // Adds cols to the empty line:
-        arr[i].push( new Array(cols));
+        arr[i].push(new Array(cols));
 
-        for(var j=0; j < cols; j++){
+        for (var j = 0; j < cols; j++) {
             // Initializes:
             arr[i][j] = defaultValue;
         }
@@ -652,7 +708,6 @@ var showMatrix = function () {
 }
 
 
-
 var Travelsal = function () {
     var normalColor = colors(1);
     var highlightColor = colors(2);
@@ -663,7 +718,7 @@ var Travelsal = function () {
     stateList.push(StateHelper.createNewState());
     var state = StateHelper.copyState(stateList[0]);
 
-    this.dfs = function (sourceVertex ,callback) {
+    this.dfs = function (sourceVertex, callback) {
         if (nodes.length === 0) { // no graph
             console.log("no graph");
             return false;
@@ -779,7 +834,6 @@ var Travelsal = function () {
 }
 
 
-
 // app starts here
 svg.on('mousedown', mousedown)
     .on('mousemove', mousemove)
@@ -789,18 +843,29 @@ d3.select(window)
     .on('keyup', keyup);
 restart();
 
-function getTreeArray(){
+function getTreeArray() {
     var array = [];
-    for(i = 0; i< nodes.length; i++)
-        array[i] = nodes[i].id;
+    var j = 0;
+    for (i = 0; i < nodes.length; i++){
+        if (nodes[i].duplicateCount > 1){
+            for(k = 0; k < nodes[i].duplicateCount; k++){
+                array[j] = nodes[i].id;
+                j++;
+            }
+
+        }else{
+            array[j] = nodes[i].id;
+            j++;
+        }
+
+    }
+
 
     return array;
 }
 
-
-
-function clearDrawnTree(){
-    nodes.splice(0,nodes.length);
-    links.splice(0,links.length);
+function clearDrawnTree() {
+    nodes.splice(0, nodes.length);
+    links.splice(0, links.length);
     restart();
 }
