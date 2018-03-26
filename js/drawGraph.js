@@ -797,6 +797,8 @@ function getTreeArray(){
     return array;
 }
 
+
+
 function clearDrawnTree(){
     nodes.splice(0,nodes.length);
     links.splice(0,links.length);

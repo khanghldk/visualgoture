@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/viz.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/addition.css">
+    <link rel="stylesheet" href="css/drawGraphHuydx.css">
     <!-- Theme initialization -->
 
     <script>
@@ -28,7 +29,7 @@
     </script>
 
 </head>
-<body>
+<body onload="showViz()">
 
 <div class="main-wrapper">
     <div class="app" id="app">
@@ -65,7 +66,7 @@
                                 <i class="fa fa-home"></i> Home </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="sort.html">
                                 <i class="fa fa-th-large"></i> Sorting
                                 <i class="fa arrow"></i>
                             </a>
@@ -100,7 +101,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="list.html">
                                 <i class="fa fa-area-chart"></i> Linked List
                                 <i class="fa arrow"></i>
                             </a>
@@ -123,7 +124,7 @@
                             </ul>
                         </li>
                         <li >
-                            <a href="">
+                            <a href="bst.html">
                                 <i class="fa fa-table"></i> Binary Search Tree
                                 <i class="fa arrow"></i>
                             </a>
@@ -148,7 +149,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="hash-table.html">
                                 <i class="fa fa-pencil-square-o"></i> Hash Table
                                 <i class="fa arrow"></i>
                             </a>
@@ -174,7 +175,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="graphTravelsal.html">
                                 <i class="fa fa-desktop"></i> Graph Travelsal
                                 <i class="fa arrow"></i>
                             </a>
@@ -188,7 +189,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="recursion.html">
                                 <i class="fa fa-file-text-o"></i> Recursion
                                 <i class="fa arrow"></i>
                             </a>
@@ -310,9 +311,36 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="gridGraph" style="background-color: white">
-                            <svg id="viz" width="1000px" height="600px">
-                            </svg>
+                            <div id="viz">
+                            </div>
 
+                            <div id="graph-all">
+                                <div id="graph" style="border-color: black">
+
+                                </div>
+                                <button onclick="showViz(); createDraw()">Done</button>
+                            </div>
+                            <script type="text/javascript">
+                                var graph = document.getElementById('graph-all');
+                                var viz = document.getElementById('viz');
+
+                                function showViz() {
+                                    viz.style.display = 'block';
+                                    graph.style.display = 'none';
+                                }
+
+                                function showGraph() {
+                                    viz.style.display = 'none';
+                                    graph.style.display = 'block';
+                                }
+
+                                function clearDrawTree() {
+                                    nodes.splice(0, nodes.length);
+                                    links.splice(0, links.length);
+                                    restart();
+                                }
+
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -379,6 +407,9 @@
                             <div id="createN-random" class="execAction btn btn-primary"
                                  onclick="createNRandom(); clearConsole()"><p>
                                 Random</p></div>
+                            <div id="create-draw" class="execAction btn btn-primary"
+                                 onClick="showGraph(); clearConsole();clearDrawTree()"><p>
+                                Draw Tree</p></div>
                             <div id="createN-err" class="err"></div>
                         </div>
                     </div>
@@ -542,7 +573,7 @@
 <script type="text/javascript" src="js/home.js"></script>
 <script type="text/javascript" src="js/algo-initials.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
-
+<script type="text/javascript" src="js/drawGraph.js"></script>
 <script type="text/javascript" src="js/viz.js"></script>
 <script type="text/javascript" src="js/graph_library.js"></script>
 
@@ -551,7 +582,7 @@
     var svg = d3.select("#viz");
     window.addEventListener('resize', responsivefy(svg));
 </script>
-<script src="js/app.js"></script>
+
 
 </body>
 </html>

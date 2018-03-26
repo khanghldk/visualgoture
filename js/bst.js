@@ -2086,7 +2086,7 @@ function empty() {
     setTimeout(function () {
         if (bw.generateEmpty()) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-            closeCreate();
+
             isPlaying = false;
         }
     }, 500);
@@ -2097,7 +2097,7 @@ function example(id) {
     setTimeout(function () {
         if (bw.generateExample(id)) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-            closeCreate();
+
             isPlaying = false;
         }
     }, 500);
@@ -2108,7 +2108,7 @@ function random() {
     setTimeout(function () {
         if (bw.generateRandom()) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-            closeCreate();
+
             isPlaying = false;
         }
     }, 500);
@@ -2119,7 +2119,7 @@ function skewed(side) {
     setTimeout(function () {
         if (bw.generateSkewed(side)) { // (mode == "exploration") &&
             $('#progress-bar').slider("option", "max", 0);
-            closeCreate();
+
             isPlaying = false;
         }
     }, 500);
